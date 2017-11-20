@@ -17,18 +17,18 @@
         android:layout_gravity="right"
         android:background="#FF0" />
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="64dip"
-        android:layout_height="64dip"
-        android:layout_gravity="bottom"
-        android:background="#F0F" />
+    <!--<View-->
+        <!--android:id="@+id/view3"-->
+        <!--android:layout_width="64dip"-->
+        <!--android:layout_height="64dip"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:background="#F0F" />-->
 
-    <View
-        android:id="@+id/view4"
-        android:layout_width="64dip"
-        android:layout_height="64dip"
-        android:layout_gravity="bottom|right"
-        android:background="#00F" />
+    <!--<View-->
+        <!--android:id="@+id/view4"-->
+        <!--android:layout_width="64dip"-->
+        <!--android:layout_height="64dip"-->
+        <!--android:layout_gravity="bottom|right"-->
+        <!--android:background="#00F" />-->
 
 </FrameLayout>

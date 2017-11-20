@@ -2,6 +2,7 @@ apply plugin: 'java-library'
 
 dependencies {
     api SUPPORT_ANNOTATIONS
+    api 'ru.noties:debug:3.0.0@jar'
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_7

@@ -25,6 +25,11 @@ public abstract class Translation implements TweenType<View> {
         public void setValues(@NonNull View view, @NonNull float[] values) {
             view.setTranslationX(values[0]);
         }
+
+        @Override
+        public String toString() {
+            return "Translation.X";
+        }
     };
 
     public static final Translation Y = new Translation() {
@@ -41,6 +46,11 @@ public abstract class Translation implements TweenType<View> {
         @Override
         public void setValues(@NonNull View view, @NonNull float[] values) {
             view.setTranslationY(values[0]);
+        }
+
+        @Override
+        public String toString() {
+            return "Translation.Y";
         }
     };
 
@@ -60,6 +70,11 @@ public abstract class Translation implements TweenType<View> {
         public void setValues(@NonNull View view, @NonNull float[] values) {
             view.setTranslationZ(values[0]);
         }
+
+        @Override
+        public String toString() {
+            return "Translation.Z";
+        }
     };
 
     public static final Translation XY = new Translation() {
@@ -78,6 +93,11 @@ public abstract class Translation implements TweenType<View> {
         public void setValues(@NonNull View view, @NonNull float[] values) {
             view.setTranslationX(values[0]);
             view.setTranslationY(values[1]);
+        }
+
+        @Override
+        public String toString() {
+            return "Translation.XY";
         }
     };
 
@@ -100,6 +120,11 @@ public abstract class Translation implements TweenType<View> {
             view.setTranslationX(values[0]);
             view.setTranslationY(values[1]);
             view.setTranslationZ(values[2]);
+        }
+
+        @Override
+        public String toString() {
+            return "Translation.XYZ";
         }
     };
 }

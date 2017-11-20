@@ -80,6 +80,8 @@ class TimelineDefImpl extends TimelineDef {
     @Override
     public Timeline build() {
 
+        final boolean isSequence = Mode.SEQUENCE == mode;
+
         float duration = 0.F;
 
         final int size = children.size();
@@ -96,7 +98,7 @@ class TimelineDefImpl extends TimelineDef {
                 throw new RuntimeException("You can't push an object with infinite repetitions in a timeline");
             }
 
-            if (Mode.SEQUENCE == mode) {
+            if (isSequence) {
                 final float delay = duration;
                 duration += baseTweenDef.fullDuration();
                 baseTweenDef.delay(baseTweenDef.delay() + delay);
@@ -187,9 +189,32 @@ class TimelineDefImpl extends TimelineDef {
         return impl.delay();
     }
 
+    // We must override this in order to correctly nest timelines
     @Override
     protected float fullDuration() {
-        return impl.fullDuration();
+
+        final boolean isSequence = Mode.SEQUENCE == mode;
+
+        float duration = .0F;
+
+        BaseTweenDef baseTweenDef;
+
+        for (int i = 0, size = children.size(); i < size; i++) {
+
+            baseTweenDef = children.get(i);
+
+            if (baseTweenDef.repeatCount() < 0) {
+                throw new RuntimeException("You can't push an object with infinite repetitions in a timeline");
+            }
+
+            if (isSequence) {
+                duration += baseTweenDef.fullDuration();
+            } else {
+                duration = Math.max(duration, baseTweenDef.fullDuration());
+            }
+        }
+
+        return duration;
     }
 
     @Override

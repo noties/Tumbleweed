@@ -103,16 +103,20 @@ public final class Timeline extends BaseTween {
 
     @Override
     protected void updateOverride(int step, int lastStep, boolean isIterationStep, float delta) {
+
         if (!isIterationStep && step > lastStep) {
 
+            // do we need it?
             if (!(delta >= 0)) {
                 throw new IllegalStateException("Assertion failed, delta >= 0");
             }
 
-            float dt = isReverse(lastStep) ? -delta - 1 : delta + 1;
-            for (int i = 0, n = children.size(); i < n; i++) {
-                children.get(i).update(dt);
+            if (isReverse(lastStep)) {
+                forceStartValues();
+            } else {
+                forceEndValues();
             }
+
             return;
         }
 
@@ -122,9 +126,10 @@ public final class Timeline extends BaseTween {
                 throw new IllegalStateException("Assertion failed, delta <= 0");
             }
 
-            float dt = isReverse(lastStep) ? -delta - 1 : delta + 1;
-            for (int i = children.size() - 1; i >= 0; i--) {
-                children.get(i).update(dt);
+            if (isReverse(lastStep)) {
+                forceEndValues();
+            } else {
+                forceStartValues();
             }
             return;
         }
@@ -177,16 +182,14 @@ public final class Timeline extends BaseTween {
     @Override
     protected void forceStartValues() {
         for (int i = children.size() - 1; i >= 0; i--) {
-            BaseTween obj = children.get(i);
-            obj.forceToStart();
+            children.get(i).forceToStart();
         }
     }
 
     @Override
     protected void forceEndValues() {
         for (int i = 0, n = children.size(); i < n; i++) {
-            BaseTween obj = children.get(i);
-            obj.forceToEnd(duration);
+            children.get(i).forceToEnd(duration);
         }
     }
 

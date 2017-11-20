@@ -1,5 +1,6 @@
 package ru.noties.tumbleweed.android.types;
 
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -25,6 +26,11 @@ public abstract class Alpha<T> implements TweenType<T> {
         public void setValues(@NonNull View view, @NonNull float[] values) {
             view.setAlpha(values[0]);
         }
+
+        @Override
+        public String toString() {
+            return "Alpha.VIEW";
+        }
     };
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -42,6 +48,33 @@ public abstract class Alpha<T> implements TweenType<T> {
         @Override
         public void setValues(@NonNull Drawable drawable, @NonNull float[] values) {
             drawable.setAlpha((int) (values[0] * 255 + .5F));
+        }
+
+        @Override
+        public String toString() {
+            return "Alpha.DRAWABLE";
+        }
+    };
+
+    public static final Alpha<Paint> PAINT = new Alpha<Paint>() {
+        @Override
+        public int getValuesSize() {
+            return 1;
+        }
+
+        @Override
+        public void getValues(@NonNull Paint paint, @NonNull float[] values) {
+            values[0] = paint.getAlpha() / 255.F;
+        }
+
+        @Override
+        public void setValues(@NonNull Paint paint, @NonNull float[] values) {
+            paint.setAlpha((int) (values[0] * 255 + .5F));
+        }
+
+        @Override
+        public String toString() {
+            return "Alpha.PAINT";
         }
     };
 }
