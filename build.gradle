@@ -15,7 +15,7 @@ allprojects {
 		jcenter()
 	}
 	version = '1.0.0'
-	group = 'ru.noties.utmost'
+	group = 'ru.noties.tumbleweed'
 }
 
 task wrapper(type: Wrapper) {
