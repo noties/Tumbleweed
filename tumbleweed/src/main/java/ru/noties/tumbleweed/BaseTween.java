@@ -18,7 +18,7 @@ import android.support.annotation.Nullable;
  * @see Timeline
  */
 @SuppressWarnings("unused")
-abstract class BaseTween {
+public abstract class BaseTween {
 
     private final int repeatCount;
     private final float repeatDelay;
