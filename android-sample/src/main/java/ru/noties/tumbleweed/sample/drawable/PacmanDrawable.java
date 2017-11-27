@@ -1,4 +1,4 @@
-package ru.noties.tumbleweed.sample.progress;
+package ru.noties.tumbleweed.sample.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -16,7 +16,7 @@ import ru.noties.tumbleweed.android.types.Alpha;
 import ru.noties.tumbleweed.android.types.Argb;
 import ru.noties.tumbleweed.equations.Cubic;
 
-public class PacmanProgressDrawable extends SquareDrawable implements Animatable {
+public class PacmanDrawable extends SquareDrawable implements Animatable {
 
     private static final float START_ANGLE = 0;
 
@@ -41,7 +41,7 @@ public class PacmanProgressDrawable extends SquareDrawable implements Animatable
     private float angle = START_ANGLE;
 
     @SuppressWarnings("WeakerAccess")
-    public PacmanProgressDrawable(@NonNull int[] colors) {
+    public PacmanDrawable(@NonNull int[] colors) {
         this.tweenManager = DrawableTweenManager.create(this);
         this.colors = colors;
 
@@ -156,7 +156,7 @@ public class PacmanProgressDrawable extends SquareDrawable implements Animatable
                 .start(tweenManager);
     }
 
-    private static class PacmanType implements TweenType<PacmanProgressDrawable> {
+    private static class PacmanType implements TweenType<PacmanDrawable> {
 
         @Override
         public int getValuesSize() {
@@ -164,15 +164,15 @@ public class PacmanProgressDrawable extends SquareDrawable implements Animatable
         }
 
         @Override
-        public void getValues(@NonNull PacmanProgressDrawable pacmanProgressDrawable, @NonNull float[] values) {
-            values[0] = pacmanProgressDrawable.sweep;
-            values[1] = pacmanProgressDrawable.angle;
+        public void getValues(@NonNull PacmanDrawable pacmanDrawable, @NonNull float[] values) {
+            values[0] = pacmanDrawable.sweep;
+            values[1] = pacmanDrawable.angle;
         }
 
         @Override
-        public void setValues(@NonNull PacmanProgressDrawable pacmanProgressDrawable, @NonNull float[] values) {
-            pacmanProgressDrawable.sweep = values[0];
-            pacmanProgressDrawable.angle = values[1];
+        public void setValues(@NonNull PacmanDrawable pacmanDrawable, @NonNull float[] values) {
+            pacmanDrawable.sweep = values[0];
+            pacmanDrawable.angle = values[1];
         }
     }
 }

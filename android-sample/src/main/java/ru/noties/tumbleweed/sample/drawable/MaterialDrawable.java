@@ -1,4 +1,4 @@
-package ru.noties.tumbleweed.sample.progress;
+package ru.noties.tumbleweed.sample.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -19,7 +19,7 @@ import ru.noties.tumbleweed.android.types.Argb;
 import ru.noties.tumbleweed.equations.Cubic;
 import ru.noties.tumbleweed.equations.Linear;
 
-public class MaterialProgressDrawable extends SquareDrawable implements Animatable {
+public class MaterialDrawable extends SquareDrawable implements Animatable {
 
 
     private static final float MIN_SWEEP = 20.F;
@@ -46,7 +46,7 @@ public class MaterialProgressDrawable extends SquareDrawable implements Animatab
 
 
     @SuppressWarnings({"unused", "WeakerAccess"})
-    public MaterialProgressDrawable(@ColorInt int[] colors, @Px int strokeWidth) {
+    public MaterialDrawable(@ColorInt int[] colors, @Px int strokeWidth) {
         this.tweenManager = DrawableTweenManager.create(this);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(strokeWidth);
@@ -161,7 +161,7 @@ public class MaterialProgressDrawable extends SquareDrawable implements Animatab
                 .start(tweenManager);
     }
 
-    private static class SweepAngle implements TweenType<MaterialProgressDrawable> {
+    private static class SweepAngle implements TweenType<MaterialDrawable> {
 
         @Override
         public int getValuesSize() {
@@ -169,17 +169,17 @@ public class MaterialProgressDrawable extends SquareDrawable implements Animatab
         }
 
         @Override
-        public void getValues(@NonNull MaterialProgressDrawable materialProgressDrawable, @NonNull float[] values) {
-            values[0] = materialProgressDrawable.sweepAngle;
+        public void getValues(@NonNull MaterialDrawable materialDrawable, @NonNull float[] values) {
+            values[0] = materialDrawable.sweepAngle;
         }
 
         @Override
-        public void setValues(@NonNull MaterialProgressDrawable materialProgressDrawable, @NonNull float[] values) {
-            materialProgressDrawable.sweepAngle = values[0];
+        public void setValues(@NonNull MaterialDrawable materialDrawable, @NonNull float[] values) {
+            materialDrawable.sweepAngle = values[0];
         }
     }
 
-    private static class Angle implements TweenType<MaterialProgressDrawable> {
+    private static class Angle implements TweenType<MaterialDrawable> {
 
         @Override
         public int getValuesSize() {
@@ -187,17 +187,17 @@ public class MaterialProgressDrawable extends SquareDrawable implements Animatab
         }
 
         @Override
-        public void getValues(@NonNull MaterialProgressDrawable materialProgressDrawable, @NonNull float[] values) {
-            values[0] = materialProgressDrawable.angle;
+        public void getValues(@NonNull MaterialDrawable materialDrawable, @NonNull float[] values) {
+            values[0] = materialDrawable.angle;
         }
 
         @Override
-        public void setValues(@NonNull MaterialProgressDrawable materialProgressDrawable, @NonNull float[] values) {
-            materialProgressDrawable.angle = values[0];
+        public void setValues(@NonNull MaterialDrawable materialDrawable, @NonNull float[] values) {
+            materialDrawable.angle = values[0];
         }
     }
 
-    private static class Rotation implements TweenType<MaterialProgressDrawable> {
+    private static class Rotation implements TweenType<MaterialDrawable> {
 
         @Override
         public int getValuesSize() {
@@ -205,13 +205,13 @@ public class MaterialProgressDrawable extends SquareDrawable implements Animatab
         }
 
         @Override
-        public void getValues(@NonNull MaterialProgressDrawable materialProgressDrawable, @NonNull float[] values) {
-            values[0] = materialProgressDrawable.rotation;
+        public void getValues(@NonNull MaterialDrawable materialDrawable, @NonNull float[] values) {
+            values[0] = materialDrawable.rotation;
         }
 
         @Override
-        public void setValues(@NonNull MaterialProgressDrawable materialProgressDrawable, @NonNull float[] values) {
-            materialProgressDrawable.rotation = values[0];
+        public void setValues(@NonNull MaterialDrawable materialDrawable, @NonNull float[] values) {
+            materialDrawable.rotation = values[0];
         }
     }
 }

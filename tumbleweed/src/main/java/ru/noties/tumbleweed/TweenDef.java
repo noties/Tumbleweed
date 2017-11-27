@@ -17,6 +17,9 @@ public abstract class TweenDef<T> extends BaseTweenDef {
     public abstract TweenDef<T> target(float... targets);
 
     @NonNull
+    public abstract TweenDef<T> waypoint(@NonNull T target);
+
+    @NonNull
     public abstract TweenDef<T> waypoint(float... waypoints);
 
     /**

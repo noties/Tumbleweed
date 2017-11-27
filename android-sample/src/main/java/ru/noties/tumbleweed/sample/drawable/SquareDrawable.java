@@ -1,4 +1,4 @@
-package ru.noties.tumbleweed.sample.progress;
+package ru.noties.tumbleweed.sample.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 // a simple drawable that will make square bounds square
-abstract class SquareDrawable extends Drawable {
+public abstract class SquareDrawable extends Drawable {
 
 
     protected abstract void onSideCalculated(int side);

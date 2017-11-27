@@ -1,4 +1,4 @@
-package ru.noties.tumbleweed.sample.progress;
+package ru.noties.tumbleweed.sample.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

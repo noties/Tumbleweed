@@ -1,4 +1,4 @@
-package ru.noties.tumbleweed.sample.progress;
+package ru.noties.tumbleweed.sample.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -13,7 +13,7 @@ import ru.noties.tumbleweed.TweenType;
 import ru.noties.tumbleweed.android.DrawableTweenManager;
 import ru.noties.tumbleweed.equations.Linear;
 
-public class SpinnerProgressDrawable extends SquareDrawable implements Animatable {
+public class SpinnerDrawable extends SquareDrawable implements Animatable {
 
     private static final int MIN_ALPHA = 75;
     private static final int MAX_ALPHA = 255;
@@ -35,7 +35,7 @@ public class SpinnerProgressDrawable extends SquareDrawable implements Animatabl
     private int shift;
 
     @SuppressWarnings("WeakerAccess")
-    public SpinnerProgressDrawable(@ColorInt int[] colors) {
+    public SpinnerDrawable(@ColorInt int[] colors) {
         this.tweenManager = DrawableTweenManager.create(this);
         this.paint.setStyle(Paint.Style.FILL);
         this.colors = colors;
@@ -100,7 +100,7 @@ public class SpinnerProgressDrawable extends SquareDrawable implements Animatabl
 
     }
 
-    private static class Type implements TweenType<SpinnerProgressDrawable> {
+    private static class Type implements TweenType<SpinnerDrawable> {
 
         @Override
         public int getValuesSize() {
@@ -108,13 +108,13 @@ public class SpinnerProgressDrawable extends SquareDrawable implements Animatabl
         }
 
         @Override
-        public void getValues(@NonNull SpinnerProgressDrawable spinnerProgressDrawable, @NonNull float[] values) {
-            values[0] = spinnerProgressDrawable.shift;
+        public void getValues(@NonNull SpinnerDrawable spinnerDrawable, @NonNull float[] values) {
+            values[0] = spinnerDrawable.shift;
         }
 
         @Override
-        public void setValues(@NonNull SpinnerProgressDrawable spinnerProgressDrawable, @NonNull float[] values) {
-            spinnerProgressDrawable.shift = (int) (values[0] + .5F);
+        public void setValues(@NonNull SpinnerDrawable spinnerDrawable, @NonNull float[] values) {
+            spinnerDrawable.shift = (int) (values[0] + .5F);
         }
     }
 }

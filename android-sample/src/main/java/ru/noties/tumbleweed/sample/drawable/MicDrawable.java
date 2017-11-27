@@ -1,4 +1,4 @@
-package ru.noties.tumbleweed.sample.progress;
+package ru.noties.tumbleweed.sample.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -35,7 +35,6 @@ public class MicDrawable extends SquareDrawable implements Animatable {
     public MicDrawable(@Size(3) @NonNull int[] colors) {
         this.colors = colors;
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(0xFFff0000);
     }
 
     @Override
@@ -122,27 +121,6 @@ public class MicDrawable extends SquareDrawable implements Animatable {
                 .push(Tween.to(this, new Line2(), duration * 4).waypoint(side).target(line2).delay(duration * 2).ease(Cubic.INOUT))
                 .repeat(-1, 0)
                 .start(tweenManager);
-
-//        Tween.to(this, new Line0(), duration * 2)
-//                .waypoint(side)
-//                .target(line0)
-//                .ease(Cubic.INOUT)
-//                .repeat(-1, 2)
-//                .start(tweenManager);
-//
-//        Tween.to(this, new Line1(), duration * 2)
-//                .waypoint(side)
-//                .target(line1)
-//                .delay(duration)
-//                .repeat(-1, 3)
-//                .start(tweenManager);
-//
-//        Tween.to(this, new Line2(), duration * 2)
-//                .waypoint(side)
-//                .target(line2)
-//                .delay(duration * 2)
-//                .repeat(-1, 4)
-//                .start(tweenManager);
     }
 
     private static class Line0 implements TweenType<MicDrawable> {
