@@ -94,14 +94,6 @@ public final class Timeline extends BaseTween {
     }
 
     @Override
-    public void free() {
-        for (int i = children.size() - 1; i >= 0; i--) {
-            BaseTween obj = children.remove(i);
-            obj.free();
-        }
-    }
-
-    @Override
     protected void updateOverride(int step, int lastStep, boolean isIterationStep, float delta) {
 
         if (!isIterationStep && step > lastStep) {
@@ -194,11 +186,14 @@ public final class Timeline extends BaseTween {
     }
 
     @Override
-    protected boolean containsTarget(@NonNull Object target) {
-        for (int i = 0, n = children.size(); i < n; i++) {
-            BaseTween obj = children.get(i);
-            if (obj.containsTarget(target)) return true;
+    public boolean containsTarget(@NonNull Object target) {
+        boolean result = false;
+        for (BaseTween tween : children) {
+            if (tween.containsTarget(target)) {
+                result = true;
+                break;
+            }
         }
-        return false;
+        return result;
     }
 }

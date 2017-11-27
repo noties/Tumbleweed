@@ -7,6 +7,7 @@ import ru.noties.tumbleweed.TweenType;
 
 public abstract class Scale implements TweenType<View> {
 
+    @NonNull
     public static final Scale XY = new Scale() {
         @Override
         public int getValuesSize() {
@@ -31,6 +32,7 @@ public abstract class Scale implements TweenType<View> {
         }
     };
 
+    @NonNull
     public static final Scale PIVOT_XY = new Scale() {
         @Override
         public int getValuesSize() {
@@ -47,6 +49,11 @@ public abstract class Scale implements TweenType<View> {
         public void setValues(@NonNull View view, @NonNull float[] values) {
             view.setPivotX(values[0]);
             view.setPivotY(values[1]);
+        }
+
+        @Override
+        public String toString() {
+            return "Scale.PIVOT_XY";
         }
     };
 }

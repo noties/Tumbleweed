@@ -103,14 +103,6 @@ public abstract class BaseTween {
     }
 
     /**
-     * Stops and resets the tween or timeline, and sends it to its pool, for
-     * +	 * later reuse. Note that if you use a {@link TweenManager}, this method
-     * +	 * is automatically called once the animation is finished.
-     */
-    public void free() {
-    }
-
-    /**
      * Pauses the tween or timeline. Further update calls won't have any effect.
      */
     public void pause() {
@@ -211,8 +203,7 @@ public abstract class BaseTween {
 
     /**
      * Returns true if the tween is finished (i.e. if the tween has reached
-     * its end or has been killed). If you don't use a TweenManager, you may
-     * want to call {@link #free()} to reuse the object later.
+     * its end or has been killed).
      */
     public boolean isFinished() {
         return isFinished || isKilled;
@@ -237,7 +228,7 @@ public abstract class BaseTween {
 
     protected abstract void forceEndValues();
 
-    protected abstract boolean containsTarget(@NonNull Object target);
+    public abstract boolean containsTarget(@NonNull Object target);
 
     protected void initializeOverride() {
     }
@@ -278,7 +269,7 @@ public abstract class BaseTween {
         return (step >= 0 && step <= repeatCount * 2) || repeatCount < 0;
     }
 
-    protected void killTarget(@NonNull Object target) {
+    public void killTarget(@NonNull Object target) {
         if (containsTarget(target)) {
             kill();
         }

@@ -97,17 +97,17 @@ public class BaseTweenDefImpl extends BaseTweenDef {
     }
 
     @Override
-    protected int repeatCount() {
+    public int repeatCount() {
         return repeatCount;
     }
 
     @Override
-    protected float delay() {
+    public float delay() {
         return delay;
     }
 
     @Override
-    protected float fullDuration() {
+    public float fullDuration() {
         final float out;
         if (repeatCount < 0) {
             out = -1.F;

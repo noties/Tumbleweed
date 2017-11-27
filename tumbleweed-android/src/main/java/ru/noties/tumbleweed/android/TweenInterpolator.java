@@ -5,6 +5,11 @@ import android.support.annotation.NonNull;
 
 import ru.noties.tumbleweed.TweenEquation;
 
+/**
+ * Can be used with <i>native</i> Android animations as an interpolator. For example:
+ * {@code valueAnimator.setInterpolator(new TweenInterpolator(Back.INOUT);}
+ */
+@SuppressWarnings("unused")
 public class TweenInterpolator implements TimeInterpolator {
 
     private final TweenEquation equation;

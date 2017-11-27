@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BaseAppTheme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorAccent">@color/red_400</item>
+        <item name="android:colorPrimary">@color/blue_400</item>
+        <item name="android:colorPrimaryDark">@color/blue_800</item>
+    </style>
+
+</resources>

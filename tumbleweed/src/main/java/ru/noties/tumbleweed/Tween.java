@@ -105,7 +105,7 @@ public final class Tween extends BaseTween {
      * @return The generated Tween.
      */
     @NonNull
-    public static <T> TweenDef<T> to(@NonNull T target, @NonNull TweenType<? extends T> tweenType, float duration) {
+    public static <T> TweenDef<T> to(@NonNull T target, @NonNull TweenType<T> tweenType, float duration) {
         return new TweenDefImpl<>(false, target, tweenType, duration)
                 .ease(Quad.INOUT)
                 .path(CatmullRom.instance());
@@ -143,7 +143,7 @@ public final class Tween extends BaseTween {
      */
     @SuppressWarnings("unused")
     @NonNull
-    public static <T> TweenDef<T> from(@NonNull T target, @NonNull TweenType<? extends T> tweenType, float duration) {
+    public static <T> TweenDef<T> from(@NonNull T target, @NonNull TweenType<T> tweenType, float duration) {
         return new TweenDefImpl<>(true, target, tweenType, duration)
                 .ease(Quad.INOUT)
                 .path(CatmullRom.instance());
@@ -180,7 +180,7 @@ public final class Tween extends BaseTween {
      */
     @SuppressWarnings("unused")
     @NonNull
-    public static <T> TweenDef<T> set(@NonNull T target, @NonNull TweenType<? extends T> tweenType) {
+    public static <T> TweenDef<T> set(@NonNull T target, @NonNull TweenType<T> tweenType) {
         return new TweenDefImpl<>(false, target, tweenType, .0F)
                 .ease(Quad.INOUT);
     }
@@ -249,6 +249,7 @@ public final class Tween extends BaseTween {
     private final TweenType<Object> tweenType;
     private final TweenEquation equation;
     private final TweenPath path;
+    private final TweenAction<Object> tweenAction;
 
     // General
     private final boolean isFrom;
@@ -272,6 +273,8 @@ public final class Tween extends BaseTween {
         this.tweenType = def.tweenType;
         this.equation = def.equation;
         this.path = def.path;
+        //noinspection unchecked
+        this.tweenAction = def.action;
         this.isFrom = def.isFrom;
         this.combinedAttrsCount = def.targetSize;
         this.startValues = new float[combinedAttrsCount];
@@ -284,7 +287,7 @@ public final class Tween extends BaseTween {
 
         this.accessorBuffer = new float[combinedAttrsCount];
         this.pathBuffer = waypointsCount > 0
-                ? new float[(2 + combinedAttrsCount) * combinedAttrsCount]
+                ? new float[(2 + waypointsCount) * combinedAttrsCount]
                 : null;
     }
 
@@ -295,11 +298,6 @@ public final class Tween extends BaseTween {
     @Nullable
     public Object getTarget() {
         return target;
-    }
-
-    @Override
-    public void free() {
-        // todo
     }
 
     @Override
@@ -331,12 +329,12 @@ public final class Tween extends BaseTween {
         // Case iteration end has been reached
 
         if (!isIterationStep && step > lastStep) {
-            tweenType.setValues(target, isReverse(lastStep) ? startValues : targetValues);
+            setValues(isReverse(lastStep) ? startValues : targetValues);
             return;
         }
 
         if (!isIterationStep && step < lastStep) {
-            tweenType.setValues(target, isReverse(lastStep) ? targetValues : startValues);
+            setValues(isReverse(lastStep) ? targetValues : startValues);
             return;
         }
 
@@ -358,12 +356,12 @@ public final class Tween extends BaseTween {
         // Case duration equals zero
 
         if (duration < 0.00000000001f && delta > -0.00000000001f) {
-            tweenType.setValues(target, isReverse(step) ? targetValues : startValues);
+            setValues(isReverse(step) ? targetValues : startValues);
             return;
         }
 
         if (duration < 0.00000000001f && delta < 0.00000000001f) {
-            tweenType.setValues(target, isReverse(step) ? startValues : targetValues);
+            setValues(isReverse(step) ? startValues : targetValues);
             return;
         }
 
@@ -390,25 +388,32 @@ public final class Tween extends BaseTween {
             }
         }
 
-        tweenType.setValues(target, accessorBuffer);
+        setValues(accessorBuffer);
     }
 
     @Override
     protected void forceStartValues() {
         if (target != null) {
-            tweenType.setValues(target, startValues);
+            setValues(startValues);
         }
     }
 
     @Override
     protected void forceEndValues() {
         if (target != null) {
-            tweenType.setValues(target, targetValues);
+            setValues(targetValues);
         }
     }
 
     @Override
-    protected boolean containsTarget(@NonNull Object target) {
+    public boolean containsTarget(@NonNull Object target) {
         return this.target == target;
+    }
+
+    private void setValues(@NonNull float[] values) {
+        tweenType.setValues(target, values);
+        if (tweenAction != null) {
+            tweenAction.apply(target);
+        }
     }
 }

@@ -2,8 +2,6 @@ package ru.noties.tumbleweed;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 /**
  * A TweenManager updates all your tweens and timelines at once.
  * Its main interest is that it handles the tween/timeline life-cycles for you,
@@ -19,6 +17,11 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public abstract class TweenManager {
+
+    @NonNull
+    public static TweenManager create() {
+        return new TweenManagerImpl();
+    }
 
     /**
      * Adds a tween or timeline to the manager and starts or restarts it.
@@ -57,6 +60,10 @@ public abstract class TweenManager {
      */
     public abstract void resume();
 
+    public abstract boolean isPaused();
+
+    public abstract boolean isStarted();
+
     /**
      * Updates every tweens with a delta time ang handles the tween life-cycles
      * automatically. If a tween is finished, it will be removed from the
@@ -71,37 +78,9 @@ public abstract class TweenManager {
      */
     public abstract void update(float delta);
 
-    /**
-     * Gets the number of managed objects. An object may be a tween or a
-     * timeline. Note that a timeline only counts for 1 object, since it
-     * manages its children itself.
-     * <p/>
-     * To get the count of running tweens, see {@link #getRunningTweensCount()}.
-     */
-    public abstract int size();
+    public abstract void dispose();
 
-    /**
-     * Gets the number of running tweens. This number includes the tweens
-     * located inside timelines (and nested timelines).
-     * <p/>
-     * <b>Provided for debug purpose only.</b>
-     */
-    @SuppressWarnings("WeakerAccess")
-    public abstract int getRunningTweensCount();
+    public abstract boolean isDisposed();
 
-    /**
-     * Gets the number of running timelines. This number includes the timelines
-     * nested inside other timelines.
-     * <p/>
-     * <b>Provided for debug purpose only.</b>
-     */
-    public abstract int getRunningTimelinesCount();
-
-    /**
-     * Gets an immutable list of every managed object.
-     * <p/>
-     * <b>Provided for debug purpose only.</b>
-     */
-    @NonNull
-    public abstract List<BaseTween> getObjects();
+    public abstract int tweenCount();
 }

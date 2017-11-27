@@ -180,18 +180,18 @@ class TimelineDefImpl extends TimelineDef {
     }
 
     @Override
-    protected int repeatCount() {
+    public int repeatCount() {
         return impl.repeatCount();
     }
 
     @Override
-    protected float delay() {
+    public float delay() {
         return impl.delay();
     }
 
     // We must override this in order to correctly nest timelines
     @Override
-    protected float fullDuration() {
+    public float fullDuration() {
 
         final boolean isSequence = Mode.SEQUENCE == mode;
 

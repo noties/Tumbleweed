@@ -1,34 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/container">
+    android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="64dip"
-        android:layout_height="64dip"
-        android:background="#F00" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="64dip"
-        android:layout_height="64dip"
-        android:layout_gravity="right"
-        android:background="#FF0" />
-
-    <!--<View-->
-        <!--android:id="@+id/view3"-->
-        <!--android:layout_width="64dip"-->
-        <!--android:layout_height="64dip"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:background="#F0F" />-->
-
-    <!--<View-->
-        <!--android:id="@+id/view4"-->
-        <!--android:layout_width="64dip"-->
-        <!--android:layout_height="64dip"-->
-        <!--android:layout_gravity="bottom|right"-->
-        <!--android:background="#00F" />-->
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

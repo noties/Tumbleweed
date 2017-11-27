@@ -10,6 +10,7 @@ import ru.noties.tumbleweed.TweenType;
 @SuppressWarnings("unused")
 public abstract class Translation implements TweenType<View> {
 
+    @NonNull
     public static final Translation X = new Translation() {
         @Override
         public int getValuesSize() {
@@ -32,6 +33,7 @@ public abstract class Translation implements TweenType<View> {
         }
     };
 
+    @NonNull
     public static final Translation Y = new Translation() {
         @Override
         public int getValuesSize() {
@@ -55,6 +57,7 @@ public abstract class Translation implements TweenType<View> {
     };
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @NonNull
     public static final Translation Z = new Translation() {
         @Override
         public int getValuesSize() {
@@ -77,6 +80,7 @@ public abstract class Translation implements TweenType<View> {
         }
     };
 
+    @NonNull
     public static final Translation XY = new Translation() {
         @Override
         public int getValuesSize() {
@@ -102,6 +106,7 @@ public abstract class Translation implements TweenType<View> {
     };
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @NonNull
     public static final Translation XYZ = new Translation() {
         @Override
         public int getValuesSize() {

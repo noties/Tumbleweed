@@ -8,7 +8,7 @@ class TweenDefImpl<T> extends TweenDef<T> {
 
     final boolean isFrom;
     final T target;
-    final TweenType<? extends T> tweenType;
+    final TweenType<T> tweenType;
     final BaseTweenDefImpl impl;
 
     final int targetSize;
@@ -20,9 +20,13 @@ class TweenDefImpl<T> extends TweenDef<T> {
     float[] waypoints;
     private float[] scale;
 
+    TweenAction<T> action;
+
     private int waypointsCount;
 
-    TweenDefImpl(boolean from, @Nullable T target, @Nullable TweenType<? extends T> tweenType, @FloatRange(from = 0) float duration) {
+    private boolean isBuilt;
+
+    TweenDefImpl(boolean from, @Nullable T target, @Nullable TweenType<T> tweenType, @FloatRange(from = 0) float duration) {
         this.isFrom = from;
         this.target = target;
         this.tweenType = tweenType;
@@ -40,20 +44,39 @@ class TweenDefImpl<T> extends TweenDef<T> {
     @NonNull
     @Override
     public TweenDef<T> ease(@NonNull TweenEquation equation) {
+
+        checkState();
+
         this.equation = equation;
+
         return this;
     }
 
     @NonNull
     @Override
     public TweenDef<T> path(@NonNull TweenPath path) {
+
+        checkState();
+
         this.path = path;
+
+        return this;
+    }
+
+    @NonNull
+    @Override
+    public TweenDef<T> target(@NonNull T target) {
+        final float[] values = new float[tweenType.getValuesSize()];
+        tweenType.getValues(target, values);
+        target(values);
         return this;
     }
 
     @NonNull
     @Override
     public TweenDef<T> target(float... targets) {
+
+        checkState();
 
         validateTargetSize(targets.length);
 
@@ -65,6 +88,8 @@ class TweenDefImpl<T> extends TweenDef<T> {
     @NonNull
     @Override
     public TweenDef<T> waypoint(float... waypoints) {
+
+        checkState();
 
         validateTargetSize(waypoints.length);
 
@@ -81,7 +106,7 @@ class TweenDefImpl<T> extends TweenDef<T> {
     @Override
     public TweenDef<T> scale(float... targets) {
 
-        validateTargetSize(targets.length);
+        checkState();
 
         this.scale = targets;
 
@@ -90,76 +115,122 @@ class TweenDefImpl<T> extends TweenDef<T> {
 
     @NonNull
     @Override
+    public TweenDef<T> action(@NonNull TweenAction<T> action) {
+        this.action = action;
+        return this;
+    }
+
+    @NonNull
+    @Override
     public TweenDef<T> delay(float duration) {
+
+        checkState();
+
         impl.delay(duration);
+
         return this;
     }
 
     @NonNull
     @Override
     public TweenDef<T> repeat(int count, float delay) {
+
+        checkState();
+
         impl.repeat(count, delay);
+
         return this;
     }
 
     @NonNull
     @Override
     public TweenDef<T> repeatYoyo(int count, float delay) {
+
+        checkState();
+
         impl.repeatYoyo(count, delay);
+
         return this;
     }
 
     @NonNull
     @Override
     public TweenDef<T> callback(@NonNull TweenCallback callback) {
+
+        checkState();
+
         impl.callback(callback);
+
         return this;
     }
 
     @NonNull
     @Override
     public TweenDef<T> callback(@TweenCallback.Event int callbackEvents, @NonNull TweenCallback callback) {
+
+        checkState();
+
         impl.callback(callbackEvents, callback);
+
         return this;
     }
 
     @NonNull
     @Override
     public TweenDef<T> userData(Object userData) {
+
+        checkState();
+
         impl.userData(userData);
+
         return this;
     }
 
     @NonNull
     @Override
     public TweenDef<T> removeWhenFinished(boolean removeWhenFinished) {
+
+        checkState();
+
         impl.removeWhenFinished(removeWhenFinished);
+
         return this;
     }
 
     @Override
-    protected int repeatCount() {
+    public int repeatCount() {
         return impl.repeatCount;
     }
 
     @Override
-    protected float delay() {
+    public float delay() {
         return impl.delay;
     }
 
     @Override
-    protected float fullDuration() {
+    public float fullDuration() {
         return impl.fullDuration();
     }
 
     @NonNull
     @Override
     public Tween build() {
-        if (targetSize != 0 && scale != null) {
+
+        checkState();
+
+        isBuilt = true;
+
+        final int scaleSize = scale != null
+                ? scale.length
+                : 0;
+
+        if (targetSize > 0
+                && scaleSize > 0) {
             for (int i = 0; i < targetSize; i++) {
-                targets[i] = targets[i] * scale[i];
+                targets[i] = targets[i] * scale[i % scaleSize];
             }
         }
+
         return new Tween(this);
     }
 
@@ -194,6 +265,12 @@ class TweenDefImpl<T> extends TweenDef<T> {
                 waypoints = new float[newLength];
                 System.arraycopy(cache, 0, waypoints, 0, cache.length);
             }
+        }
+    }
+
+    private void checkState() {
+        if (isBuilt) {
+            throw new RuntimeException("TweenDef has already been built.");
         }
     }
 }

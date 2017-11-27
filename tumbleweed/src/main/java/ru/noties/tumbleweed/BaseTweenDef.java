@@ -38,9 +38,9 @@ public abstract class BaseTweenDef {
     @NonNull
     public abstract BaseTweenDef removeWhenFinished(boolean removeWhenFinished);
 
-    protected abstract int repeatCount();
+    public abstract int repeatCount();
 
-    protected abstract float delay();
+    public abstract float delay();
 
-    protected abstract float fullDuration();
+    public abstract float fullDuration();
 }

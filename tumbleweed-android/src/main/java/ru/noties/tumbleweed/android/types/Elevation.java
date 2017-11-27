@@ -10,6 +10,7 @@ import ru.noties.tumbleweed.TweenType;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public abstract class Elevation implements TweenType<View> {
 
+    @NonNull
     public static final Elevation I = new Elevation() {
         @Override
         public int getValuesSize() {

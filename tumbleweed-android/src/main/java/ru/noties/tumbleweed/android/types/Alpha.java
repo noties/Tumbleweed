@@ -11,6 +11,7 @@ import ru.noties.tumbleweed.TweenType;
 
 public abstract class Alpha<T> implements TweenType<T> {
 
+    @NonNull
     public static final Alpha<View> VIEW = new Alpha<View>() {
         @Override
         public int getValuesSize() {
@@ -33,7 +34,11 @@ public abstract class Alpha<T> implements TweenType<T> {
         }
     };
 
+    /**
+     * Please note that alpha values in range [0..1] are used (not 0-255)
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @NonNull
     public static final Alpha<Drawable> DRAWABLE = new Alpha<Drawable>() {
         @Override
         public int getValuesSize() {
@@ -56,6 +61,10 @@ public abstract class Alpha<T> implements TweenType<T> {
         }
     };
 
+    /**
+     * Please note that alpha values in range [0..1] are used (not 0-255)
+     */
+    @NonNull
     public static final Alpha<Paint> PAINT = new Alpha<Paint>() {
         @Override
         public int getValuesSize() {
