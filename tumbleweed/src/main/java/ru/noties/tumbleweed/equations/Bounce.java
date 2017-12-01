@@ -9,23 +9,18 @@ import ru.noties.tumbleweed.TweenEquation;
  * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 @SuppressWarnings("unused")
-public abstract class Bounce extends TweenEquation {
+public enum Bounce implements TweenEquation {
 
-    public static final Bounce IN = new Bounce() {
+    IN {
         @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             return 1 - OUT.compute(1 - t);
         }
+    },
 
+    OUT {
         @Override
-        public String toString() {
-            return "Bounce.IN";
-        }
-    };
-
-    public static final Bounce OUT = new Bounce() {
-        @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             if (t < (1 / 2.75)) {
                 return 7.5625f * t * t;
             } else if (t < (2 / 2.75)) {
@@ -36,23 +31,18 @@ public abstract class Bounce extends TweenEquation {
                 return 7.5625f * (t -= (2.625f / 2.75f)) * t + .984375f;
             }
         }
+    },
 
+    INOUT {
         @Override
-        public String toString() {
-            return "Bounce.OUT";
-        }
-    };
-
-    public static final Bounce INOUT = new Bounce() {
-        @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             if (t < 0.5f) return IN.compute(t * 2) * .5f;
             else return OUT.compute(t * 2 - 1) * .5f + 0.5f;
         }
-
-        @Override
-        public String toString() {
-            return "Bounce.INOUT";
-        }
     };
+
+    @Override
+    public String toString() {
+        return "Bounce." + name();
+    }
 }

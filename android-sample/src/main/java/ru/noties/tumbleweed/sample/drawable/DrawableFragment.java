@@ -1,4 +1,4 @@
-package ru.noties.tumbleweed.sample;
+package ru.noties.tumbleweed.sample.drawable;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -33,27 +33,18 @@ import ru.noties.tumbleweed.equations.Bounce;
 import ru.noties.tumbleweed.equations.Cubic;
 import ru.noties.tumbleweed.equations.Elastic;
 import ru.noties.tumbleweed.equations.Quint;
-import ru.noties.tumbleweed.sample.drawable.BallDrawable;
-import ru.noties.tumbleweed.sample.drawable.ClockDrawable;
-import ru.noties.tumbleweed.sample.drawable.MaterialDrawable;
-import ru.noties.tumbleweed.sample.drawable.MicDrawable;
-import ru.noties.tumbleweed.sample.drawable.NewtonDrawable;
-import ru.noties.tumbleweed.sample.drawable.PacmanDrawable;
-import ru.noties.tumbleweed.sample.drawable.SpinnerDrawable;
-import ru.noties.tumbleweed.sample.drawable.SquareDrawable;
-import ru.noties.tumbleweed.sample.drawable.SquareSpinDrawable;
-import ru.noties.tumbleweed.sample.drawable.TriangleDrawable;
+import ru.noties.tumbleweed.sample.R;
 
-public class MainFragment extends Fragment {
+public class DrawableFragment extends Fragment {
 
     private static final int ROWS = 3;
     private static final int COLUMNS = 3;
     private static final int COUNT = ROWS * COLUMNS;
 
-    public static MainFragment newInstance() {
+    public static DrawableFragment newInstance() {
         final Bundle bundle = new Bundle();
 
-        final MainFragment fragment = new MainFragment();
+        final DrawableFragment fragment = new DrawableFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -66,7 +57,7 @@ public class MainFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_progress, parent, false);
+        return inflater.inflate(R.layout.fragment_drawable, parent, false);
     }
 
     @Override
@@ -123,6 +114,7 @@ public class MainFragment extends Fragment {
         children.clear();
     }
 
+    @NonNull
     private Drawable[] createIndicators() {
 
         final Resources r = getResources();
@@ -182,9 +174,7 @@ public class MainFragment extends Fragment {
 
 
         for (SquareDrawable indicator : indicators) {
-            if (indicator != null) {
-                indicator.setPadding(padding);
-            }
+            indicator.setPadding(padding);
         }
 
         return indicators;
@@ -253,6 +243,8 @@ public class MainFragment extends Fragment {
         return true;
     }
 
+    // unfortunately we cannot rely on simple click listener, as it won't respect we view position
+    // combined with translations X & Y
     private static class ToggleBackgroundAnimationTouchListener implements View.OnTouchListener {
 
         private final RectF rectF = new RectF();

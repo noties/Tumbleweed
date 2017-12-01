@@ -20,7 +20,10 @@ android {
 }
 
 dependencies {
+
     implementation project(':tumbleweed')
     implementation project(':tumbleweed-android')
-    implementation 'ru.noties:debug:3.0.0@jar'
+
+    implementation RECYCLER_VIEW
+    implementation REMODEL
 }

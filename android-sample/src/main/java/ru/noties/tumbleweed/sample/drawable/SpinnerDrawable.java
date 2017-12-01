@@ -88,7 +88,7 @@ public class SpinnerDrawable extends SquareDrawable implements Animatable {
 
     @Override
     public boolean isRunning() {
-        return tweenManager.isStarted() && !tweenManager.isPaused();
+        return tweenManager.isRunning();
     }
 
     private void createTween() {

@@ -7,7 +7,7 @@ package ru.noties.tumbleweed;
  * @author Aurelien Ribon | http://www.aurelienribon.com/
  * @see Tween
  */
-public abstract class TweenEquation {
+public interface TweenEquation {
 
     /**
      * Computes the next value of the interpolation.
@@ -15,5 +15,5 @@ public abstract class TweenEquation {
      * @param t The current time, between 0 and 1.
      * @return The current value.
      */
-    public abstract float compute(float t);
+    float compute(float t);
 }

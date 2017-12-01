@@ -9,92 +9,53 @@ import ru.noties.tumbleweed.TweenEquation;
  * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public abstract class Elastic extends TweenEquation {
+public enum Elastic implements TweenEquation {
 
-    private static final float PI = 3.14159265f;
-
-    public static final Elastic IN = new Elastic() {
+    IN {
         @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             float a = param_a;
             float p = param_p;
             if (t == 0) return 0;
             if (t == 1) return 1;
-            if (!setP) p = .3f;
-            float s;
-            if (!setA || a < 1) {
-                a = 1;
-                s = p / 4;
-            } else s = p / (2 * PI) * (float) Math.asin(1 / a);
+            float s = p / 4;
             return -(a * (float) Math.pow(2, 10 * (t -= 1)) * (float) Math.sin((t - s) * (2 * PI) / p));
         }
+    },
 
+    OUT {
         @Override
-        public String toString() {
-            return "Elastic.IN";
-        }
-    };
-
-    public static final Elastic OUT = new Elastic() {
-        @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             float a = param_a;
             float p = param_p;
             if (t == 0) return 0;
             if (t == 1) return 1;
-            if (!setP) p = .3f;
-            float s;
-            if (!setA || a < 1) {
-                a = 1;
-                s = p / 4;
-            } else s = p / (2 * PI) * (float) Math.asin(1 / a);
+            float s = p / 4;
             return a * (float) Math.pow(2, -10 * t) * (float) Math.sin((t - s) * (2 * PI) / p) + 1;
         }
+    },
 
+    INOUT {
         @Override
-        public String toString() {
-            return "Elastic.OUT";
-        }
-    };
-
-    public static final Elastic INOUT = new Elastic() {
-        @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             float a = param_a;
-            float p = param_p;
+            float p = param_p * 1.5F;
             if (t == 0) return 0;
             if ((t *= 2) == 2) return 1;
-            if (!setP) p = .3f * 1.5f;
-            float s;
-            if (!setA || a < 1) {
-                a = 1;
-                s = p / 4;
-            } else s = p / (2 * PI) * (float) Math.asin(1 / a);
+            float s = p / 4;
             if (t < 1)
                 return -.5f * (a * (float) Math.pow(2, 10 * (t -= 1)) * (float) Math.sin((t - s) * (2 * PI) / p));
             return a * (float) Math.pow(2, -10 * (t -= 1)) * (float) Math.sin((t - s) * (2 * PI) / p) * .5f + 1;
         }
-
-        @Override
-        public String toString() {
-            return "Elastic.INOUT";
-        }
     };
 
-    protected float param_a;
-    protected float param_p;
-    protected boolean setA = false;
-    protected boolean setP = false;
+    private static final float PI = 3.14159265f;
 
-    public Elastic a(float a) {
-        param_a = a;
-        this.setA = true;
-        return this;
-    }
+    private static final float param_a = 1.F;
+    private static final float param_p = .3F;
 
-    public Elastic p(float p) {
-        param_p = p;
-        this.setP = true;
-        return this;
+    @Override
+    public String toString() {
+        return "Elastic." + name();
     }
 }

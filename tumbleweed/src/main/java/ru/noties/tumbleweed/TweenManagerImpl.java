@@ -4,6 +4,7 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TweenManagerImpl extends TweenManager {
@@ -111,6 +112,11 @@ public class TweenManagerImpl extends TweenManager {
     }
 
     @Override
+    public boolean isRunning() {
+        return isStarted && !isPaused;
+    }
+
+    @Override
     public void update(float delta) {
 
         // clear finished
@@ -160,6 +166,18 @@ public class TweenManagerImpl extends TweenManager {
     @Override
     public int tweenCount() {
         return children.size();
+    }
+
+    @NonNull
+    @Override
+    public List<BaseTween> tweens() {
+        final List<BaseTween> tweens;
+        if (children.size() == 0) {
+            tweens = Collections.emptyList();
+        } else {
+            tweens = Collections.unmodifiableList(children);
+        }
+        return tweens;
     }
 
     private void clearFinished() {

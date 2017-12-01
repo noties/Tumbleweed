@@ -9,42 +9,32 @@ import ru.noties.tumbleweed.TweenEquation;
  * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 @SuppressWarnings("unused")
-public abstract class Cubic extends TweenEquation {
+public enum Cubic implements TweenEquation {
 
-    public static final Cubic IN = new Cubic() {
+    IN {
         @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             return t * t * t;
         }
+    },
 
+    OUT {
         @Override
-        public String toString() {
-            return "Cubic.IN";
-        }
-    };
-
-    public static final Cubic OUT = new Cubic() {
-        @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             return (t -= 1) * t * t + 1;
         }
+    },
 
+    INOUT {
         @Override
-        public String toString() {
-            return "Cubic.OUT";
-        }
-    };
-
-    public static final Cubic INOUT = new Cubic() {
-        @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             if ((t *= 2) < 1) return 0.5f * t * t * t;
             return 0.5f * ((t -= 2) * t * t + 2);
         }
-
-        @Override
-        public String toString() {
-            return "Cubic.INOUT";
-        }
     };
+
+    @Override
+    public String toString() {
+        return "Cubic." + name();
+    }
 }

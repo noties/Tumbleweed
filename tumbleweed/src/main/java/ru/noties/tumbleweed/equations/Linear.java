@@ -9,17 +9,17 @@ import ru.noties.tumbleweed.TweenEquation;
  * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 @SuppressWarnings("unused")
-public abstract class Linear extends TweenEquation {
+public enum Linear implements TweenEquation {
 
-    public static final Linear INOUT = new Linear() {
+    INOUT {
         @Override
         public float compute(float t) {
             return t;
         }
-
-        @Override
-        public String toString() {
-            return "Linear.INOUT";
-        }
     };
+
+    @Override
+    public String toString() {
+        return "Linear." + name();
+    }
 }

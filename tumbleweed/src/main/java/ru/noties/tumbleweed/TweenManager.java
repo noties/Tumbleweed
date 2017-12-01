@@ -2,6 +2,8 @@ package ru.noties.tumbleweed;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 /**
  * A TweenManager updates all your tweens and timelines at once.
  * Its main interest is that it handles the tween/timeline life-cycles for you,
@@ -64,6 +66,9 @@ public abstract class TweenManager {
 
     public abstract boolean isStarted();
 
+    // isStarted && !isPaused
+    public abstract boolean isRunning();
+
     /**
      * Updates every tweens with a delta time ang handles the tween life-cycles
      * automatically. If a tween is finished, it will be removed from the
@@ -83,4 +88,7 @@ public abstract class TweenManager {
     public abstract boolean isDisposed();
 
     public abstract int tweenCount();
+
+    @NonNull
+    public abstract List<BaseTween> tweens();
 }

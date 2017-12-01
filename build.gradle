@@ -1,38 +1,41 @@
 buildscript {
 
-	repositories {
-		google()
-		jcenter()
-	}
-	dependencies {
-		classpath 'com.android.tools.build:gradle:3.0.0'
-	}
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0'
+    }
 }
 
 allprojects {
-	repositories {
-		google()
-		jcenter()
-	}
-	version = '1.0.0'
-	group = 'ru.noties.tumbleweed'
+    repositories {
+        google()
+        jcenter()
+    }
+    version = '1.0.0'
+    group = 'ru.noties.tumbleweed'
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion '4.3'
-	distributionType 'all'
+    gradleVersion '4.3'
+    distributionType 'all'
 }
 
 task clean(type: Delete) {
-	delete rootProject.buildDir
+    delete rootProject.buildDir
 }
 
 ext {
 
-	MIN_SDK = 16
-	TARGET_SDK = 26
-	BUILD_TOOLS = '26.0.2'
+    MIN_SDK = 16
+    TARGET_SDK = 26
+    BUILD_TOOLS = '26.0.2'
 
-	final def supportVersion = '26.1.0'
-	SUPPORT_ANNOTATIONS = "com.android.support:support-annotations:$supportVersion"
+    final def supportVersion = '26.1.0'
+    SUPPORT_ANNOTATIONS = "com.android.support:support-annotations:$supportVersion"
+    RECYCLER_VIEW = "com.android.support:recyclerview-v7:$supportVersion"
+
+    REMODEL = 'ru.noties:remodel:1.0.0'
 }

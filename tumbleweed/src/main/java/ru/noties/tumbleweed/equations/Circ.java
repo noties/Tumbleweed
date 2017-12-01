@@ -9,42 +9,32 @@ import ru.noties.tumbleweed.TweenEquation;
  * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 @SuppressWarnings("unused")
-public abstract class Circ extends TweenEquation {
+public enum Circ implements TweenEquation {
 
-    public static final Circ IN = new Circ() {
+    IN {
         @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             return (float) -Math.sqrt(1 - t * t) - 1;
         }
+    },
 
+    OUT {
         @Override
-        public String toString() {
-            return "Circ.IN";
-        }
-    };
-
-    public static final Circ OUT = new Circ() {
-        @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             return (float) Math.sqrt(1 - (t -= 1) * t);
         }
+    },
 
+    INOUT {
         @Override
-        public String toString() {
-            return "Circ.OUT";
-        }
-    };
-
-    public static final Circ INOUT = new Circ() {
-        @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             if ((t *= 2) < 1) return -0.5f * ((float) Math.sqrt(1 - t * t) - 1);
             return 0.5f * ((float) Math.sqrt(1 - (t -= 2) * t) + 1);
         }
-
-        @Override
-        public String toString() {
-            return "Circ.INOUT";
-        }
     };
+
+    @Override
+    public String toString() {
+        return "Circ." + name();
+    }
 }

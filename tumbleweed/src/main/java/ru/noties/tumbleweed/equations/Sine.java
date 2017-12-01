@@ -9,43 +9,33 @@ import ru.noties.tumbleweed.TweenEquation;
  * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 @SuppressWarnings("unused")
-public abstract class Sine extends TweenEquation {
+public enum Sine implements TweenEquation {
+
+    IN {
+        @Override
+        public float compute(float t) {
+            return (float) -Math.cos(t * (PI / 2)) + 1;
+        }
+    },
+
+    OUT {
+        @Override
+        public float compute(float t) {
+            return (float) Math.sin(t * (PI / 2));
+        }
+    },
+
+    INOUT {
+        @Override
+        public float compute(float t) {
+            return -0.5f * ((float) Math.cos(PI * t) - 1);
+        }
+    };
 
     private static final float PI = 3.14159265f;
 
-    public static final Sine IN = new Sine() {
-        @Override
-        public final float compute(float t) {
-            return (float) -Math.cos(t * (PI / 2)) + 1;
-        }
-
-        @Override
-        public String toString() {
-            return "Sine.IN";
-        }
-    };
-
-    public static final Sine OUT = new Sine() {
-        @Override
-        public final float compute(float t) {
-            return (float) Math.sin(t * (PI / 2));
-        }
-
-        @Override
-        public String toString() {
-            return "Sine.OUT";
-        }
-    };
-
-    public static final Sine INOUT = new Sine() {
-        @Override
-        public final float compute(float t) {
-            return -0.5f * ((float) Math.cos(PI * t) - 1);
-        }
-
-        @Override
-        public String toString() {
-            return "Sine.INOUT";
-        }
-    };
+    @Override
+    public String toString() {
+        return "Sine." + name();
+    }
 }

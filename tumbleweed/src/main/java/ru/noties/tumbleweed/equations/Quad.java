@@ -9,42 +9,32 @@ import ru.noties.tumbleweed.TweenEquation;
  * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 @SuppressWarnings("unused")
-public abstract class Quad extends TweenEquation {
+public enum Quad implements TweenEquation {
 
-    public static final Quad IN = new Quad() {
+    IN {
         @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             return t * t;
         }
+    },
 
+    OUT {
         @Override
-        public String toString() {
-            return "Quad.IN";
-        }
-    };
-
-    public static final Quad OUT = new Quad() {
-        @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             return -t * (t - 2);
         }
+    },
 
+    INOUT {
         @Override
-        public String toString() {
-            return "Quad.OUT";
-        }
-    };
-
-    public static final Quad INOUT = new Quad() {
-        @Override
-        public final float compute(float t) {
+        public float compute(float t) {
             if ((t *= 2) < 1) return 0.5f * t * t;
             return -0.5f * ((--t) * (t - 2) - 1);
         }
-
-        @Override
-        public String toString() {
-            return "Quad.INOUT";
-        }
     };
+
+    @Override
+    public String toString() {
+        return "Quad." + name();
+    }
 }
