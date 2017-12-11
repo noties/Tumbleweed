@@ -1,6 +1,7 @@
 package ru.noties.tumbleweed.sample.easing;
 
-import android.app.Fragment;
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,20 +16,31 @@ import android.view.ViewGroup;
 import ru.noties.remodel.Remodel;
 import ru.noties.remodel.adapter.AdapterInfo;
 import ru.noties.tumbleweed.sample.R;
+import ru.noties.tumbleweed.sample.anim.BaseAnimationFragment;
+import ru.noties.tumbleweed.sample.anim.ChildAnimationAction;
 import ru.noties.tumbleweed.sample.easing.remodel.EasingItem;
 import ru.noties.tumbleweed.sample.easing.remodel.EasingModel;
 import ru.noties.tumbleweed.sample.easing.remodel.EasingReducer;
 import ru.noties.tumbleweed.sample.easing.remodel.EasingRenderer;
 import ru.noties.tumbleweed.sample.easing.remodel.HeaderRenderer;
 
-public class EasingFragment extends Fragment {
+public class EasingFragment extends BaseAnimationFragment {
 
     public static EasingFragment newInstance() {
         final Bundle bundle = new Bundle();
 
         final EasingFragment fragment = new EasingFragment();
         fragment.setArguments(bundle);
+        fragment.setInAction(new ChildAnimationAction(false));
+        fragment.setOutAction(new ChildAnimationAction(true));
+
         return fragment;
+    }
+
+    @Override
+    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+        // yeah, without it won't work
+        return ValueAnimator.ofFloat(.0F, 1.F).setDuration(ChildAnimationAction.DURATION);
     }
 
     @Override
@@ -42,7 +54,7 @@ public class EasingFragment extends Fragment {
 
         final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
-        final Remodel<EasingModel, EasingItem> remodel = Remodel.builder(createModel(), EasingItem.class)
+        final Remodel<EasingModel, EasingItem> remodel = Remodel.builder(new EasingModel(), EasingItem.class)
                 .addRenderer(EasingItem.Header.class, new HeaderRenderer())
                 .addRenderer(EasingItem.Easing.class, new EasingRenderer())
                 .reducer(new EasingReducer())
@@ -80,7 +92,4 @@ public class EasingFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private static EasingModel createModel() {
-        return new EasingModel();
-    }
 }

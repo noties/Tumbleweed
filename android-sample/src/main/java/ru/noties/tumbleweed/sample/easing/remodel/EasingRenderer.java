@@ -34,7 +34,7 @@ public class EasingRenderer extends Renderer<EasingItem.Easing, EasingRenderer.E
             holder.view.setBackground(easingDrawable);
         } else {
             easingDrawable = (EasingDrawable) bg;
-            easingDrawable.equatation(item.equation());
+            easingDrawable.equation(item.equation());
         }
 
         easingDrawable.stop();

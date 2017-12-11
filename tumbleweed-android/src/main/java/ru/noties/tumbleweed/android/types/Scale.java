@@ -5,6 +5,7 @@ import android.view.View;
 
 import ru.noties.tumbleweed.TweenType;
 
+@SuppressWarnings("unused")
 public abstract class Scale implements TweenType<View> {
 
     @NonNull

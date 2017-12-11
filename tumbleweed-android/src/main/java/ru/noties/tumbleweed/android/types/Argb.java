@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import ru.noties.tumbleweed.TweenType;
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class Argb<T> implements TweenType<T> {
 
     public interface Interactor<T> {

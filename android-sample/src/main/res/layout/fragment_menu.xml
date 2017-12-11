@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/app_bar_height"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:padding="8dip">
+
+        <TextView
+            android:id="@+id/drawable"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_marginBottom="4dip"
+            android:layout_weight="1"
+            android:background="@color/red_400"
+            android:elevation="4dip"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/drawable_title"
+            android:textAppearance="?android:attr/textAppearanceButton"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/easing"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_marginTop="4dip"
+            android:layout_weight="1"
+            android:background="@color/green_400"
+            android:elevation="4dip"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/easing_title"
+            android:textAppearance="?android:attr/textAppearanceButton"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            tools:ignore="UnusedAttribute" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:background="@color/blue_400"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/app_bar_title"
+            style="@style/AppBarTitle"
+            android:layout_width="match_parent"
+            android:text="@string/app_name" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -11,6 +11,7 @@ import java.util.List;
 
 import ru.noties.tumbleweed.TweenType;
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class Graphics<T> implements TweenType<T> {
 
     @NonNull

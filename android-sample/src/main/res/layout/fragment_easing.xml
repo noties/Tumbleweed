@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -14,13 +16,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:orientation="vertical">
 
-        <TextView
-            style="@style/AppBarTitle"
+        <FrameLayout
+            android:id="@+id/app_bar_container"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height"
-            android:background="@color/blue_400"
-            android:text="@string/easing_title" />
+            android:background="@color/blue_400">
+
+            <TextView
+                android:id="@+id/app_bar_title"
+                style="@style/AppBarTitle"
+                android:layout_height="@dimen/app_bar_height"
+                android:text="@string/easing_title" />
+
+        </FrameLayout>
+
 
         <View
             android:layout_width="match_parent"

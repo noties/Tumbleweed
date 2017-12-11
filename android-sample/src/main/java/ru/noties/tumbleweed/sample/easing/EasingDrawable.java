@@ -44,7 +44,7 @@ public class EasingDrawable extends Drawable implements Animatable {
         paint.setColor(color);
     }
 
-    public void equatation(@NonNull TweenEquation equation) {
+    public void equation(@NonNull TweenEquation equation) {
         this.equation = equation;
         invalidateSelf();
     }

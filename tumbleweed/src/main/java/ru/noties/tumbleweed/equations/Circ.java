@@ -14,7 +14,7 @@ public enum Circ implements TweenEquation {
     IN {
         @Override
         public float compute(float t) {
-            return (float) -Math.sqrt(1 - t * t) - 1;
+            return -((float) Math.sqrt(1 - t * t) - 1);
         }
     },
 

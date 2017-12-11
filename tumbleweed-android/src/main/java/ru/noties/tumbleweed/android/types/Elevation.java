@@ -7,6 +7,7 @@ import android.view.View;
 
 import ru.noties.tumbleweed.TweenType;
 
+@SuppressWarnings("unused")
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public abstract class Elevation implements TweenType<View> {
 

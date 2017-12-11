@@ -1,7 +1,8 @@
 package ru.noties.tumbleweed.sample.drawable;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.RectF;
@@ -34,8 +35,10 @@ import ru.noties.tumbleweed.equations.Cubic;
 import ru.noties.tumbleweed.equations.Elastic;
 import ru.noties.tumbleweed.equations.Quint;
 import ru.noties.tumbleweed.sample.R;
+import ru.noties.tumbleweed.sample.anim.BaseAnimationFragment;
+import ru.noties.tumbleweed.sample.anim.ChildAnimationAction;
 
-public class DrawableFragment extends Fragment {
+public class DrawableFragment extends BaseAnimationFragment {
 
     private static final int ROWS = 3;
     private static final int COLUMNS = 3;
@@ -46,6 +49,8 @@ public class DrawableFragment extends Fragment {
 
         final DrawableFragment fragment = new DrawableFragment();
         fragment.setArguments(bundle);
+        fragment.setInAction(new ChildAnimationAction(false));
+        fragment.setOutAction(new ChildAnimationAction(true));
         return fragment;
     }
 
@@ -54,6 +59,12 @@ public class DrawableFragment extends Fragment {
     private List<View> children;
 
     private TweenManager shuffleTweenManager;
+
+    @Override
+    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+        // yeah, without it won't work
+        return ValueAnimator.ofFloat(.0F, 1.F).setDuration(ChildAnimationAction.DURATION);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
@@ -243,7 +254,7 @@ public class DrawableFragment extends Fragment {
         return true;
     }
 
-    // unfortunately we cannot rely on simple click listener, as it won't respect we view position
+    // unfortunately we cannot rely on simple click listener, as it won't respect view position
     // combined with translations X & Y
     private static class ToggleBackgroundAnimationTouchListener implements View.OnTouchListener {
 
