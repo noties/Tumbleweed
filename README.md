@@ -1,12 +1,13 @@
 ![logo](./art/logo.png)
 
-[maven-tumbleweed] [maven-tumbleweed-android]
+[![Maven Central](https://img.shields.io/maven-central/v/ru.noties/tumbleweed.svg)](http://search.maven.org/#search|ga|1|g%3A%22ru.noties%22%20AND%20a%3A%22tumbleweed%22)
+[![Maven Central](https://img.shields.io/maven-central/v/ru.noties/tumbleweed-android.svg)](http://search.maven.org/#search|ga|1|g%3A%22ru.noties%22%20AND%20a%3A%22tumbleweed-android%22)
 
 **Tumbleweed** is a fork of [Universal-Tween-Engine](https://github.com/AurelienRibon/universal-tween-engine) by [Aurelien Ribon](http://www.aurelienribon.com/). To quote the parent project:
 
 > allows you to create smooth interpolations on every attribute from every object in your projects
 
-[gif] [gif]
+<img src="./art/drawable.gif" width="33%" /> <img src="./art/easing.gif" width="33%" />
 
 **Tumbleweed** comes with few changes and differences:
 
