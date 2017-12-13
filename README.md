@@ -1,7 +1,7 @@
 ![logo](./art/logo.png)
 
-[![Maven Central](https://img.shields.io/maven-central/v/ru.noties/tumbleweed.svg)](http://search.maven.org/#search|ga|1|g%3A%22ru.noties%22%20AND%20a%3A%22tumbleweed%22)
-[![Maven Central](https://img.shields.io/maven-central/v/ru.noties/tumbleweed-android.svg)](http://search.maven.org/#search|ga|1|g%3A%22ru.noties%22%20AND%20a%3A%22tumbleweed-android%22)
+[![tumbleweed](https://img.shields.io/maven-central/v/ru.noties/tumbleweed.svg?label=tumbleweed)](http://search.maven.org/#search|ga|1|g%3A%22ru.noties%22%20AND%20a%3A%22tumbleweed%22)
+[![tumbleweed-androidl](https://img.shields.io/maven-central/v/ru.noties/tumbleweed-android.svg?label=tumbleweed-android)](http://search.maven.org/#search|ga|1|g%3A%22ru.noties%22%20AND%20a%3A%22tumbleweed-android%22)
 
 **Tumbleweed** is a fork of [Universal-Tween-Engine](https://github.com/AurelienRibon/universal-tween-engine) by [Aurelien Ribon](http://www.aurelienribon.com/). To quote the parent project:
 
