@@ -9,6 +9,7 @@ import android.view.View;
 
 import ru.noties.tumbleweed.TweenType;
 
+@SuppressWarnings("unused")
 public abstract class Alpha<T> implements TweenType<T> {
 
     @NonNull

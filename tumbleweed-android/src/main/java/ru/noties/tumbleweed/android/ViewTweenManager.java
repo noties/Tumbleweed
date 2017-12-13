@@ -1,19 +1,36 @@
 package ru.noties.tumbleweed.android;
 
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.UiThread;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
 import ru.noties.tumbleweed.TweenManagerImpl;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class ViewTweenManager extends TweenManagerImpl {
 
+    // creates new instance each time called
     @NonNull
+    @UiThread
     public static ViewTweenManager create(@NonNull View container) {
-        return new ViewTweenManager(container);
+        return new ViewTweenManager(0, container);
     }
 
+    // attaches ViewTweenManager to specified View as a tag (creates if it's not created)
+    @NonNull
+    @UiThread
+    public static ViewTweenManager get(@IdRes int key, @NonNull View container) {
+        ViewTweenManager manager = (ViewTweenManager) container.getTag(key);
+        if (manager == null) {
+            // will call `setTag` inside
+            manager = new ViewTweenManager(key, container);
+        }
+        return manager;
+    }
+
+    private final int key;
     private View container;
 
     private final OnPreDrawListener onPreDrawListener = new OnPreDrawListener();
@@ -21,9 +38,14 @@ public class ViewTweenManager extends TweenManagerImpl {
             = new OnAttachStateChangeListener();
     private final TimeDelta timeDelta = TimeDelta.create();
 
-    ViewTweenManager(@NonNull View container) {
+    ViewTweenManager(@IdRes int key, @NonNull View container) {
+        this.key = key;
         this.container = container;
         container.addOnAttachStateChangeListener(onAttachStateChangeListener);
+
+        if (key != 0) {
+            container.setTag(key, this);
+        }
     }
 
     @Override
@@ -59,6 +81,10 @@ public class ViewTweenManager extends TweenManagerImpl {
             final ViewTreeObserver observer = container.getViewTreeObserver();
             if (observer.isAlive()) {
                 observer.removeOnPreDrawListener(onPreDrawListener);
+            }
+
+            if (key != 0) {
+                container.setTag(key, null);
             }
 
             container.removeOnAttachStateChangeListener(onAttachStateChangeListener);

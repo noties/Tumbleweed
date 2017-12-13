@@ -12,6 +12,7 @@ public class TweenManagerImpl extends TweenManager {
     private final List<BaseTween> children = new ArrayList<>(8);
 
     private boolean isPaused;
+
     private boolean isDisposed;
 
     protected boolean isStarted;

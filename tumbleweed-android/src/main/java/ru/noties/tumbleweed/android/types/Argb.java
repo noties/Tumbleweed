@@ -3,29 +3,19 @@ package ru.noties.tumbleweed.android.types;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.Size;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 import ru.noties.tumbleweed.TweenType;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class Argb<T> implements TweenType<T> {
-
-    public interface Interactor<T> {
-
-        @ColorInt
-        int getColor(@NonNull T t);
-
-        void setColor(@NonNull T t, @ColorInt int color);
-    }
-
-    @NonNull
-    public static <T> Argb<T> with(@NonNull Interactor<T> interactor) {
-        return new WithInteractor<>(interactor);
-    }
 
     @NonNull
     public static float[] toArray(@ColorInt int color) {
@@ -115,29 +105,25 @@ public abstract class Argb<T> implements TweenType<T> {
         }
     };
 
-    private static class WithInteractor<T> extends Argb<T> {
+    @NonNull
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public static final Argb<Window> STATUS_BAR = new Argb<Window>() {
 
-        private final Interactor<T> interactor;
-
-        private WithInteractor(@NonNull Interactor<T> interactor) {
-            this.interactor = interactor;
+        @Override
+        protected int getColor(@NonNull Window window) {
+            return window.getStatusBarColor();
         }
 
         @Override
-        protected int getColor(@NonNull T t) {
-            return interactor.getColor(t);
-        }
-
-        @Override
-        protected void setColor(@NonNull T t, @ColorInt int color) {
-            interactor.setColor(t, color);
+        protected void setColor(@NonNull Window window, int color) {
+            window.setStatusBarColor(color);
         }
 
         @Override
         public String toString() {
-            return "Argb.with{" + interactor.getClass().getSimpleName() + "}";
+            return "Argb.STATUS_BAR";
         }
-    }
+    };
 
     @Override
     public int getValuesSize() {
