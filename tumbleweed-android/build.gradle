@@ -17,3 +17,12 @@ android {
 dependencies {
     api project(':tumbleweed')
 }
+
+if (project.hasProperty('release')) {
+    apply from: 'https://raw.githubusercontent.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+}
+
+task javadoc(type: Javadoc) {
+    classpath += configurations.api
+    failOnError false
+}

@@ -15,7 +15,7 @@ public class DrawableTweenManager extends TweenManagerImpl {
     }
 
     /**
-     * Factory method to create an instance of {@link ru.noties.tumbleweed.TweenManager} to operate
+     * Factory method to create an instance of ru.noties.tumbleweed.TweenManager to operate
      * on android Drawable. Due to the fact that we rely on Drawable.Callback to dispatch redraw
      * messages, supplied drawable must have Callback set.
      *

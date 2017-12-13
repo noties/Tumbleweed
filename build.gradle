@@ -14,8 +14,8 @@ allprojects {
         google()
         jcenter()
     }
-    version = '1.0.0'
-    group = 'ru.noties'
+    version = VERSION_NAME
+    group = GROUP
 }
 
 task wrapper(type: Wrapper) {
