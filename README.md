@@ -94,7 +94,7 @@ public class MyObjectArgb extends Argb<MyObject> {
 
 ```java
 Tween.to(myObject, new MyObjectArgb(), 2.F)
-		.target(Argb.toArray(0xFFff0000))
+        .target(Argb.toArray(0xFFff0000))
         .start();
 ```
 
