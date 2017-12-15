@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/progress_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/app_bar_height"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical">
+
+        <LinearLayout style="@style/ProgressRow">
+
+            <View style="@style/ProgressColumn" />
+
+            <View style="@style/ProgressColumn" />
+
+            <View style="@style/ProgressColumn" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/ProgressRow">
+
+            <View style="@style/ProgressColumn" />
+
+            <View style="@style/ProgressColumn" />
+
+            <View style="@style/ProgressColumn" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/ProgressRow">
+
+            <View style="@style/ProgressColumn" />
+
+            <View style="@style/ProgressColumn" />
+
+            <View style="@style/ProgressColumn" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/app_bar_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_bar_height"
+            android:background="@color/blue_400"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="@dimen/app_bar_height"
+                android:layout_height="0px"
+                tools:ignore="Suspicious0dp" />
+
+            <TextView
+                android:id="@+id/app_bar_title"
+                style="@style/AppBarTitle"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:text="@string/drawable_title" />
+
+            <ImageView
+                android:id="@+id/app_bar_shuffle"
+                android:layout_width="@dimen/app_bar_height"
+                android:layout_height="@dimen/app_bar_height"
+                android:background="?android:attr/selectableItemBackground"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_shuffle_24dp_white"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_bar_shadow_height"
+            android:background="@drawable/app_bar_shadow" />
+
+    </LinearLayout>
+
+</FrameLayout>

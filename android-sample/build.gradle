@@ -1,0 +1,29 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    compileSdkVersion TARGET_SDK
+    buildToolsVersion BUILD_TOOLS
+
+    defaultConfig {
+        applicationId "ru.noties.tumbleweed.sample"
+        minSdkVersion MIN_SDK
+        targetSdkVersion TARGET_SDK
+        versionCode 1
+        versionName version
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation project(':tumbleweed')
+    implementation project(':tumbleweed-android')
+
+    implementation RECYCLER_VIEW
+    implementation REMODEL
+}

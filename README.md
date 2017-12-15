@@ -1,119 +1,250 @@
-![](http://www.aurelienribon.com/blog/wp-content/uploads/2012/05/tween-engine-big-logo.jpg)
+![logo](./art/logo.png)
 
-## Check out the demo!
+[![tumbleweed](https://img.shields.io/maven-central/v/ru.noties/tumbleweed.svg?label=tumbleweed)](http://search.maven.org/#search|ga|1|g%3A%22ru.noties%22%20AND%20a%3A%22tumbleweed%22)
+[![tumbleweed-androidl](https://img.shields.io/maven-central/v/ru.noties/tumbleweed-android.svg?label=tumbleweed-android)](http://search.maven.org/#search|ga|1|g%3A%22ru.noties%22%20AND%20a%3A%22tumbleweed-android%22)
 
-  * [Android application](https://play.google.com/store/apps/details?id=aurelienribon.tweenengine.demo)
-  * [Desktop application](http://code.google.com/p/java-universal-tween-engine/downloads/detail?name=tween-engine-demo-6.3.0.zip)
-  * [WebGL html5 page](http://www.aurelienribon.com/universal-tween-engine/gwt/demo.html) (requires a WebGL enabled browser)
+**Tumbleweed** is a fork of [Universal-Tween-Engine](https://github.com/AurelienRibon/universal-tween-engine) by [Aurelien Ribon](http://www.aurelienribon.com/). To quote the parent project:
 
-## Introduction
+> allows you to create smooth interpolations on every attribute from every object in your projects
 
-The Universal Tween Engine enables the interpolation of every attribute from any object in any Java project (being Swing, SWT, OpenGL or even Console-based). Implement the TweenAccessor interface, register it to the engine, and animate anything you want!
+<img src="./art/drawable.gif" width="33%" /> <img src="./art/easing.gif" width="33%" />
 
-In one line, send your objects to another position (here x=20 and y=30), with a smooth elastic transition, during 1 second).
+**Tumbleweed** comes with few changes and differences:
 
-```java
-// Arguments are (1) the target, (2) the type of interpolation, 
-// and (3) the duration in seconds. Additional methods specify  
-// the target values, and the easing function. 
+* decreased mutation of Tweens and Timelines (split definition and execution of tweens)
+* encapsulated interpolation by introducing specific type (`TweenType<T>`)
+* removed pooling (a constant source of unexpected behaviour)
+* fixed `Circ.IN` equation
+* standalone module targeted on Android with a set of available TweenManagers for a `View`, `Drawable` and `Handler`; a set of predefined interpolated types: `color`, `alpha`, `translation`, `scale`, `rotation`, etc; a `TweenInterpolator` bridge in order to use equations with native Android `Animation` and `Animator`
+* some utility methods and helpers
 
-Tween.to(mySprite, Type.POSITION_XY, 1.0f).target(20, 30).ease(Elastic.INOUT);
 
-// Possibilities are:
+## Installation
 
-Tween.to(...); // interpolates from the current values to the targets
-Tween.from(...); // interpolates from the given values to the current ones
-Tween.set(...); // apply the target values without animation (useful with a delay)
-Tween.call(...); // calls a method (useful with a delay)
+```gradle
+// base module
+implementation 'ru.noties:tumbleweed:1.0.0`
 
-// Current options are:
-
-myTween.delay(0.5f);
-myTween.repeat(2, 0.5f);
-myTween.repeatYoyo(2, 0.5f);
-myTween.pause();
-myTween.resume();
-myTween.setCallback(callback);
-myTween.setCallbackTriggers(flags);
-myTween.setUserData(obj);
-
-// You can of course chain everything:
-
-Tween.to(...).delay(1.0f).repeat(2, 0.5f).start(myManager);
-
-// Moreover, slow-motion, fast-motion and reverse play is easy,
-// you just need to change the speed of the update:
-
-myManager.update(delta * speed);
+// android module
+implementation 'ru.noties:tumbleweed-android:1.0.0'
 ```
 
-Create some powerful animation sequences!
+Both modules have no external dependencies except for `support-annotations`
+
+
+## Usage
+
+The API is pretty much the same:
 
 ```java
-Timeline.createSequence()
-    // First, set all objects to their initial positions
-    .push(Tween.set(...))
-    .push(Tween.set(...))
-    .push(Tween.set(...))
-
-    // Wait 1s
-    .pushPause(1.0f)
-
-    // Move the objects around, one after the other
-    .push(Tween.to(...))
-    .push(Tween.to(...))
-    .push(Tween.to(...))
-
-    // Then, move the objects around at the same time
-    .beginParallel()
-        .push(Tween.to(...))
-        .push(Tween.to(...))
-        .push(Tween.to(...))
-    .end()
-
-    // And repeat the whole sequence 2 times
-    // with a 0.5s pause between each iteration
-    .repeatYoyo(2, 0.5f)
-
-    // Let's go!
-    .start(myManager);
+final View view = findViewById(R.id.view);
+Tween.to(view, Translation.XY, 2.F)
+        .target(0, 0)
+        .ease(Cubic.INOUT)
+        .start(ViewTweenManager.create(view));
 ```
 
-You can also quickly create timers:
+Here `Translation.XY` is a predefined `TweenType<View>` (found in `ru.noties.tumbleweed.android.types.*` package) that applies translation X and Y.
+
+`Cubic.INOUT` is predefined equation (found in `ru.noties.tumbleweed.equations.*`)
+
+> Please note that all durations are measured in seconds, so `2.F` is `2 seconds`
 
 ```java
-Tween.call(myCallback).delay(3000).start(myManager);
+final View view = findViewById(R.id.view);
+Timeline.createParallel()
+        .push(Tween.to(view, Alpha.VIEW, 2.F).target(.0F))
+        .push(Tween.to(view, Scale.XY, 2.F).target(.5F, .5F))
+        .start(ViewTweenManager.create(view));
 ```
 
-Main features are:
 
-  * Supports every interpolation function defined by [Robert Penner](http://www.robertpenner.com/easing/).
-  * Can be used with any object. You just have to implement the TweenAccessor interface when you want interpolation capacities.
-  * Every attribute can be interpolated. The only requirement is that what you want to interpolate can be represented as a float number.
-  * One line is sufficient to create and start a simple interpolation.
-  * Delays can be specified, to trigger the interpolation only after some time.
-  * Many callbacks can be specified (when tweens complete, start, end, etc.).
-  * Tweens and Timelines are pooled by default. If enabled, there won't be any object allocation during runtime! You can safely use it in Android game development without fearing the garbage collector.
-  * Tweens can be sequenced when used in Timelines.
-  * Tweens can act on more than one value at a time, so a single tween can change the whole position (X and Y) of a sprite for instance !
-  * Tweens and Timelines can be repeated, with a yoyo style option.
-  * Simple timers can be built with Tween.call().
-  * **Source code extensively documented!**
+### Android predefined TweenTypes
 
-## Get started and documentation index
+`ru.noties.tumbleweed.android.types.*`:
 
-Detailed documentation with code snippets and examples is available for the following topics:
-  * Get started --- A step-by-step example to get you started, with code
+---
 
-  * The TweenAccessor interface --- Know how to implement it
-  * Tweens and options --- See what are the possibilities
-  * Timelines and options --- Learn how to build powerful sequences
-  * Animating Android apps --- See how to use the engine with Android UIs
+* **Alpha.VIEW** (applies alpha to a View: `view.setAlpha(..)`). Range: `0.0-1.0`
+* **Alpha.DRAWABLE** (`drawable.setAlpha(..)`, available for devices running KITKAT and up) Range: `0.0-1.0`
+* **Alpha.PAINT** (`paint.setAlpha(..)`). Range: `0.0-1.0`
 
-## Where can I ask for help?
+---
 
-There is a dedicated forum for you:
-http://www.aurelienribon.com/forum/viewforum.php?f=5
+* **Argb.BACKGROUND** (`view.setBackgroundColor(..)`)
+* **Argb.PAINT** (`paint.setColor(..)`)
+* **Argb.TEXT_COLOR** (`textView.setTextColor(..)`)
+* **Argb.STATUS_BAR** (`window.setStatusBarColor(..)`, available for devices running Lollipop and up)
 
-Also, the following link will guide you to a discussion thread that started it all:  
-http://www.badlogicgames.com/forum/viewtopic.php?f=17&t=494
+
+`Argb` also can be subclassed:
+```java
+public class MyObjectArgb extends Argb<MyObject> {
+    @Override
+    protected int getColor(@NonNull MyObject myObject) {
+        return myObject.getColor();
+    }
+
+    @Override
+    protected void setColor(@NonNull MyObject myObject, int color) {
+		myObject.setColor(color);
+    }
+}
+```
+
+```java
+Tween.to(myObject, new MyObjectArgb(), 2.F)
+        .target(Argb.toArray(0xFFff0000))
+        .start();
+```
+
+Please note that target color **must** be destructed to float[4] (argb values are interpolated individually). You can do it by calling: `Argb.toArray(int)` and `Argb.toArray(int, float[])`
+
+---
+
+* **Elevation.I** (`view.setElevation()`, available for devices with Lollipop with up)
+
+---
+
+* **Graphics.RECT** (interpolates `left`, `top`, `right` and `bottom` of a `Rect`)
+* **Graphics.RECT_F** (interpolates `left`, `top`, `right` and `bottom` of a `RectF`)
+* **Graphics.POINT** (interpolates `x` and `y` of a `Point`)
+* **Graphics.POINT_F** (interpolates `x` and `y` of a `PointF`)
+
+There is also special `Graphics.points(List<PointF>)` that creates interpolation for arbitrary list of `PointF`.
+
+To receive a notification when rect or point have changed, the `action` method can be used:
+
+```java
+final View view = getView(); // obtain some view
+final int width = view.getWidth();
+final int height = view.getHeight();
+
+final Rect start = new Rect(0, 0, width, height);
+final Rect target;
+{
+    final int targetSide = Math.min(width, height) / 2;
+    final int left = (width - targetSide) / 2;
+    final int top = (height - targetSide) / 2;
+    target = new Rect(left, top, left + targetSide, top + targetSide);
+}
+
+Tween.to(start, Graphics.RECT, 2.F)
+        .target(target)
+        .action(view::setClipBounds)
+        .start(ViewTweenManager.create(view));
+```
+
+---
+
+* **Rotation.I** (`view.setRotation(..)`)
+* **Rotation.XY** (`view.setRotationX(..)`, `view.setRotationY(..)`)
+* **Rotation.PIVOT_XY** (`view.setPivotX(..)`, `view.setPivotY(..)`)
+
+---
+
+* **Scale.XY** (`view.setScaleX(..)`, `view.setScaleY(..)`)
+* **Scale.PIVOT_XY** (`view.setPivotX(..)`, `view.setPivotY(..)`)
+
+---
+
+* **Translation.X** (`view.setTranslationX(..)`)
+* **Translation.Y** (`view.setTranslationY(..)`)
+* **Translation.Z** (`view.setTranslationZ(..)` available for devices running Lollipop and up)
+* **Translation.XY** (`view.setTranslationX(..)`, `view.setTranslationY(..)`)
+* **Translation.XYZ** (`view.setTranslationX(..)`, `view.setTranslationY(..)` and `view.setTransaltionZ(..)` available for devices running Lollipop and up)
+
+---
+
+These are just helpers and provided for faster iterations. They all implement the base `TweenType<T>` interface that is used by `Tween`:
+
+```java
+public interface TweenType<T> {
+
+    int getValuesSize();
+
+    void getValues(@NonNull T t, @NonNull float[] values);
+
+    void setValues(@NonNull T t, @NonNull float[] values);
+}
+```
+
+For example in case of `Translation.XY`:
+
+```java
+@NonNull
+public static final Translation XY = new TweenType<View>() {
+    @Override
+    public int getValuesSize() {
+        // we are interpolating x and y, so it's 2
+        //
+        // `getValues` and `setValues` methods will be called
+        // with an array of the returned size
+        return 2;
+    }
+
+    @Override
+    public void getValues(@NonNull View view, @NonNull float[] values) {
+        values[0] = view.getTranslationX();
+        values[1] = view.getTranslationY();
+    }
+
+    @Override
+    public void setValues(@NonNull View view, @NonNull float[] values) {
+        view.setTranslationX(values[0]);
+        view.setTranslationY(values[1]);
+    }
+};
+```
+
+
+### Android TweenManagers
+
+#### ViewTweenManager
+
+`ViewTweenManager` attaches to `View` draw cycle and invalidates it via `view.postInvalidateOnAnimation()`. It will be automatically disposed when a View to which it is attached to is detached from a window.
+
+There are 2 factory methods to obtain it:
+* `ViewTweenManager.create(View)` - will create new instance with each call
+* `ViewTweenManager.get(int, View)` - will enforce only one instance per View per specified `int` (key). Internally it uses `View.setTag(int, Object)`.
+
+As `View.setTag(int, View)` requires valid resource id, provided `int` must be one. `int` argument in `ViewTweenManager.get(int, View)` is annotated with `@IdRes` (as there is no generic `@ResourceId` annotation). In order to not be dependent on ids in your layout files, a standalone item can be created:
+
+(`values/ids.xml` for example, but it can have any name, or you can place it inside any of your existing files)
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="tumbleweed_id" type="id" />
+
+</resources>
+```
+
+So, you can initialize/retrieve `ViewTweenManager` like this:
+
+```java
+ViewTweenManager.get(R.id.tumbleweed_id, view);
+```
+
+---
+
+#### DrawableTweenManager
+
+`DrawableTweenManager` can be used with a `Drawable` (sample application heavily uses it).
+
+To obtain an instance:
+* `DrawableTweenManager.create(Drawable)`
+* `DrawableTweenManager.create(Drawable, float)` - the second argument is update interval (FPS), default one is: `1.F / 60` (all durations are in seconds), so equals to 60 frames per second.
+
+In order to function correctly `Drawable` **must** be attached to a View or have manually set `Drawable.Callback` (internally uses `invalidateSelf()` and `scheduleSelf()`)
+
+---
+
+#### HandlerTweenManager
+
+`HandlerTweenManager` uses `Handler` as a dispatcher for update calls.
+
+To obtain an instance:
+* `HandlerTweenManager.create()` - creates an instance with main thread Looper and 60 updates per second (60 FPS)
+* `HandlerTweenManager.create(float)` - creates an instance with main thread Looper and specified update interval (in seconds, so `1.F / 60` would be equal to 60 FPS)
+* `HandlerTweenManager.create(float, Handler)` - creates an instance with specified Handler and update interval (in seconds)

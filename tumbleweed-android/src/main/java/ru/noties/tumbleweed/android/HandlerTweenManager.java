@@ -1,0 +1,65 @@
+package ru.noties.tumbleweed.android;
+
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
+
+import ru.noties.tumbleweed.TweenManagerImpl;
+
+@SuppressWarnings({"unused", "WeakerAccess"})
+public class HandlerTweenManager extends TweenManagerImpl {
+
+    @NonNull
+    public static HandlerTweenManager create() {
+        return create(1.F / 60);
+    }
+
+    @NonNull
+    public static HandlerTweenManager create(float frame) {
+        return create(frame, new Handler(Looper.getMainLooper()));
+    }
+
+    @NonNull
+    public static HandlerTweenManager create(float frame, @NonNull Handler handler) {
+        return new HandlerTweenManager(frame, handler);
+    }
+
+    private final long delay;
+    private final Handler handler;
+    private final Runnable runnable;
+    private final TimeDelta timeDelta = TimeDelta.create();
+
+    HandlerTweenManager(float frame, @NonNull Handler handler) {
+        this.delay = (long) (frame * 1000.F + .5F);
+        this.handler = handler;
+        this.runnable = new InvalidateRunnable();
+    }
+
+    @Override
+    protected void onStarted() {
+        super.onStarted();
+
+        timeDelta.delta();
+
+        handler.post(runnable);
+    }
+
+    @Override
+    protected void onStopped() {
+        super.onStopped();
+
+
+        handler.removeCallbacks(runnable);
+    }
+
+    private class InvalidateRunnable implements Runnable {
+
+        @Override
+        public void run() {
+
+            update(timeDelta.delta());
+
+            handler.postDelayed(this, delay);
+        }
+    }
+}

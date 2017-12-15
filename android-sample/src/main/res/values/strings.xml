@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="app_name">Tumbleweed</string>
+
+    <string name="drawable_title">Drawables</string>
+    <string name="easing_title">Easing</string>
+
+</resources>
