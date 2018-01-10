@@ -18,6 +18,10 @@ allprojects {
     group = GROUP
 }
 
+if (project.hasProperty('local')) {
+    ext.RELEASE_REPOSITORY_URL = LOCAL_MAVEN_URL
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion '4.3'
     distributionType 'all'
