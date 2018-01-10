@@ -6,10 +6,10 @@ import android.view.View;
 import ru.noties.tumbleweed.TweenType;
 
 @SuppressWarnings("unused")
-public abstract class Rotation implements TweenType<View> {
+public abstract class Pivot implements TweenType<View> {
 
     @NonNull
-    public static final Rotation I = new Rotation() {
+    public static final Pivot X = new Pivot() {
         @Override
         public int getValuesSize() {
             return 1;
@@ -17,22 +17,22 @@ public abstract class Rotation implements TweenType<View> {
 
         @Override
         public void getValues(@NonNull View view, @NonNull float[] values) {
-            values[0] = view.getRotation();
+            values[0] = view.getPivotX();
         }
 
         @Override
         public void setValues(@NonNull View view, @NonNull float[] values) {
-            view.setRotation(values[0]);
+            view.setPivotX(values[0]);
         }
 
         @Override
         public String toString() {
-            return "Rotation.I";
+            return "Pivot.X";
         }
     };
 
     @NonNull
-    public static final Rotation X = new Rotation() {
+    public static final Pivot Y = new Pivot() {
         @Override
         public int getValuesSize() {
             return 1;
@@ -40,45 +40,22 @@ public abstract class Rotation implements TweenType<View> {
 
         @Override
         public void getValues(@NonNull View view, @NonNull float[] values) {
-            values[0] = view.getRotationX();
+            values[0] = view.getPivotY();
         }
 
         @Override
         public void setValues(@NonNull View view, @NonNull float[] values) {
-            view.setRotationX(values[0]);
+            view.setPivotY(values[0]);
         }
 
         @Override
         public String toString() {
-            return "Rotation.X";
+            return "Pivot.Y";
         }
     };
 
     @NonNull
-    public static final Rotation Y = new Rotation() {
-        @Override
-        public int getValuesSize() {
-            return 1;
-        }
-
-        @Override
-        public void getValues(@NonNull View view, @NonNull float[] values) {
-            values[0] = view.getRotationY();
-        }
-
-        @Override
-        public void setValues(@NonNull View view, @NonNull float[] values) {
-            view.setRotationY(values[0]);
-        }
-
-        @Override
-        public String toString() {
-            return "Rotation.Y";
-        }
-    };
-
-    @NonNull
-    public static final Rotation XY = new Rotation() {
+    public static final Pivot XY = new Pivot() {
         @Override
         public int getValuesSize() {
             return 2;
@@ -86,19 +63,19 @@ public abstract class Rotation implements TweenType<View> {
 
         @Override
         public void getValues(@NonNull View view, @NonNull float[] values) {
-            values[0] = view.getRotationX();
-            values[1] = view.getRotationY();
+            values[0] = view.getPivotX();
+            values[1] = view.getPivotY();
         }
 
         @Override
         public void setValues(@NonNull View view, @NonNull float[] values) {
-            view.setRotationX(values[0]);
-            view.setRotationY(values[1]);
+            view.setPivotX(values[0]);
+            view.setPivotY(values[1]);
         }
 
         @Override
         public String toString() {
-            return "Rotation.XY";
+            return "Pivot.XY";
         }
     };
 }

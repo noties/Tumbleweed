@@ -1,15 +1,17 @@
 package ru.noties.tumbleweed.android.types;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 
 import ru.noties.tumbleweed.TweenType;
 
 @SuppressWarnings("unused")
-public abstract class Rotation implements TweenType<View> {
+public abstract class Position implements TweenType<View> {
 
     @NonNull
-    public static final Rotation I = new Rotation() {
+    public static final Position X = new Position() {
         @Override
         public int getValuesSize() {
             return 1;
@@ -17,22 +19,22 @@ public abstract class Rotation implements TweenType<View> {
 
         @Override
         public void getValues(@NonNull View view, @NonNull float[] values) {
-            values[0] = view.getRotation();
+            values[0] = view.getX();
         }
 
         @Override
         public void setValues(@NonNull View view, @NonNull float[] values) {
-            view.setRotation(values[0]);
+            view.setX(values[0]);
         }
 
         @Override
         public String toString() {
-            return "Rotation.I";
+            return "Position.X";
         }
     };
 
     @NonNull
-    public static final Rotation X = new Rotation() {
+    public static final Position Y = new Position() {
         @Override
         public int getValuesSize() {
             return 1;
@@ -40,22 +42,23 @@ public abstract class Rotation implements TweenType<View> {
 
         @Override
         public void getValues(@NonNull View view, @NonNull float[] values) {
-            values[0] = view.getRotationX();
+            values[0] = view.getY();
         }
 
         @Override
         public void setValues(@NonNull View view, @NonNull float[] values) {
-            view.setRotationX(values[0]);
+            view.setY(values[0]);
         }
 
         @Override
         public String toString() {
-            return "Rotation.X";
+            return "Position.Y";
         }
     };
 
     @NonNull
-    public static final Rotation Y = new Rotation() {
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public static final Position Z = new Position() {
         @Override
         public int getValuesSize() {
             return 1;
@@ -63,22 +66,23 @@ public abstract class Rotation implements TweenType<View> {
 
         @Override
         public void getValues(@NonNull View view, @NonNull float[] values) {
-            values[0] = view.getRotationY();
+            values[0] = view.getZ();
         }
 
         @Override
         public void setValues(@NonNull View view, @NonNull float[] values) {
-            view.setRotationY(values[0]);
+            view.setZ(values[0]);
         }
 
         @Override
         public String toString() {
-            return "Rotation.Y";
+            return "Position.Z";
         }
+
     };
 
     @NonNull
-    public static final Rotation XY = new Rotation() {
+    public static final Position XY = new Position() {
         @Override
         public int getValuesSize() {
             return 2;
@@ -86,19 +90,47 @@ public abstract class Rotation implements TweenType<View> {
 
         @Override
         public void getValues(@NonNull View view, @NonNull float[] values) {
-            values[0] = view.getRotationX();
-            values[1] = view.getRotationY();
+            values[0] = view.getX();
+            values[1] = view.getY();
         }
 
         @Override
         public void setValues(@NonNull View view, @NonNull float[] values) {
-            view.setRotationX(values[0]);
-            view.setRotationY(values[1]);
+            view.setX(values[0]);
+            view.setY(values[1]);
         }
 
         @Override
         public String toString() {
-            return "Rotation.XY";
+            return "Position.XY";
+        }
+    };
+
+    @NonNull
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public static final Position XYZ = new Position() {
+        @Override
+        public int getValuesSize() {
+            return 3;
+        }
+
+        @Override
+        public void getValues(@NonNull View view, @NonNull float[] values) {
+            values[0] = view.getX();
+            values[1] = view.getY();
+            values[2] = view.getZ();
+        }
+
+        @Override
+        public void setValues(@NonNull View view, @NonNull float[] values) {
+            view.setX(values[0]);
+            view.setY(values[1]);
+            view.setZ(values[2]);
+        }
+
+        @Override
+        public String toString() {
+            return "Position.XYZ";
         }
     };
 }

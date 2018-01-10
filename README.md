@@ -75,6 +75,7 @@ Timeline.createParallel()
 * **Argb.PAINT** (`paint.setColor(..)`)
 * **Argb.TEXT_COLOR** (`textView.setTextColor(..)`)
 * **Argb.STATUS_BAR** (`window.setStatusBarColor(..)`, available for devices running Lollipop and up)
+* **Argb.COLOR_DRAWABLE** (`colorDrawable.setColor(..)`)
 
 
 `Argb` also can be subclassed:
@@ -137,14 +138,30 @@ Tween.to(start, Graphics.RECT, 2.F)
 
 ---
 
-* **Rotation.I** (`view.setRotation(..)`)
-* **Rotation.XY** (`view.setRotationX(..)`, `view.setRotationY(..)`)
-* **Rotation.PIVOT_XY** (`view.setPivotX(..)`, `view.setPivotY(..)`)
+* **Pivot.X** (`view.setPivotX(..)`)
+* **Pivot.Y** (`view.setPivotY(..)`)
+* **Pivot.XY** (`view.setPivotX(..)`, `view.setPivotY(..)`)
 
 ---
 
+* **Position.X** (`view.setX(..)`)
+* **Position.Y** (`view.setY(..)`)
+* **Position.Z** (`view.setZ(..)`, available for devices running Lollipop and up)
+* **Position.XY** (`view.setX(..)`, `view.setY(..)`)
+* **Position.XYZ** (`view.setX(..)`, `view.setY(..)`, `view.setZ(..)`, available for devices running Lollipop and up)
+
+---
+
+* **Rotation.I** (`view.setRotation(..)`)
+* **Rotation.X** (`view.setRotationX(..)`)
+* **Rotation.Y** (`view.setRotationY(..)`)
+* **Rotation.XY** (`view.setRotationX(..)`, `view.setRotationY(..)`)
+
+---
+
+* **Scale.X** (`view.setScaleX(..)`)
+* **Scale.Y** (`view.setScaleY(..)`)
 * **Scale.XY** (`view.setScaleX(..)`, `view.setScaleY(..)`)
-* **Scale.PIVOT_XY** (`view.setPivotX(..)`, `view.setPivotY(..)`)
 
 ---
 

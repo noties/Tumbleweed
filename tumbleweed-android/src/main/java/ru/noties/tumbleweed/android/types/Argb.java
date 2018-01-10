@@ -125,6 +125,24 @@ public abstract class Argb<T> implements TweenType<T> {
         }
     };
 
+    @NonNull
+    public static final Argb<ColorDrawable> COLOR_DRAWABLE = new Argb<ColorDrawable>() {
+        @Override
+        protected int getColor(@NonNull ColorDrawable colorDrawable) {
+            return colorDrawable.getColor();
+        }
+
+        @Override
+        protected void setColor(@NonNull ColorDrawable colorDrawable, int color) {
+            colorDrawable.setColor(color);
+        }
+
+        @Override
+        public String toString() {
+            return "Argb.COLOR_DRAWABLE";
+        }
+    };
+
     @Override
     public int getValuesSize() {
         return 4;
