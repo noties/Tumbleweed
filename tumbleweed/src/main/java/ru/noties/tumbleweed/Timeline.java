@@ -103,10 +103,9 @@ public final class Timeline extends BaseTween {
                 throw new IllegalStateException("Assertion failed, delta >= 0");
             }
 
-            if (isReverse(lastStep)) {
-                forceStartValues();
-            } else {
-                forceEndValues();
+            final float dt = isReverse(lastStep) ? -delta - 1 : delta + 1;
+            for (int i = 0, n = children.size(); i < n; i++) {
+                children.get(i).update(dt);
             }
 
             return;
@@ -118,11 +117,11 @@ public final class Timeline extends BaseTween {
                 throw new IllegalStateException("Assertion failed, delta <= 0");
             }
 
-            if (isReverse(lastStep)) {
-                forceEndValues();
-            } else {
-                forceStartValues();
+            final float dt = isReverse(lastStep) ? delta + 1 : -delta - 1;
+            for (int i = children.size() - 1; i >= 0; i--) {
+                children.get(i).update(dt);
             }
+
             return;
         }
 

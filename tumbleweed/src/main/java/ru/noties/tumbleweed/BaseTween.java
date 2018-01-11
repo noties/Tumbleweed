@@ -310,12 +310,26 @@ public abstract class BaseTween {
     }
 
     private void initialize() {
-        if (currentTime + deltaTime >= delay) {
+
+        // this change is not in the parent project, in general float math is hard
+        //
+        // so, sometimes (I have noticed this only for Timelines) there were weird glitches in
+        // animations, after debugging I have found that this method is what was causing it.
+        // Previously condition was: `currentTime + deltaTime >= delay`. So, after calculating
+        // deltaTime: `deltaTime -= delay - currentTime` it would be negative, which doesn't make sense
+        // on this stage.
+        if (Float.compare(currentTime + deltaTime, delay) > -1) {
             initializeOverride();
             isInitialized = true;
             isIterationStep = true;
             step = 0;
             deltaTime -= delay - currentTime;
+
+            // this is also a change, negative delta time doesn't make sense on this stage
+            if (Float.compare(deltaTime, 0) < 0) {
+                deltaTime = 0;
+            }
+
             currentTime = 0;
             callCallback(TweenCallback.BEGIN);
             callCallback(TweenCallback.START);
