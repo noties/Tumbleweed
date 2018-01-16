@@ -31,6 +31,9 @@ public abstract class Rotation implements TweenType<View> {
         }
     };
 
+    /**
+     * @since 1.0.1
+     */
     @NonNull
     public static final Rotation X = new Rotation() {
         @Override
@@ -54,6 +57,9 @@ public abstract class Rotation implements TweenType<View> {
         }
     };
 
+    /**
+     * @since 1.0.1
+     */
     @NonNull
     public static final Rotation Y = new Rotation() {
         @Override
@@ -77,6 +83,9 @@ public abstract class Rotation implements TweenType<View> {
         }
     };
 
+    /**
+     * @since 1.0.1
+     */
     @NonNull
     public static final Rotation XY = new Rotation() {
         @Override

@@ -7,6 +7,9 @@ import android.view.View;
 
 import ru.noties.tumbleweed.TweenType;
 
+/**
+ * @since 1.0.1
+ */
 @SuppressWarnings("unused")
 public abstract class Position implements TweenType<View> {
 
