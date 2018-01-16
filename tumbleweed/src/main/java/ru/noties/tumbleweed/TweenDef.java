@@ -55,11 +55,11 @@ public abstract class TweenDef<T> extends BaseTweenDef {
 
     @NonNull
     @Override
-    public abstract TweenDef<T> callback(@NonNull TweenCallback callback);
+    public abstract TweenDef<T> addCallback(@NonNull TweenCallback callback);
 
     @NonNull
     @Override
-    public abstract TweenDef<T> callback(
+    public abstract TweenDef<T> addCallback(
             @TweenCallback.Event int callbackEvents,
             @NonNull TweenCallback callback
     );

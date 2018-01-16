@@ -24,10 +24,10 @@ public abstract class BaseTweenDef {
     public abstract BaseTweenDef repeatYoyo(int count, float delay);
 
     @NonNull
-    public abstract BaseTweenDef callback(@NonNull TweenCallback callback);
+    public abstract BaseTweenDef addCallback(@NonNull TweenCallback callback);
 
     @NonNull
-    public abstract BaseTweenDef callback(
+    public abstract BaseTweenDef addCallback(
             @TweenCallback.Event int callbackEvents,
             @NonNull TweenCallback callback
     );

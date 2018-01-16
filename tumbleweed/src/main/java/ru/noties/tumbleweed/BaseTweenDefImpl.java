@@ -4,15 +4,17 @@ import android.support.annotation.NonNull;
 
 public class BaseTweenDefImpl extends BaseTweenDef {
 
+    final TweenCallbacks.Builder callbacksBuilder = new TweenCallbacks.Builder();
+
     float duration;
 
     float delay;
     int repeatCount;
     float repeatDelay;
     boolean isYoyo;
-    int callbackEvents;
-    TweenCallback callback;
+
     Object userData;
+
     boolean removeWhenFinished = true;
 
     BaseTweenDefImpl() {
@@ -68,17 +70,15 @@ public class BaseTweenDefImpl extends BaseTweenDef {
 
     @NonNull
     @Override
-    public BaseTweenDef callback(@NonNull TweenCallback callback) {
-        this.callbackEvents = TweenCallback.ANY;
-        this.callback = callback;
+    public BaseTweenDef addCallback(@NonNull TweenCallback callback) {
+        callbacksBuilder.add(callback);
         return this;
     }
 
     @NonNull
     @Override
-    public BaseTweenDef callback(@TweenCallback.Event int callbackEvents, @NonNull TweenCallback callback) {
-        this.callbackEvents = callbackEvents;
-        this.callback = callback;
+    public BaseTweenDef addCallback(@TweenCallback.Event int callbackEvents, @NonNull TweenCallback callback) {
+        callbacksBuilder.add(callbackEvents, callback);
         return this;
     }
 

@@ -164,22 +164,22 @@ class TweenDefImpl<T> extends TweenDef<T> {
 
     @NonNull
     @Override
-    public TweenDef<T> callback(@NonNull TweenCallback callback) {
+    public TweenDef<T> addCallback(@NonNull TweenCallback callback) {
 
         checkState();
 
-        impl.callback(callback);
+        impl.addCallback(callback);
 
         return this;
     }
 
     @NonNull
     @Override
-    public TweenDef<T> callback(@TweenCallback.Event int callbackEvents, @NonNull TweenCallback callback) {
+    public TweenDef<T> addCallback(@TweenCallback.Event int callbackEvents, @NonNull TweenCallback callback) {
 
         checkState();
 
-        impl.callback(callbackEvents, callback);
+        impl.addCallback(callbackEvents, callback);
 
         return this;
     }

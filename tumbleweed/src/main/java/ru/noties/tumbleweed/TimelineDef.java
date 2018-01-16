@@ -50,11 +50,11 @@ public abstract class TimelineDef extends BaseTweenDef {
 
     @NonNull
     @Override
-    public abstract TimelineDef callback(@NonNull TweenCallback callback);
+    public abstract TimelineDef addCallback(@NonNull TweenCallback callback);
 
     @NonNull
     @Override
-    public abstract TimelineDef callback(@TweenCallback.Event int callbackEvents, @NonNull TweenCallback callback);
+    public abstract TimelineDef addCallback(@TweenCallback.Event int callbackEvents, @NonNull TweenCallback callback);
 
     @NonNull
     @Override

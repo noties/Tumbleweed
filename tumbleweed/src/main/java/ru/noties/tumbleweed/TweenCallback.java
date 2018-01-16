@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * TweenCallbacks are used to trigger actions at some specific times. They are
- * used in both Tweens and Timelines. The moment when the callback is
+ * used in both Tweens and Timelines. The moment when the addCallback is
  * triggered depends on its registered triggers:
  * <p/>
  * <p>
@@ -49,7 +49,7 @@ public interface TweenCallback {
             ANY_BACKWARD,
             ANY
     }, flag = true)
-    @Retention(RetentionPolicy.SOURCE)
+    @Retention(RetentionPolicy.CLASS)
     @interface Event {
     }
 
