@@ -23,9 +23,15 @@ public abstract class BaseTweenDef {
     @NonNull
     public abstract BaseTweenDef repeatYoyo(int count, float delay);
 
+    /**
+     * @since 1.0.2
+     */
     @NonNull
     public abstract BaseTweenDef addCallback(@NonNull TweenCallback callback);
 
+    /**
+     * @since 1.0.2
+     */
     @NonNull
     public abstract BaseTweenDef addCallback(
             @TweenCallback.Event int callbackEvents,

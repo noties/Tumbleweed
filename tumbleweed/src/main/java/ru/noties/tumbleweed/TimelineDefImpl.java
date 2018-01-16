@@ -41,6 +41,17 @@ class TimelineDefImpl extends TimelineDef {
 
     @NonNull
     @Override
+    public TimelineDef push(@NonNull BaseTweenDef baseTweenDef) {
+        if (baseTweenDef instanceof TimelineDef) {
+            push((TimelineDef) baseTweenDef);
+        } else {
+            current.add(baseTweenDef);
+        }
+        return this;
+    }
+
+    @NonNull
+    @Override
     public TimelineDef pushPause(float duration) {
         current.add(Tween.mark().delay(duration));
         return this;

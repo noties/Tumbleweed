@@ -11,6 +11,12 @@ public abstract class TimelineDef extends BaseTweenDef {
     @NonNull
     public abstract TimelineDef push(@NonNull TimelineDef timeline);
 
+    /**
+     * @since 1.0.2
+     */
+    @NonNull
+    public abstract TimelineDef push(@NonNull BaseTweenDef baseTweenDef);
+
     @SuppressWarnings("SameParameterValue")
     @NonNull
     public abstract TimelineDef pushPause(float duration);
@@ -63,7 +69,6 @@ public abstract class TimelineDef extends BaseTweenDef {
     @NonNull
     @Override
     public abstract TimelineDef removeWhenFinished(boolean removeWhenFinished);
-
 
 
     @SuppressWarnings("WeakerAccess")
