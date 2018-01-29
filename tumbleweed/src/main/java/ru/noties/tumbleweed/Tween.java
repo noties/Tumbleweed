@@ -186,7 +186,7 @@ public final class Tween extends BaseTween {
     }
 
     /**
-     * Factory creating a new timer. The given callback will be triggered on
+     * Factory creating a new timer. The given addCallback will be triggered on
      * each iteration start, after the delay.
      * <br/><br/>
      * <p>
@@ -202,7 +202,7 @@ public final class Tween extends BaseTween {
      *      .start(myManager);
      * }</pre>
      *
-     * @param callback The callback that will be triggered on each iteration
+     * @param callback The addCallback that will be triggered on each iteration
      *                 start.
      * @return The generated Tween.
      * @see TweenCallback
@@ -211,13 +211,13 @@ public final class Tween extends BaseTween {
     @NonNull
     public static TweenDef call(@NonNull TweenCallback callback) {
         return new TweenDefImpl<>(false, null, null, .0F)
-                .callback(TweenCallback.START, callback);
+                .addCallback(TweenCallback.START, callback);
     }
 
     /**
      * Convenience method to create an empty tween. Such object is only useful
      * when placed inside animation sequences (see {@link Timeline}), in which
-     * it may act as a beacon, so you can set a callback on it in order to
+     * it may act as a beacon, so you can set a addCallback on it in order to
      * trigger some action at the right moment.
      *
      * @return The generated Tween.

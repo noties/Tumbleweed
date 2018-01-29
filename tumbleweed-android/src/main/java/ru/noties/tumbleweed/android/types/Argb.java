@@ -125,6 +125,9 @@ public abstract class Argb<T> implements TweenType<T> {
         }
     };
 
+    /**
+     * @since 1.0.1
+     */
     @NonNull
     public static final Argb<ColorDrawable> COLOR_DRAWABLE = new Argb<ColorDrawable>() {
         @Override

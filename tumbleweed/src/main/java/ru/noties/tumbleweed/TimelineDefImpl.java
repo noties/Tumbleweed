@@ -41,6 +41,17 @@ class TimelineDefImpl extends TimelineDef {
 
     @NonNull
     @Override
+    public TimelineDef push(@NonNull BaseTweenDef baseTweenDef) {
+        if (baseTweenDef instanceof TimelineDef) {
+            push((TimelineDef) baseTweenDef);
+        } else {
+            current.add(baseTweenDef);
+        }
+        return this;
+    }
+
+    @NonNull
+    @Override
     public TimelineDef pushPause(float duration) {
         current.add(Tween.mark().delay(duration));
         return this;
@@ -153,15 +164,15 @@ class TimelineDefImpl extends TimelineDef {
 
     @NonNull
     @Override
-    public TimelineDef callback(@NonNull TweenCallback callback) {
-        impl.callback(callback);
+    public TimelineDef addCallback(@NonNull TweenCallback callback) {
+        impl.addCallback(callback);
         return this;
     }
 
     @NonNull
     @Override
-    public TimelineDef callback(@TweenCallback.Event int callbackEvents, @NonNull TweenCallback callback) {
-        impl.callback(callbackEvents, callback);
+    public TimelineDef addCallback(@TweenCallback.Event int callbackEvents, @NonNull TweenCallback callback) {
+        impl.addCallback(callbackEvents, callback);
         return this;
     }
 

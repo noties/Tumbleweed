@@ -44,8 +44,8 @@ public abstract class BaseTween {
     private boolean isPaused; // true if pause() was called
 
     // Misc
-    private final TweenCallback callback;
-    private final int callbackTriggers;
+    private final TweenCallbacks callbacks;
+
     private Object userData;
 
     // Package access
@@ -59,8 +59,7 @@ public abstract class BaseTween {
         this.repeatCount = def.repeatCount;
         this.repeatDelay = def.repeatDelay;
         this.isYoyo = def.isYoyo;
-        this.callback = def.callback;
-        this.callbackTriggers = def.callbackEvents;
+        this.callbacks = def.callbacksBuilder.build();
         this.userData = def.userData;
         this.isAutoRemoveEnabled = def.removeWhenFinished;
     }
@@ -256,7 +255,7 @@ public abstract class BaseTween {
 
     @SuppressWarnings("WeakerAccess")
     protected void callCallback(int type) {
-        if (callback != null && (callbackTriggers & type) > 0) callback.onEvent(type, this);
+        callbacks.call(type, this);
     }
 
     @SuppressWarnings("WeakerAccess")

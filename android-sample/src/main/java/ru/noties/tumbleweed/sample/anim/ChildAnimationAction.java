@@ -38,7 +38,7 @@ public class ChildAnimationAction implements BaseAnimationFragment.Action {
                 .target(exit ? -height : 0)
                 .ease(exit ? Back.IN : Back.OUT)
                 .action(new AppBarAction(container, clipState))
-                .callback(TweenCallback.COMPLETE, (type, source) -> {
+                .addCallback(TweenCallback.COMPLETE, (type, source) -> {
                     if (clipState != null) {
                         clipState.restore(container);
                     }
