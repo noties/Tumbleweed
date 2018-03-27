@@ -11,6 +11,7 @@ import ru.noties.tumbleweed.TweenType;
 @SuppressWarnings("unused")
 public abstract class Scroll implements TweenType<View> {
 
+    @NonNull
     public static final Scroll X = new Scroll() {
         @Override
         public int getValuesSize() {
@@ -33,6 +34,7 @@ public abstract class Scroll implements TweenType<View> {
         }
     };
 
+    @NonNull
     public static final Scroll Y = new Scroll() {
         @Override
         public int getValuesSize() {
@@ -55,6 +57,7 @@ public abstract class Scroll implements TweenType<View> {
         }
     };
 
+    @NonNull
     public static final Scroll XY = new Scroll() {
         @Override
         public int getValuesSize() {
