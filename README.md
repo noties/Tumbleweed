@@ -165,6 +165,12 @@ Tween.to(start, Graphics.RECT, 2.F)
 
 ---
 
+* **Scroll.X** (`view.setScrollX(..)`)
+* **Scroll.Y** (`view.setScrollY(..)`)
+* **Scroll.XY** (`view.setScrollX(..)`, `view.setScrollY(..)`)
+
+---
+
 * **Translation.X** (`view.setTranslationX(..)`)
 * **Translation.Y** (`view.setTranslationY(..)`)
 * **Translation.Z** (`view.setTranslationZ(..)` available for devices running Lollipop and up)
