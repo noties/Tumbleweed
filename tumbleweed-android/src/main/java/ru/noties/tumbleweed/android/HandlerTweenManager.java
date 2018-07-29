@@ -29,7 +29,8 @@ public class HandlerTweenManager extends TweenManagerImpl {
     private final Runnable runnable;
     private final TimeDelta timeDelta = TimeDelta.create();
 
-    HandlerTweenManager(float frame, @NonNull Handler handler) {
+    // @since 1.0.3 visibility is changed to be `protected`
+    protected HandlerTweenManager(float frame, @NonNull Handler handler) {
         this.delay = (long) (frame * 1000.F + .5F);
         this.handler = handler;
         this.runnable = new InvalidateRunnable();
