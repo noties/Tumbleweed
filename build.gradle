@@ -41,5 +41,5 @@ ext {
     SUPPORT_ANNOTATIONS = "com.android.support:support-annotations:$supportVersion"
     RECYCLER_VIEW = "com.android.support:recyclerview-v7:$supportVersion"
 
-    REMODEL = 'ru.noties:remodel:1.0.0'
+    ADAPT = 'ru.noties:adapt:1.0.0'
 }

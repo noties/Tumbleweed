@@ -25,5 +25,5 @@ dependencies {
     implementation project(':tumbleweed-android')
 
     implementation RECYCLER_VIEW
-    implementation REMODEL
+    implementation ADAPT
 }
