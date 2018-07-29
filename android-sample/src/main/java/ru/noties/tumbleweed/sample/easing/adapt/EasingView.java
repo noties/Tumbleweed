@@ -1,4 +1,4 @@
-package ru.noties.tumbleweed.sample.easing.remodel;
+package ru.noties.tumbleweed.sample.easing.adapt;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -7,22 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import ru.noties.remodel.renderer.Holder;
-import ru.noties.remodel.renderer.Renderer;
-import ru.noties.remodel.service.Services;
+import ru.noties.adapt.Holder;
+import ru.noties.adapt.ItemView;
 import ru.noties.tumbleweed.sample.R;
 import ru.noties.tumbleweed.sample.easing.EasingDrawable;
 
-public class EasingRenderer extends Renderer<EasingItem.Easing, EasingRenderer.EasingHolder> {
+public class EasingView extends ItemView<EasingItem.Easing, EasingView.EasingHolder> {
 
     @NonNull
     @Override
     public EasingHolder createHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-        return new EasingHolder(inflater.inflate(R.layout.render_easing_item, parent, false));
+        return new EasingHolder(inflater.inflate(R.layout.view_easing_item, parent, false));
     }
 
     @Override
-    public void render(@NonNull Services services, @NonNull EasingHolder holder, @NonNull EasingItem.Easing item) {
+    public void bindHolder(@NonNull EasingHolder holder, @NonNull EasingItem.Easing item) {
 
         holder.name.setText(item.name());
 
@@ -51,11 +50,11 @@ public class EasingRenderer extends Renderer<EasingItem.Easing, EasingRenderer.E
         final TextView name;
         final View view;
 
-        EasingHolder(@NonNull View itemView) {
-            super(itemView);
+        EasingHolder(@NonNull View view) {
+            super(view);
 
-            this.name = findView(R.id.text);
-            this.view = findView(R.id.view);
+            this.name = requireView(R.id.text);
+            this.view = requireView(R.id.view);
         }
     }
 }

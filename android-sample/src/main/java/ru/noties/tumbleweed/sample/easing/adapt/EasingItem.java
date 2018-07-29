@@ -1,4 +1,4 @@
-package ru.noties.tumbleweed.sample.easing.remodel;
+package ru.noties.tumbleweed.sample.easing.adapt;
 
 import android.support.annotation.NonNull;
 

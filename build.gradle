@@ -23,7 +23,7 @@ if (project.hasProperty('local')) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion '4.3'
+    gradleVersion '4.9'
     distributionType 'all'
 }
 
@@ -34,12 +34,12 @@ task clean(type: Delete) {
 ext {
 
     MIN_SDK = 16
-    TARGET_SDK = 26
-    BUILD_TOOLS = '26.0.2'
+    TARGET_SDK = 27
+    BUILD_TOOLS = '27.0.3'
 
-    final def supportVersion = '26.1.0'
+    final def supportVersion = '27.1.1'
     SUPPORT_ANNOTATIONS = "com.android.support:support-annotations:$supportVersion"
     RECYCLER_VIEW = "com.android.support:recyclerview-v7:$supportVersion"
 
-    REMODEL = 'ru.noties:remodel:1.0.0'
+    ADAPT = 'ru.noties:adapt:1.0.0'
 }

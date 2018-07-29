@@ -33,7 +33,8 @@ public class DrawableTweenManager extends TweenManagerImpl {
     private final Runnable runnable;
     private final TimeDelta timeDelta = TimeDelta.create();
 
-    DrawableTweenManager(@NonNull Drawable drawable, float frame) {
+    // @since 1.0.3 visibility is changed to be `protected`
+    protected DrawableTweenManager(@NonNull Drawable drawable, float frame) {
         this.drawable = drawable;
         this.frame = (long) (frame * 1000L + .5F);
         this.runnable = new InvalidateRunnable();

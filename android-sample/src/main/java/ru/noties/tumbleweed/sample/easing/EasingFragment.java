@@ -13,16 +13,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ru.noties.remodel.Remodel;
-import ru.noties.remodel.adapter.AdapterInfo;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import ru.noties.adapt.Adapt;
+import ru.noties.tumbleweed.TweenEquation;
+import ru.noties.tumbleweed.equations.Back;
+import ru.noties.tumbleweed.equations.Bounce;
+import ru.noties.tumbleweed.equations.Circ;
+import ru.noties.tumbleweed.equations.Cubic;
+import ru.noties.tumbleweed.equations.Elastic;
+import ru.noties.tumbleweed.equations.Expo;
+import ru.noties.tumbleweed.equations.Quad;
+import ru.noties.tumbleweed.equations.Quart;
+import ru.noties.tumbleweed.equations.Quint;
+import ru.noties.tumbleweed.equations.Sine;
 import ru.noties.tumbleweed.sample.R;
 import ru.noties.tumbleweed.sample.anim.BaseAnimationFragment;
 import ru.noties.tumbleweed.sample.anim.ChildAnimationAction;
-import ru.noties.tumbleweed.sample.easing.remodel.EasingItem;
-import ru.noties.tumbleweed.sample.easing.remodel.EasingModel;
-import ru.noties.tumbleweed.sample.easing.remodel.EasingReducer;
-import ru.noties.tumbleweed.sample.easing.remodel.EasingRenderer;
-import ru.noties.tumbleweed.sample.easing.remodel.HeaderRenderer;
+import ru.noties.tumbleweed.sample.easing.adapt.EasingItem;
+import ru.noties.tumbleweed.sample.easing.adapt.EasingView;
+import ru.noties.tumbleweed.sample.easing.adapt.HeaderView;
 
 public class EasingFragment extends BaseAnimationFragment {
 
@@ -54,17 +66,19 @@ public class EasingFragment extends BaseAnimationFragment {
 
         final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
-        final Remodel<EasingModel, EasingItem> remodel = Remodel.builder(new EasingModel(), EasingItem.class)
-                .addRenderer(EasingItem.Header.class, new HeaderRenderer())
-                .addRenderer(EasingItem.Easing.class, new EasingRenderer())
-                .reducer(new EasingReducer())
-                .recyclerView(recyclerView)
+        final Adapt<EasingItem> adapt = Adapt.builder(EasingItem.class)
+                .include(EasingItem.Header.class, new HeaderView())
+                .include(EasingItem.Easing.class, new EasingView())
                 .build();
 
-        initializeRecyclerView(recyclerView, remodel.adapterInfo());
+        adapt.setItems(items());
+
+        recyclerView.setAdapter(adapt.recyclerViewAdapter());
+
+        initializeRecyclerView(recyclerView, adapt);
     }
 
-    private void initializeRecyclerView(@NonNull RecyclerView recyclerView, @NonNull AdapterInfo<EasingItem> adapterInfo) {
+    private void initializeRecyclerView(@NonNull RecyclerView recyclerView, @NonNull Adapt<EasingItem> adapterInfo) {
 
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -92,4 +106,29 @@ public class EasingFragment extends BaseAnimationFragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
+    @NonNull
+    private static List<EasingItem> items() {
+
+        final List<EasingItem> list = new ArrayList<>();
+
+        add("Sine", list, Sine.values());
+        add("Quad", list, Quad.values());
+        add("Cubic", list, Cubic.values());
+        add("Quart", list, Quart.values());
+        add("Quint", list, Quint.values());
+        add("Expo", list, Expo.values());
+        add("Circ", list, Circ.values());
+        add("Back", list, Back.values());
+        add("Elastic", list, Elastic.values());
+        add("Bounce", list, Bounce.values());
+
+        return Collections.unmodifiableList(list);
+    }
+
+    private static void add(@NonNull String name, @NonNull List<EasingItem> list, @NonNull Enum<? extends TweenEquation>[] equations) {
+        list.add(new EasingItem.Header(name));
+        for (Enum<? extends TweenEquation> equation : equations) {
+            list.add(new EasingItem.Easing(equation));
+        }
+    }
 }

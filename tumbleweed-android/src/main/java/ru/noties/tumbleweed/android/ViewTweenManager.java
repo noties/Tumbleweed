@@ -38,7 +38,8 @@ public class ViewTweenManager extends TweenManagerImpl {
             = new OnAttachStateChangeListener();
     private final TimeDelta timeDelta = TimeDelta.create();
 
-    ViewTweenManager(@IdRes int key, @NonNull View container) {
+    // @since 1.0.3 visibility is changed to be `protected`
+    protected ViewTweenManager(@IdRes int key, @NonNull View container) {
         this.key = key;
         this.container = container;
         container.addOnAttachStateChangeListener(onAttachStateChangeListener);
