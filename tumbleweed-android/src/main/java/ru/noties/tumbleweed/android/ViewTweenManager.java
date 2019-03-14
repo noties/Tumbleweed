@@ -114,7 +114,10 @@ public class ViewTweenManager extends TweenManagerImpl {
 
                 update(timeDelta.delta());
 
-                container.postInvalidateOnAnimation();
+                // still check for `isStarted` before posting an update
+                if (isStarted) {
+                    container.postInvalidateOnAnimation();
+                }
             }
 
             return true;

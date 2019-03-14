@@ -49,7 +49,6 @@ public class HandlerTweenManager extends TweenManagerImpl {
     protected void onStopped() {
         super.onStopped();
 
-
         handler.removeCallbacks(runnable);
     }
 
@@ -60,7 +59,11 @@ public class HandlerTweenManager extends TweenManagerImpl {
 
             update(timeDelta.delta());
 
-            handler.postDelayed(this, delay);
+            // validate that we are running before _posting_ again (update _possibly_ can
+            // stop running state)
+            if (isStarted) {
+                handler.postDelayed(this, delay);
+            }
         }
     }
 }

@@ -67,10 +67,11 @@ public class DrawableTweenManager extends TweenManagerImpl {
     public void update(float delta) {
         super.update(delta);
 
-        if (isStarted && !isPaused()) {
-            drawable.invalidateSelf();
-        } else if (drawable.getCallback() == null) {
+        // first check for callback (higher priority), then check if we are running
+        if (drawable.getCallback() == null) {
             onStopped();
+        } else if (isStarted && !isPaused()) {
+            drawable.invalidateSelf();
         }
     }
 
@@ -81,7 +82,13 @@ public class DrawableTweenManager extends TweenManagerImpl {
 
             update(timeDelta.delta());
 
-            drawable.scheduleSelf(this, SystemClock.uptimeMillis() + frame);
+            // it's actually important to check that we are running, as it's possible
+            // that `update` stops the animation (for example drawable was detached),
+            // so, without check for `isStarted` we might be calling update even when we are
+            // not running
+            if (isStarted) {
+                drawable.scheduleSelf(this, SystemClock.uptimeMillis() + frame);
+            }
         }
     }
 }

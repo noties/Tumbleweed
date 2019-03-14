@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.3.2'
     }
 }
 
@@ -23,7 +23,7 @@ if (project.hasProperty('local')) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion '4.9'
+    gradleVersion '4.10.2'
     distributionType 'all'
 }
 
@@ -34,10 +34,10 @@ task clean(type: Delete) {
 ext {
 
     MIN_SDK = 16
-    TARGET_SDK = 27
-    BUILD_TOOLS = '27.0.3'
+    TARGET_SDK = 28
+    BUILD_TOOLS = '28.0.3'
 
-    final def supportVersion = '27.1.1'
+    final def supportVersion = '28.0.0'
     SUPPORT_ANNOTATIONS = "com.android.support:support-annotations:$supportVersion"
     RECYCLER_VIEW = "com.android.support:recyclerview-v7:$supportVersion"
 

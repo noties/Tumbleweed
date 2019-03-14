@@ -23,10 +23,10 @@
 
 ```gradle
 // base module
-implementation 'ru.noties:tumbleweed:1.0.3'
+implementation 'ru.noties:tumbleweed:1.0.4'
 
 // android module
-implementation 'ru.noties:tumbleweed-android:1.0.3'
+implementation 'ru.noties:tumbleweed-android:1.0.4'
 ```
 
 Both modules have no external dependencies except for `support-annotations`
