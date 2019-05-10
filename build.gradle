@@ -16,10 +16,15 @@ allprojects {
     }
     version = VERSION_NAME
     group = GROUP
+
+    tasks.withType(Javadoc).all {
+        enabled = false
+    }
 }
 
 if (project.hasProperty('local')) {
     ext.RELEASE_REPOSITORY_URL = LOCAL_MAVEN_URL
+    ext.SNAPSHOT_REPOSITORY_URL = LOCAL_MAVEN_URL
 }
 
 wrapper {
