@@ -22,7 +22,7 @@
 
 ## Installation
 
-```gradle
+```groovy
 // base module
 implementation 'io.noties:tumbleweed:${tumbleweed_version}'
 
@@ -34,6 +34,14 @@ implementation 'io.noties:tumbleweed-android-kt:${tumbleweed_version}'
 ```
 
 All modules have no external dependencies except for `support-annotations`
+
+> !!!
+> 
+> **Important notice for 2.0.0 version**
+>
+> Package name changed to `io.noties.tumbleweed.*` (regular find-n-replace can be used)
+> 
+> Maven artifact group-id change to `io.noties`
 
 
 ## Usage
@@ -231,27 +239,24 @@ public static final Translation XY = new TweenType<View>() {
 
 `ViewTweenManager` attaches to `View` draw cycle and invalidates it via `view.postInvalidateOnAnimation()`. It will be automatically disposed when a View to which it is attached to is detached from a window.
 
-There are 2 factory methods to obtain it:
-* `ViewTweenManager.create(View)` - will create new instance with each call
-* `ViewTweenManager.get(int, View)` - will enforce only one instance per View per specified `int` (key). Internally it uses `View.setTag(int, Object)`.
-
-As `View.setTag(int, View)` requires valid resource id, provided `int` must be one. `int` argument in `ViewTweenManager.get(int, View)` is annotated with `@IdRes` (as there is no generic `@ResourceId` annotation). In order to not be dependent on ids in your layout files, a standalone item can be created:
-
-(`values/ids.xml` for example, but it can have any name, or you can place it inside any of your existing files)
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <item name="tumbleweed_id" type="id" />
-
-</resources>
-```
-
-So, you can initialize/retrieve `ViewTweenManager` like this:
+To obtain a `ViewTweenManager` call:
 
 ```java
-ViewTweenManager.get(R.id.tumbleweed_id, view);
+ViewTweenManager.get(view);
 ```
+
+Normally you would want to ensure that a view has only one instance of a `ViewTweenManager`. Since version `2.0.0` `ViewTweenManager` does it automatically by caching created instance with `View.setTag(int, Object)` call.
+
+Since version `2.0.0` a `ViewTweenManager#get(View, Action)` factory method is added. It allows to run _initialization_ of returned `ViewTweenManager` object before any tweens are started. `ViewTweenManager` comes with a predefined Action &mdash; `KILL_ALL`:
+
+```java
+Timeline.createSequence()
+        .push(Tween.to(view, Scale.XY, 0.4F).target(0.25F, 0.25F))
+        .push(Tween.to(view, Scale.XY, 0.4F).target(1.0F, 1.0F))
+        .start(ViewTweenManager.get(view, ViewTweenManager.KILL_ALL));
+```
+
+`ViewTweenManager` will be automatically disposed when view is detached from a window.
 
 ---
 
@@ -275,3 +280,105 @@ To obtain an instance:
 * `HandlerTweenManager.create()` - creates an instance with main thread Looper and 60 updates per second (60 FPS)
 * `HandlerTweenManager.create(float)` - creates an instance with main thread Looper and specified update interval (in seconds, so `1.F / 60` would be equal to 60 FPS)
 * `HandlerTweenManager.create(float, Handler)` - creates an instance with specified Handler and update interval (in seconds)
+
+--- 
+
+#### AnimatorTweenManager
+
+In `2.0.0` version `AnimatorTweenManager` is added. It lets using Tumbleweed animations in an Android-native way (for example in custom transitions):
+
+```java
+@Override
+public Animator createAnimator(ViewGroup sceneRoot, TransitionValues startValues, TransitionValues endValues) {
+
+    if (startValues == null
+            || endValues == null) {
+        return null;
+    }
+
+    final Integer from = (Integer) startValues.values.get(KEY);
+    final Integer to = (Integer) endValues.values.get(KEY);
+
+    if (from == null
+            || to == null) {
+        return null;
+    }
+
+    final View v = endValues.view;
+
+    final AnimatorTweenManager tweenManager = AnimatorTweenManager.create();
+    
+    Timeline.createSequence()
+            .push(Tween.to(v, Rotation.I, .25F).target(360))
+            .push(Tween.to(v, Scale.XY, .25F).target(.5F, .5F))
+            .push(Tween.to(v, Scale.XY, .25F).target(1, 1))
+            .start(tweenManager);
+
+    return tweenManager.animator();
+}
+```
+
+### Android Kotlin extensions
+
+#### View
+
+```kotlin
+// obtain a ViewTweenManager
+view.tweenManager() // => ViewTweenManager.get(view)
+
+// obtain a ViewTweenManager and run supplied Action
+view.tweenManager(ViewTweenManager.KILL_ALL) // => ViewTweenManager.get(view, ViewTweenManager.KILL_ALL)
+
+// execute when view has dimensions
+// will check if dimensions are present or register a OnPreDrawListener
+view.whenReady {
+    view.width
+}
+
+// calculate position of a view relative to its parent
+val point = view.relativeTo(parent)
+```
+
+#### Drawable
+
+```kotlin
+// create an instance of DrawableTweenManager
+drawable.tweenManager() // => DrawableTweenManager.create()
+
+// create an instance of DrawableTweenManager with
+// specified update interval in seconds
+drawable.tweenManager(1.0F / 120.0F)
+
+// apply intrinsic bounds 
+drawable.applyIntrinsicBounds()
+```
+
+#### Duration
+
+```kotlin
+// Long: convert milliseconds to float seconds
+1000L.toFloatSeconds() // => 1.0F
+
+// Int: convert milliseconds to float seconds
+450.toFloatSeconds() // => 0.45F
+```
+
+#### Argb
+
+```kotlin
+val color = Color.RED
+
+// convert Int color to Argb array
+color.toArgbArray()
+
+// can be used like this:
+Tween.to(view, Argb.BACKGROUND, 0.25F).target(color.toArgbArray())
+
+```
+
+```kotlin
+val array = Color.RED.toArgbArray()
+
+// convert Argb float array to color
+val color: Int = array.toColor()
+```
