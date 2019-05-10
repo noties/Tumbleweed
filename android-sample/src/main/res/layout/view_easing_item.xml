@@ -7,7 +7,7 @@
     android:clipToPadding="false"
     android:orientation="vertical">
 
-    <ru.noties.tumbleweed.sample.easing.EasingView
+    <io.noties.tumbleweed.sample.easing.EasingView
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

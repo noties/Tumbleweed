@@ -1,7 +1,8 @@
 ![logo](./art/logo.png)
 
-[![tumbleweed](https://img.shields.io/maven-central/v/ru.noties/tumbleweed.svg?label=tumbleweed)](http://search.maven.org/#search|ga|1|g%3A%22ru.noties%22%20AND%20a%3A%22tumbleweed%22)
-[![tumbleweed-androidl](https://img.shields.io/maven-central/v/ru.noties/tumbleweed-android.svg?label=tumbleweed-android)](http://search.maven.org/#search|ga|1|g%3A%22ru.noties%22%20AND%20a%3A%22tumbleweed-android%22)
+[![tumbleweed](https://img.shields.io/maven-central/v/io.noties/tumbleweed.svg?label=tumbleweed)](http://search.maven.org/#search|ga|1|g%3A%22io.noties%22%20AND%20a%3A%22tumbleweed%22)
+[![tumbleweed-android](https://img.shields.io/maven-central/v/io.noties/tumbleweed-android.svg?label=tumbleweed-android)](http://search.maven.org/#search|ga|1|g%3A%22io.noties%22%20AND%20a%3A%22tumbleweed-android%22)
+[![tumbleweed-android-kt](https://img.shields.io/maven-central/v/io.noties/tumbleweed-android-kt.svg?label=tumbleweed-android-kt)](http://search.maven.org/#search|ga|1|g%3A%22io.noties%22%20AND%20a%3A%22tumbleweed-android-kt%22)
 
 **Tumbleweed** is a fork of [Universal-Tween-Engine](https://github.com/AurelienRibon/universal-tween-engine) by [Aurelien Ribon](http://www.aurelienribon.com/). To quote the parent project:
 
@@ -23,13 +24,16 @@
 
 ```gradle
 // base module
-implementation 'ru.noties:tumbleweed:1.0.4'
+implementation 'io.noties:tumbleweed:${tumbleweed_version}'
 
 // android module
-implementation 'ru.noties:tumbleweed-android:1.0.4'
+implementation 'io.noties:tumbleweed-android:${tumbleweed_version}'
+
+// kotlin extensions for android module
+implementation 'io.noties:tumbleweed-android-kt:${tumbleweed_version}'
 ```
 
-Both modules have no external dependencies except for `support-annotations`
+All modules have no external dependencies except for `support-annotations`
 
 
 ## Usage
@@ -44,9 +48,9 @@ Tween.to(view, Translation.XY, 2.F)
         .start(ViewTweenManager.create(view));
 ```
 
-Here `Translation.XY` is a predefined `TweenType<View>` (found in `ru.noties.tumbleweed.android.types.*` package) that applies translation X and Y.
+Here `Translation.XY` is a predefined `TweenType<View>` (found in `io.noties.tumbleweed.android.types.*` package) that applies translation X and Y.
 
-`Cubic.INOUT` is predefined equation (found in `ru.noties.tumbleweed.equations.*`)
+`Cubic.INOUT` is predefined equation (found in `io.noties.tumbleweed.equations.*`)
 
 > Please note that all durations are measured in seconds, so `2.F` is `2 seconds`
 
@@ -61,7 +65,7 @@ Timeline.createParallel()
 
 ### Android predefined TweenTypes
 
-`ru.noties.tumbleweed.android.types.*`:
+`io.noties.tumbleweed.android.types.*`:
 
 ---
 
