@@ -11,16 +11,92 @@ import ru.noties.tumbleweed.TweenManagerImpl;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class ViewTweenManager extends TweenManagerImpl {
 
-    // creates new instance each time called
+    /**
+     * @see #get(View, Action)
+     * @since 2.0.0-SNAPSHOT
+     */
+    public interface Action {
+        void apply(@NonNull ViewTweenManager viewTweenManager);
+    }
+
+    /**
+     * Implementation of {@link Action} to kill all currently running tweens. Should be
+     * supplied to {@link #get(View, Action)} method call.
+     *
+     * @see #get(View, Action)
+     * @since 2.0.0-SNAPSHOT
+     */
+    public static final Action KILL_ALL = new Action() {
+        @Override
+        public void apply(@NonNull ViewTweenManager viewTweenManager) {
+            viewTweenManager.killAll();
+        }
+    };
+
+    /**
+     * A method to obtain a ViewTweenManager for specified view. Ensures that only one
+     * ViewTweenManager is associated with specified view. Internally sets tag to cache
+     * ViewTweenManager instance.
+     *
+     * @see #get(View, Action)
+     * @since 2.0.0-SNAPSHOT
+     */
+    @NonNull
+    @UiThread
+    public static ViewTweenManager get(@NonNull View container) {
+
+        ViewTweenManager manager =
+                (ViewTweenManager) container.getTag(R.id.tumbleweed_internal_view_tween_manager);
+
+        if (manager == null) {
+            // will call `setTag` inside
+            manager = new ViewTweenManager(R.id.tumbleweed_internal_view_tween_manager, container);
+        }
+
+        return manager;
+    }
+
+    /**
+     * Method to obtain ViewTweenManager associated with a view and process it
+     * with supplied {@link Action}. Can be useful
+     * when a new set of tweens must be started but currently? running must be stopped:
+     * <p>
+     * {@code ViewTweenManager.get(container, ViewTweenManager.KILL_ALL)}.
+     * <p>
+     * {@code ViewTweenManager.KILL_ALL} is a predefined {@link Action}
+     * that kills all currently running tweens.
+     *
+     * @param init {@link Action} to be called when ViewTweenManager is obtained
+     * @see #get(View)
+     * @see #KILL_ALL
+     * @since 2.0.0-SNAPSHOT
+     */
+    @NonNull
+    @UiThread
+    public static ViewTweenManager get(@NonNull View container, @NonNull Action init) {
+        final ViewTweenManager viewTweenManager = get(container);
+        init.apply(viewTweenManager);
+        return viewTweenManager;
+    }
+
+    /**
+     * Creates a new instance of ViewTweenManager with each call. Consider caching created
+     * ViewTweenManager instance or retrieve it via {@link #get(View)} method call.
+     */
     @NonNull
     @UiThread
     public static ViewTweenManager create(@NonNull View container) {
         return new ViewTweenManager(0, container);
     }
 
-    // attaches ViewTweenManager to specified View as a tag (creates if it's not created)
+    /**
+     * @see #get(View)
+     * @deprecated 2.0.0-SNAPSHOT use {@link #get(View)} method call instead as there is no real
+     * need to have multiple ViewTweenManagers associated with a view
+     */
     @NonNull
     @UiThread
+    @Deprecated
     public static ViewTweenManager get(@IdRes int key, @NonNull View container) {
         ViewTweenManager manager = (ViewTweenManager) container.getTag(key);
         if (manager == null) {

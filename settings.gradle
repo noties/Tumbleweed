@@ -1,4 +1,4 @@
 rootProject.name = 'TumbleweedProject'
-include ':android-sample', ':tumbleweed', ':tumbleweed-android'
+include ':android-sample', ':tumbleweed', ':tumbleweed-android', ':tumbleweed-android-kt'
 
 
