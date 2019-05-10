@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'com.android.tools.build:gradle:3.4.0'
     }
 }
 
@@ -22,8 +22,8 @@ if (project.hasProperty('local')) {
     ext.RELEASE_REPOSITORY_URL = LOCAL_MAVEN_URL
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion '4.10.2'
+wrapper {
+    gradleVersion '5.1.1'
     distributionType 'all'
 }
 
