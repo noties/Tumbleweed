@@ -21,13 +21,12 @@ apply plugin: 'kotlin-android'
 
 android {
 
-    compileSdkVersion TARGET_SDK
-    buildToolsVersion BUILD_TOOLS
-
+    compileSdkVersion config['target-sdk']
+    buildToolsVersion config['build-tools']
 
     defaultConfig {
-        minSdkVersion MIN_SDK
-        targetSdkVersion TARGET_SDK
+        minSdkVersion config['min-sdk']
+        targetSdkVersion config['target-sdk']
         versionCode 1
         versionName version
     }
@@ -43,7 +42,7 @@ afterEvaluate {
 }
 
 if (project.hasProperty('release')) {
-    apply from: 'https://raw.githubusercontent.com/noties/gradle-mvn-push/master/gradle-mvn-push-aar.gradle'
+    apply from: config['push-aar']
 }
 
 task javadoc(type: Javadoc) {

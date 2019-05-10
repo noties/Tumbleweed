@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
 
-    compileSdkVersion TARGET_SDK
-    buildToolsVersion BUILD_TOOLS
+    compileSdkVersion config['target-sdk']
+    buildToolsVersion config['build-tools']
 
     defaultConfig {
         applicationId "io.noties.tumbleweed.sample"
-        minSdkVersion MIN_SDK
-        targetSdkVersion TARGET_SDK
+        minSdkVersion config['min-sdk']
+        targetSdkVersion config['target-sdl']
         versionCode 1
         versionName version
     }
@@ -24,6 +24,5 @@ dependencies {
     implementation project(':tumbleweed')
     implementation project(':tumbleweed-android')
 
-    implementation RECYCLER_VIEW
-    implementation ADAPT
+    implementation deps['adapt']
 }

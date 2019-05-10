@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ru.noties.adapt.Adapt;
+import io.noties.adapt.Adapt;
+import io.noties.adapt.Item;
 import io.noties.tumbleweed.TweenEquation;
 import io.noties.tumbleweed.equations.Back;
 import io.noties.tumbleweed.equations.Bounce;
@@ -32,9 +33,6 @@ import io.noties.tumbleweed.equations.Sine;
 import io.noties.tumbleweed.sample.R;
 import io.noties.tumbleweed.sample.anim.BaseAnimationFragment;
 import io.noties.tumbleweed.sample.anim.ChildAnimationAction;
-import io.noties.tumbleweed.sample.easing.adapt.EasingItem;
-import io.noties.tumbleweed.sample.easing.adapt.EasingView;
-import io.noties.tumbleweed.sample.easing.adapt.HeaderView;
 
 public class EasingFragment extends BaseAnimationFragment {
 
@@ -66,28 +64,25 @@ public class EasingFragment extends BaseAnimationFragment {
 
         final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
 
-        final Adapt<EasingItem> adapt = Adapt.builder(EasingItem.class)
-                .include(EasingItem.Header.class, new HeaderView())
-                .include(EasingItem.Easing.class, new EasingView())
-                .build();
+        final Adapt adapt = Adapt.create();
 
         adapt.setItems(items());
 
-        recyclerView.setAdapter(adapt.recyclerViewAdapter());
+        recyclerView.setAdapter(adapt);
 
         initializeRecyclerView(recyclerView, adapt);
     }
 
-    private void initializeRecyclerView(@NonNull RecyclerView recyclerView, @NonNull Adapt<EasingItem> adapterInfo) {
+    private void initializeRecyclerView(@NonNull RecyclerView recyclerView, @NonNull Adapt adapt) {
 
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 
-            final int item = adapterInfo.assignedViewType(EasingItem.Easing.class);
+            final int item = Item.generatedViewType(EasingItem.class);
 
             @Override
             public int getSpanSize(int position) {
-                return item == adapterInfo.itemViewType(position)
+                return item == adapt.getItemViewType(position)
                         ? 1
                         : layoutManager.getSpanCount();
             }
@@ -97,7 +92,7 @@ public class EasingFragment extends BaseAnimationFragment {
         recyclerView.setPadding(spacing, spacing, spacing, spacing);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 outRect.set(spacing, spacing, spacing, spacing);
             }
         });
@@ -107,9 +102,9 @@ public class EasingFragment extends BaseAnimationFragment {
     }
 
     @NonNull
-    private static List<EasingItem> items() {
+    private static List<Item> items() {
 
-        final List<EasingItem> list = new ArrayList<>();
+        final List<Item> list = new ArrayList<>();
 
         add("Sine", list, Sine.values());
         add("Quad", list, Quad.values());
@@ -125,10 +120,10 @@ public class EasingFragment extends BaseAnimationFragment {
         return Collections.unmodifiableList(list);
     }
 
-    private static void add(@NonNull String name, @NonNull List<EasingItem> list, @NonNull Enum<? extends TweenEquation>[] equations) {
-        list.add(new EasingItem.Header(name));
+    private static void add(@NonNull String name, @NonNull List<Item> list, @NonNull Enum<? extends TweenEquation>[] equations) {
+        list.add(new HeaderItem(name));
         for (Enum<? extends TweenEquation> equation : equations) {
-            list.add(new EasingItem.Easing(equation));
+            list.add(new EasingItem(equation));
         }
     }
 }

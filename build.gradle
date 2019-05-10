@@ -33,13 +33,16 @@ task clean(type: Delete) {
 
 ext {
 
-    MIN_SDK = 16
-    TARGET_SDK = 28
-    BUILD_TOOLS = '28.0.3'
+    config = [
+            'min-sdk': 16,
+            'target-sdk': 28,
+            'build-tools': '28.0.3',
+            'push-jar': 'https://raw.githubusercontent.com/noties/gradle-mvn-push/master/gradle-mvn-push-jar.gradle',
+            'push-aar': 'https://raw.githubusercontent.com/noties/gradle-mvn-push/master/gradle-mvn-push-aar.gradle'
+    ]
 
-    final def supportVersion = '28.0.0'
-    SUPPORT_ANNOTATIONS = "com.android.support:support-annotations:$supportVersion"
-    RECYCLER_VIEW = "com.android.support:recyclerview-v7:$supportVersion"
-
-    ADAPT = 'ru.noties:adapt:1.0.0'
+    deps = [
+            'support-annotations': "com.android.support:support-annotations:28.0.0",
+            'adapt': 'io.noties:adapt:2.0.0'
+    ]
 }
