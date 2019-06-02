@@ -35,11 +35,9 @@ implementation 'io.noties:tumbleweed-android-kt:${tumbleweed_version}'
 
 All modules have no external dependencies except for `support-annotations`
 
-> !!!
-> 
-> **Important notice for 2.0.0 version**
+> **!!! Important notice for 2.0.0 version**
 >
-> Package name changed to `io.noties.tumbleweed.*` (regular find-n-replace can be used)
+> Package name changed from `ru.noties.tumbleweed.*` to `io.noties.tumbleweed.*` (regular find-n-replace can be used)
 > 
 > Maven artifact group-id change to `io.noties`
 
@@ -329,6 +327,16 @@ view.tweenManager() // => ViewTweenManager.get(view)
 // obtain a ViewTweenManager and run supplied Action
 view.tweenManager(ViewTweenManager.KILL_ALL) // => ViewTweenManager.get(view, ViewTweenManager.KILL_ALL)
 
+// obtain a ViewTweenManager and run predefined KILL_ALL action
+view.tweenManagerKillAll()
+
+// Tween.to(view, Alpha.VIEW, 0.25F)
+view.tween(Alpha.VIEW, 0.25F)
+
+// Tween.to(view, Alpha.VIEW), NB duration must be set explicitly
+// via `duration(float)` method
+view.tween(Alpha.VIEW)
+
 // execute when view has dimensions
 // will check if dimensions are present or register a OnPreDrawListener
 view.whenReady {
@@ -348,6 +356,13 @@ drawable.tweenManager() // => DrawableTweenManager.create()
 // create an instance of DrawableTweenManager with
 // specified update interval in seconds
 drawable.tweenManager(1.0F / 120.0F)
+
+// Tween.to(drawable, Alpha.DRAWABLE, 0.25F)
+drawable.tween(Alpha.DRAWABLE, 0.25F)
+
+// Tween.to(drawable, Alpha.DRAWABLE), NB to set duration
+// explicitly via `duration(float)` method
+drawable.tween(Alpha.DRAWABLE)
 
 // apply intrinsic bounds 
 drawable.applyIntrinsicBounds()

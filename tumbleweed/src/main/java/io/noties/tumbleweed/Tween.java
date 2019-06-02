@@ -74,6 +74,18 @@ public final class Tween extends BaseTween {
     public static final int INFINITY = -1;
 
     /**
+     * Factory method to define a tween without duration specified. Please note
+     *
+     * @see TweenDef#duration(float)
+     * @see #to(T, TweenType, float)
+     * @since 2.0.0
+     */
+    @NonNull
+    public static <T> TweenDef<T> to(@NonNull T target, @NonNull TweenType<T> tweenType) {
+        return to(target, tweenType, 0.0F);
+    }
+
+    /**
      * Factory creating a new standard interpolation. This is the most common
      * type of interpolation. The starting values are retrieved automatically
      * after the delay (if any).
@@ -103,12 +115,23 @@ public final class Tween extends BaseTween {
      * @param tweenType The desired type of interpolation.
      * @param duration  The duration of the interpolation, in milliseconds.
      * @return The generated Tween.
+     * @see #to(T, TweenType)
      */
     @NonNull
     public static <T> TweenDef<T> to(@NonNull T target, @NonNull TweenType<T> tweenType, float duration) {
         return new TweenDefImpl<>(false, target, tweenType, duration)
                 .ease(Quad.INOUT)
                 .path(CatmullRom.instance());
+    }
+
+    /**
+     * @see #from(T, TweenType, float)
+     * @see TweenDef#duration(float)
+     * @since 2.0.0
+     */
+    @NonNull
+    public static <T> TweenDef<T> from(@NonNull T target, @NonNull TweenType<T> tweenType) {
+        return from(target, tweenType, 0.0F);
     }
 
     /**

@@ -43,6 +43,17 @@ class TweenDefImpl<T> extends TweenDef<T> {
 
     @NonNull
     @Override
+    public TweenDef<T> duration(float duration) {
+
+        checkState();
+
+        this.impl.setDuration(duration);
+
+        return this;
+    }
+
+    @NonNull
+    @Override
     public TweenDef<T> ease(@NonNull TweenEquation equation) {
 
         checkState();

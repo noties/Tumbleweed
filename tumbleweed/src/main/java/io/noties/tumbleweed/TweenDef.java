@@ -4,6 +4,13 @@ import android.support.annotation.NonNull;
 
 public abstract class TweenDef<T> extends BaseTweenDef {
 
+    /**
+     * @param duration in seconds
+     * @since 2.0.0
+     */
+    @NonNull
+    public abstract TweenDef<T> duration(float duration);
+
     @NonNull
     public abstract TweenDef<T> ease(@NonNull TweenEquation equation);
 
@@ -26,7 +33,7 @@ public abstract class TweenDef<T> extends BaseTweenDef {
      * Convenience method to scale _target_ values. Does not affect start values.
      * Scaling will be applied by simple formula: {@code target[i] = target[i] * scale[i % scales.length; },
      * so one can specify one scaling value to be applied to all targets, etc.
-     *
+     * <p>
      * If, for example, one have a flat array with x &amp; y coordinates, scaling can be applied by
      * providing 2 arguments: 1st will be applied to x value and 2nd to y.
      *

@@ -15,7 +15,7 @@ import io.noties.tumbleweed.TweenManagerImpl;
  * {@link TweenManager} implementation that uses android.animation.Animator
  * underneath. As one example - can be used in transitions
  *
- * @since 2.0.0-SNAPSHOT
+ * @since 2.0.0
  */
 public class AnimatorTweenManager extends TweenManagerImpl {
 
@@ -112,7 +112,7 @@ public class AnimatorTweenManager extends TweenManagerImpl {
         for (BaseTween tween : tweens()) {
 
             if (tween.getRepeatCount() < 0) {
-                throw new IllegalStateException("Cannot infinite tweens, tween: " + tween);
+                throw new IllegalStateException("Cannot add infinite tweens, tween: " + tween);
             }
 
             if (Float.compare(tween.getFullDuration(), duration) > 0) {

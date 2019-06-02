@@ -1,5 +1,5 @@
 /**
- * @since 2.0.0-SNAPSHOT
+ * @since 2.0.0
  */
 package io.noties.tumbleweed.android.kt
 

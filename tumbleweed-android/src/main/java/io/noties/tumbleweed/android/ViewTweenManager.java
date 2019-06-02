@@ -13,7 +13,7 @@ public class ViewTweenManager extends TweenManagerImpl {
 
     /**
      * @see #get(View, Action)
-     * @since 2.0.0-SNAPSHOT
+     * @since 2.0.0
      */
     public interface Action {
         void apply(@NonNull ViewTweenManager viewTweenManager);
@@ -24,7 +24,7 @@ public class ViewTweenManager extends TweenManagerImpl {
      * supplied to {@link #get(View, Action)} method call.
      *
      * @see #get(View, Action)
-     * @since 2.0.0-SNAPSHOT
+     * @since 2.0.0
      */
     public static final Action KILL_ALL = new Action() {
         @Override
@@ -39,7 +39,7 @@ public class ViewTweenManager extends TweenManagerImpl {
      * ViewTweenManager instance.
      *
      * @see #get(View, Action)
-     * @since 2.0.0-SNAPSHOT
+     * @since 2.0.0
      */
     @NonNull
     @UiThread
@@ -69,7 +69,7 @@ public class ViewTweenManager extends TweenManagerImpl {
      * @param init {@link Action} to be called when ViewTweenManager is obtained
      * @see #get(View)
      * @see #KILL_ALL
-     * @since 2.0.0-SNAPSHOT
+     * @since 2.0.0
      */
     @NonNull
     @UiThread
@@ -77,6 +77,15 @@ public class ViewTweenManager extends TweenManagerImpl {
         final ViewTweenManager viewTweenManager = get(container);
         init.apply(viewTweenManager);
         return viewTweenManager;
+    }
+
+    /**
+     * @since 2.0.0
+     */
+    @NonNull
+    @UiThread
+    public static ViewTweenManager getKillAll(@NonNull View container) {
+        return get(container, KILL_ALL);
     }
 
     /**
@@ -91,7 +100,7 @@ public class ViewTweenManager extends TweenManagerImpl {
 
     /**
      * @see #get(View)
-     * @deprecated 2.0.0-SNAPSHOT use {@link #get(View)} method call instead as there is no real
+     * @deprecated 2.0.0 use {@link #get(View)} method call instead as there is no real
      * need to have multiple ViewTweenManagers associated with a view
      */
     @NonNull
