@@ -49,4 +49,24 @@ public abstract class BaseTweenDef {
     public abstract float delay();
 
     public abstract float fullDuration();
+
+    /**
+     * Duration cannot be Float.NaN (exception will be thrown). Duration cannot
+     * be negative (exception will be thrown)
+     *
+     * @since 2.1.0-SNAPSHOT
+     */
+    protected static float processDuration(float duration) {
+
+        if (duration != duration) {
+            throw new IllegalStateException("Cannot use Float.NaN as duration");
+        }
+
+        // negative is not OK, (0.0F is)
+        if (duration < 0) {
+            throw new IllegalStateException("Cannot use negative value as duration");
+        }
+
+        return duration;
+    }
 }

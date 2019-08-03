@@ -24,9 +24,15 @@ class TweenDefImpl<T> extends TweenDef<T> {
 
     private int waypointsCount;
 
+    private boolean isActionable;
+
     private boolean isBuilt;
 
-    TweenDefImpl(boolean from, @Nullable T target, @Nullable TweenType<T> tweenType, @FloatRange(from = 0) float duration) {
+    TweenDefImpl(
+            boolean from,
+            @Nullable T target,
+            @Nullable TweenType<T> tweenType,
+            @FloatRange(from = 0) float duration) {
         this.isFrom = from;
         this.target = target;
         this.tweenType = tweenType;
@@ -218,6 +224,16 @@ class TweenDefImpl<T> extends TweenDef<T> {
     }
 
     @Override
+    public boolean isActionable() {
+        return isActionable;
+    }
+
+    @Override
+    public float duration() {
+        return impl.duration;
+    }
+
+    @Override
     public int repeatCount() {
         return impl.repeatCount;
     }
@@ -268,6 +284,14 @@ class TweenDefImpl<T> extends TweenDef<T> {
         final Tween tween = build();
         tween.start(manager);
         return tween;
+    }
+
+    // @since 2.1.0-SNAPSHOT
+    @SuppressWarnings("SameParameterValue")
+    @NonNull
+    TweenDefImpl<T> isActionable(boolean isActionable) {
+        this.isActionable = isActionable;
+        return this;
     }
 
     private void validateTargetSize(int actual) {

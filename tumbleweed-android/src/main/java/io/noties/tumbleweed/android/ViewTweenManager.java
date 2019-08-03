@@ -14,7 +14,9 @@ public class ViewTweenManager extends TweenManagerImpl {
     /**
      * @see #get(View, Action)
      * @since 2.0.0
+     * @deprecated 2.10-SNAPSHOT
      */
+    @Deprecated
     public interface Action {
         void apply(@NonNull ViewTweenManager viewTweenManager);
     }
@@ -25,7 +27,9 @@ public class ViewTweenManager extends TweenManagerImpl {
      *
      * @see #get(View, Action)
      * @since 2.0.0
+     * @deprecated 2.1.0-SNAPSHOT
      */
+    @Deprecated
     public static final Action KILL_ALL = new Action() {
         @Override
         public void apply(@NonNull ViewTweenManager viewTweenManager) {
@@ -70,9 +74,11 @@ public class ViewTweenManager extends TweenManagerImpl {
      * @see #get(View)
      * @see #KILL_ALL
      * @since 2.0.0
+     * @deprecated 2.1.0-SNAPSHOT
      */
     @NonNull
     @UiThread
+    @Deprecated
     public static ViewTweenManager get(@NonNull View container, @NonNull Action init) {
         final ViewTweenManager viewTweenManager = get(container);
         init.apply(viewTweenManager);
@@ -81,9 +87,11 @@ public class ViewTweenManager extends TweenManagerImpl {
 
     /**
      * @since 2.0.0
+     * @deprecated 2.1.0-SNAPSHOT
      */
     @NonNull
     @UiThread
+    @Deprecated
     public static ViewTweenManager getKillAll(@NonNull View container) {
         return get(container, KILL_ALL);
     }
@@ -183,6 +191,19 @@ public class ViewTweenManager extends TweenManagerImpl {
     @Override
     public boolean isDisposed() {
         return super.isDisposed() || container == null;
+    }
+
+    /**
+     * @return associated view or throw if this manager is already disposed
+     * @since 2.1.0-SNAPSHOT
+     */
+    @NonNull
+    public View view() {
+        final View view = container;
+        if (isDisposed() || view == null) {
+            throw new IllegalStateException("ViewTweenManager instance is already disposed");
+        }
+        return view;
     }
 
     private class OnPreDrawListener implements ViewTreeObserver.OnPreDrawListener {

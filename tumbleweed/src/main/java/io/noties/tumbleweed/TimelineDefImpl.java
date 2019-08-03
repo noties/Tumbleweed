@@ -8,22 +8,37 @@ import java.util.List;
 class TimelineDefImpl extends TimelineDef {
 
     enum Mode {
-        SEQUENCE, PARALLEL
+        SEQUENCE,
+        PARALLEL
     }
 
     private final List<BaseTweenDef> children = new ArrayList<>(4);
 
     private final Mode mode;
     private final BaseTweenDefImpl impl = new BaseTweenDefImpl();
+    private final float defaultTweenDuration; // @since 2.1.0-SNAPSHOT
+    private final boolean hasDefaultTweenDuration; // @since 2.1.0-SNAPSHOT
 
     TimelineDefImpl(@NonNull Mode mode) {
         this.mode = mode;
         this.current = this;
+        this.defaultTweenDuration = 0;
+        this.hasDefaultTweenDuration = false;
+    }
+
+    TimelineDefImpl(@NonNull Mode mode, float defaultTweenDuration) {
+        this.mode = mode;
+        this.current = this;
+        this.defaultTweenDuration = processDuration(defaultTweenDuration);
+        this.hasDefaultTweenDuration = Float.compare(defaultTweenDuration, 0.0F) > 0;
     }
 
     @NonNull
     @Override
     public TimelineDef push(@NonNull TweenDef<?> tween) {
+        // @since 2.1.0-SNAPSHOT we check if duration should be set manually from a default
+        // one that we have
+        initDefaultDurationIfNeeded(tween);
         current.add(tween);
         return this;
     }
@@ -45,7 +60,13 @@ class TimelineDefImpl extends TimelineDef {
         if (baseTweenDef instanceof TimelineDef) {
             push((TimelineDef) baseTweenDef);
         } else {
-            current.add(baseTweenDef);
+            // we could've casted to TweenDef, but as BaseTweenDef is open for subclassing
+            // we just cannot _assume_ that received tween here is TweenDef (and not some other type)
+            if (baseTweenDef instanceof TweenDef) {
+                push((TweenDef) baseTweenDef);
+            } else {
+                current.add(baseTweenDef);
+            }
         }
         return this;
     }
@@ -231,5 +252,16 @@ class TimelineDefImpl extends TimelineDef {
     @Override
     protected void add(@NonNull BaseTweenDef tweenDef) {
         children.add(tweenDef);
+    }
+
+    private void initDefaultDurationIfNeeded(@NonNull TweenDef<?> tweenDef) {
+        // we must have default duration set
+        // tweenDef must be actionable
+        // tweenDef must not have a duration set
+        if (tweenDef.isActionable()
+                && hasDefaultTweenDuration
+                && Float.compare(tweenDef.duration(), 0.0F) == 0) {
+            tweenDef.duration(defaultTweenDuration);
+        }
     }
 }

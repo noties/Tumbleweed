@@ -120,6 +120,7 @@ public final class Tween extends BaseTween {
     @NonNull
     public static <T> TweenDef<T> to(@NonNull T target, @NonNull TweenType<T> tweenType, float duration) {
         return new TweenDefImpl<>(false, target, tweenType, duration)
+                .isActionable(true) // @since 2.1.0-SNAPSHOT mark as actionable
                 .ease(Quad.INOUT)
                 .path(CatmullRom.instance());
     }
@@ -168,6 +169,7 @@ public final class Tween extends BaseTween {
     @NonNull
     public static <T> TweenDef<T> from(@NonNull T target, @NonNull TweenType<T> tweenType, float duration) {
         return new TweenDefImpl<>(true, target, tweenType, duration)
+                .isActionable(true) // @since 2.1.0-SNAPSHOT mark as actionable
                 .ease(Quad.INOUT)
                 .path(CatmullRom.instance());
     }

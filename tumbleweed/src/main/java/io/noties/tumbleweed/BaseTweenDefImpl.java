@@ -22,7 +22,7 @@ public class BaseTweenDefImpl extends BaseTweenDef {
 
     @NonNull
     BaseTweenDefImpl setDuration(float duration) {
-        this.duration = duration;
+        this.duration = processDuration(duration);
         return this;
     }
 
@@ -112,7 +112,7 @@ public class BaseTweenDefImpl extends BaseTweenDef {
         if (repeatCount < 0) {
             out = -1.F;
         } else {
-            out = delay + duration + (repeatDelay + duration) * repeatCount;
+            out = delay + duration + ((repeatDelay + duration) * repeatCount);
         }
         return out;
     }

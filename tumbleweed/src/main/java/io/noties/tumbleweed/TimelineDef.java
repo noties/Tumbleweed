@@ -21,12 +21,27 @@ public abstract class TimelineDef extends BaseTweenDef {
     @NonNull
     public abstract TimelineDef pushPause(float duration);
 
+    /**
+     * @deprecated 2.1.0-SNAPSHOT consider using explicit factory method to push a nested Timeline -
+     * {@code .push(Timeline)}
+     */
+    @Deprecated
     @NonNull
     public abstract TimelineDef beginSequence();
 
+    /**
+     * @deprecated 2.1.0-SNAPSHOT consider using explicit factory method to push a nested Timeline -
+     * {@code .push(Timeline)}
+     */
+    @Deprecated
     @NonNull
     public abstract TimelineDef beginParallel();
 
+    /**
+     * @deprecated 2.1.0-SNAPSHOT consider using explicit factory method to push a nested Timeline -
+     * {@code .push(Timeline)}
+     */
+    @Deprecated
     @NonNull
     public abstract TimelineDef end();
 
@@ -70,10 +85,13 @@ public abstract class TimelineDef extends BaseTweenDef {
     @Override
     public abstract TimelineDef removeWhenFinished(boolean removeWhenFinished);
 
-
+    // NB, internal logic of timeline-def must be reworked after creation of groups
+    // is removed from timeline-def (beginSequence, etc)
+    @Deprecated
     @SuppressWarnings("WeakerAccess")
     protected TimelineDef current;
 
+    @Deprecated
     @SuppressWarnings("WeakerAccess")
     protected TimelineDef parent;
 

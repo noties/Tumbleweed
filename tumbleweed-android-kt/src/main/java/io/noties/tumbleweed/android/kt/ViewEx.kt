@@ -12,23 +12,39 @@ import io.noties.tumbleweed.TweenType
 import io.noties.tumbleweed.android.ViewTweenManager
 import io.noties.tumbleweed.android.utils.ViewUtils
 
-public fun View.tweenManager() = ViewTweenManager.get(this)
+/**
+ * @since 2.1.0-SNAPSHOT changed to a property (was a method)
+ */
+val View.tweenManager: ViewTweenManager
+    get() = ViewTweenManager.get(this)
 
-public fun View.tweenManager(init: ViewTweenManager.Action) = ViewTweenManager.get(this, init)
+/**
+ * @deprecated 2.1.0-SNAPSHOT
+ */
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("2.1.0-SNAPSHOT, consider using #tweenManager " +
+        "property and subsequent #start or #startWhenReady")
+fun View.tweenManager(init: ViewTweenManager.Action) = ViewTweenManager.get(this, init)
 
-public fun View.tweenManagerKillAll() = ViewTweenManager.getKillAll(this)
+/**
+ * @deprecated 2.1.0-SNAPSHOT
+ */
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("2.1.0-SNAPSHOT, consider using #tweenManager " +
+        "property and subsequent #start or #startWhenReady")
+fun View.tweenManagerKillAll() = ViewTweenManager.getKillAll(this)
 
 /**
  * Create a [TweenDef] with caller View as the target. Please note that returned [TweenDef] doesn\'t
  * have specified duration and it must be set explicitly via [TweenDef.duration] method call.
  */
-public fun View.tween(type: TweenType<View>): TweenDef<View> =
+fun View.tween(type: TweenType<View>): TweenDef<View> =
         Tween.to(this, type)
 
-public fun View.tween(type: TweenType<View>, duration: Float): TweenDef<View> =
+fun View.tween(type: TweenType<View>, duration: Float): TweenDef<View> =
         Tween.to(this, type, duration)
 
-public inline fun View.whenReady(crossinline action: () -> Unit) {
+inline fun View.whenReady(crossinline action: () -> Unit) {
     // we assume that if we have width (aka laid-out) when we are _ready_
     if (width > 0) {
         action()
@@ -43,4 +59,4 @@ public inline fun View.whenReady(crossinline action: () -> Unit) {
     }
 }
 
-public fun View.relativeTo(parent: View, point: Point = Point()) = ViewUtils.relativeTo(parent, this, point)
+fun View.relativeTo(parent: View, point: Point = Point()) = ViewUtils.relativeTo(parent, this, point)

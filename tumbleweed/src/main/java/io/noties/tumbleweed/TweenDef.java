@@ -78,6 +78,25 @@ public abstract class TweenDef<T> extends BaseTweenDef {
     @NonNull
     public abstract TweenDef<T> removeWhenFinished(boolean removeWhenFinished);
 
+    /**
+     * A tween is actionable if created via {@link Tween#to(Object, TweenType)}
+     * or {@link Tween#from(Object, TweenType)} factory methods. This property is used to
+     * determine if tween needs a duration set inside a timeline when timeline is created with
+     * {@link Timeline#createParallel(float)} or {@link Timeline#createSequence(float)}
+     *
+     * @since 2.1.0-SNAPSHOT
+     */
+    public abstract boolean isActionable();
+
+    /**
+     * Obtain currently set duration. Primary usage to detect if default duration must be set when
+     * used in a timeline when created with {@link Timeline#createParallel(float)}
+     * or {@link Timeline#createSequence(float)}
+     *
+     * @since 2.1.0-SNAPSHOT
+     */
+    public abstract float duration();
+
     @NonNull
     @Override
     public abstract Tween build();

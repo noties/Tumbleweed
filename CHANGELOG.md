@@ -1,3 +1,57 @@
+# 2.1.0-SNAPSHOT
+## tumbleweed-android-kt
+* `View#tweenManager` changed to a property (was a method)
+* Deprecated `View#tweenManager(Action)` and `View#tweenManagerKillAll`
+* `Drawable#applyIntrinsicBoundsIfEmpty` new method (apply intrinsic bounds if current bounds are empty)
+* `TweenManager#start` and `ViewTweenManager#startWhenReady` new extension methods
+* `Timeline#with` extension method to create multiple tweens for a single target
+
+## tumbleweed-android
+* `ViewTweenManager#view()` getter to obtain associated view
+
+## tumbleweed
+* Default duration for direct Tween children in a Timeline (create with 
+`Timeline.createSequence(float)` and `Timeline.createParallel(float)`)
+* Duration validation (cannot be negative/NaN)
+* Deprecated `beginSequence`, `beginParallel` and `end` in Timeline (consider using 
+Timeline creation explicitly via `Timeline.createSequence` and `Timeline.createParallel`)
+* Removed deprecated `ViewTweenManager#get(int,View)`
+* Deprecate `ViewTweenManager#Action` class and all factory method associated with it
+
+```kotlin
+val view = /*obtain view*/
+
+view.tweenManager.start {
+    // `this` for ViewTweenManager
+    this.killAll()
+    
+    // last statement returns Tween
+    /*return*/ view.tween(Alpha.VIEW, 0.25F).target(1.0F)
+}
+
+// start when associated view is ready (has dimensions)
+view.tweenManager.startWhenReady {
+    
+    killAll()
+    
+    // default duration for pushed Tweens (only _direct child_ tweens are affected)
+    Timeline.createParallel(0.25F)
+        // extension to create tween for a target (view is this case)
+        .with(view) {
+            // create tweens 
+            // do not specify duration (default supplied 0.25F will be used
+            to(Alpha.VIEW).target(1.0F)
+            
+            // use specified duration (default 0.25F won't be used here)
+            to(Scale.XY, 0.125F).target(0.5F, 0.5F)
+        }
+        // default duration will be used for this tween
+        .push(Tween.to(view, Rotation.I).target(90.0F))
+        // nested timelines won't have default duration set (must be done for each timeline individually)
+        .push(Timeline.createSequence(0.45F).push(/**/))
+}
+```
+
 # 2.0.0
 * package name change to `io.noties.tumbleweed.*`
 * maven artifact group-id change to `io.noties`
