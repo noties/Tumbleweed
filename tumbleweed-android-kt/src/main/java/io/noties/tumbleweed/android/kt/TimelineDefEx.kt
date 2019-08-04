@@ -2,7 +2,6 @@ package io.noties.tumbleweed.android.kt
 
 import android.view.View
 import io.noties.tumbleweed.*
-import io.noties.tumbleweed.android.ViewTweenManager
 import io.noties.tumbleweed.android.types.Alpha
 import io.noties.tumbleweed.android.types.Scale
 
@@ -39,8 +38,13 @@ class TimelineDefEx<T>(private val timeline: TimelineDef, private val target: T)
     }
 }
 
-fun <T> TimelineDef.push(target: T, body: TimelineDefEx<T>.() -> Unit): TimelineDef {
+fun <T> TimelineDef.with(target: T, body: TimelineDefEx<T>.() -> Unit): TimelineDef {
     body(TimelineDefEx(this, target))
+    return this
+}
+
+fun TimelineDef.then(timeline: TimelineDef, body: TimelineDef.() -> Unit): TimelineDef {
+    body(timeline).also { push(timeline) }
     return this
 }
 
@@ -53,7 +57,7 @@ fun main() {
         killAll()
 
         Timeline.createParallel(0.25F)
-                .push(view) {
+                .with(view) {
                     to(Alpha.VIEW).target(0.0F)
                     to(Scale.XY).target(0.0F, 0.0F)
                 }

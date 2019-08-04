@@ -1,11 +1,13 @@
 buildscript {
-
+    ext.kotlin_version = '1.3.41'
     repositories {
         google()
         jcenter()
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -48,6 +50,7 @@ ext {
 
     deps = [
             'support-annotations': "com.android.support:support-annotations:28.0.0",
-            'adapt': 'io.noties:adapt:2.0.0'
+            'adapt': 'io.noties:adapt:2.0.0',
+            'kotlin-stdlib-jdk7': "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     ]
 }

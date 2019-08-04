@@ -19,6 +19,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".MainActivityK"
+            android:exported="true" />
+
     </application>
 
 </manifest>

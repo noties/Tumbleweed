@@ -5,6 +5,7 @@
 * `Drawable#applyIntrinsicBoundsIfEmpty` new method (apply intrinsic bounds if current bounds are empty)
 * `TweenManager#start` and `ViewTweenManager#startWhenReady` new extension methods
 * `Timeline#with` extension method to create multiple tweens for a single target
+* `Timeline#then` extension method to push a nested timeline
 
 ## tumbleweed-android
 * `ViewTweenManager#view()` getter to obtain associated view
@@ -14,7 +15,8 @@
 `Timeline.createSequence(float)` and `Timeline.createParallel(float)`)
 * Duration validation (cannot be negative/NaN)
 * Deprecated `beginSequence`, `beginParallel` and `end` in Timeline (consider using 
-Timeline creation explicitly via `Timeline.createSequence` and `Timeline.createParallel`)
+Timeline creation explicitly via `Timeline.createSequence` and `Timeline.createParallel`, 
+or Kotlin extension method `then`)
 * Removed deprecated `ViewTweenManager#get(int,View)`
 * Deprecate `ViewTweenManager#Action` class and all factory method associated with it
 
@@ -49,6 +51,33 @@ view.tweenManager.startWhenReady {
         .push(Tween.to(view, Rotation.I).target(90.0F))
         // nested timelines won't have default duration set (must be done for each timeline individually)
         .push(Timeline.createSequence(0.45F).push(/**/))
+}
+
+view.tweenManager.startWhenReady {
+
+    Timeline.createSequence()
+            // `then` extension method to push configured timeline
+            .then(Timeline.createSequence(0.5F)) {
+                // `with` extension method to configure tweens for a single target
+                with(view) {
+                    // rotate 45 degrees
+                    to(Rotation.I).target(45.0F).ease(Bounce.OUT)
+
+                    // change background to green
+                    to(Argb.BACKGROUND).target(*Color.GREEN.toArgbArray())
+                }
+                // still possible to push _regularly_, this one goes to the `Timeline.createSequence(0.5F)` timeline
+                push(view.tween(Alpha.VIEW).target(0.45F))
+            }
+            .then(Timeline.createParallel(0.75F)) {
+                with(view) {
+                    to(Rotation.I).target(0.0F).ease(Bounce.OUT)
+                    to(Argb.BACKGROUND).target(*Color.RED.toArgbArray())
+                }
+            }
+            // this one is for the root sequence `Timeline.createSequence()`
+            .repeat(-1, 1.0F)
+
 }
 ```
 

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
 
@@ -27,6 +28,8 @@ dependencies {
 
     implementation project(':tumbleweed')
     implementation project(':tumbleweed-android')
+    implementation project(':tumbleweed-android-kt')
 
     implementation deps['adapt']
+    implementation deps['kotlin-stdlib-jdk7']
 }

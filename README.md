@@ -387,7 +387,8 @@ val color = Color.RED
 color.toArgbArray()
 
 // can be used like this:
-Tween.to(view, Argb.BACKGROUND, 0.25F).target(color.toArgbArray())
+// notice the _spread_ operator
+Tween.to(view, Argb.BACKGROUND, 0.25F).target(*color.toArgbArray())
 
 ```
 
