@@ -23,7 +23,7 @@
 ## Installation
 
 ```groovy
-// base module
+// base java module
 implementation 'io.noties:tumbleweed:${tumbleweed_version}'
 
 // android module
@@ -51,7 +51,7 @@ final View view = findViewById(R.id.view);
 Tween.to(view, Translation.XY, 2.F)
         .target(0, 0)
         .ease(Cubic.INOUT)
-        .start(ViewTweenManager.create(view));
+        .start(ViewTweenManager.get(view));
 ```
 
 Here `Translation.XY` is a predefined `TweenType<View>` (found in `io.noties.tumbleweed.android.types.*` package) that applies translation X and Y.
@@ -65,7 +65,34 @@ final View view = findViewById(R.id.view);
 Timeline.createParallel()
         .push(Tween.to(view, Alpha.VIEW, 2.F).target(.0F))
         .push(Tween.to(view, Scale.XY, 2.F).target(.5F, .5F))
-        .start(ViewTweenManager.create(view));
+        .start(ViewTweenManager.get(view));
+```
+
+With `tumbleweed-android-kt` Kotlin module the following usage is possible:
+```kotlin
+val view = findViewById<View>(R.id.view)
+
+// `view.tweenManager` is an extension property for a view
+// `startWhenReady` is an extension method to start configured tween 
+//      when associated view has dimensions
+view.tweenManager.startWhenReady {
+
+    // `this` is ViewTweenManager
+    this.killAll()
+    
+    /*return */Timeline.createSequence()
+            // `then` extension method to push configured timeline
+            // `0.75F` is the default duration for tweens without duration specified
+            .then(Timeline.createParallel(0.75F)) {
+                // `with` extension method to configure tweens for a single target
+                with(view) {
+                    to(Rotation.I).target(0.0F).ease(Bounce.OUT)
+                    to(Argb.BACKGROUND).target(*Color.RED.toArgbArray())
+                }
+                push(view.tween(Alpha.VIEW).target(1.0F))
+            }
+            .repeat(-1, 1.0F)
+}
 ```
 
 
@@ -283,24 +310,13 @@ To obtain an instance:
 
 #### AnimatorTweenManager
 
-In `2.0.0` version `AnimatorTweenManager` is added. It lets using Tumbleweed animations in an Android-native way (for example in custom transitions):
+In `2.0.0` version `AnimatorTweenManager` is added. It lets using Tumbleweed animations in Android-native way (for example in custom transitions):
 
 ```java
 @Override
 public Animator createAnimator(ViewGroup sceneRoot, TransitionValues startValues, TransitionValues endValues) {
 
-    if (startValues == null
-            || endValues == null) {
-        return null;
-    }
-
-    final Integer from = (Integer) startValues.values.get(KEY);
-    final Integer to = (Integer) endValues.values.get(KEY);
-
-    if (from == null
-            || to == null) {
-        return null;
-    }
+    /*obtain transition values, validate their presence*/
 
     final View v = endValues.view;
 
@@ -322,13 +338,7 @@ public Animator createAnimator(ViewGroup sceneRoot, TransitionValues startValues
 
 ```kotlin
 // obtain a ViewTweenManager
-view.tweenManager() // => ViewTweenManager.get(view)
-
-// obtain a ViewTweenManager and run supplied Action
-view.tweenManager(ViewTweenManager.KILL_ALL) // => ViewTweenManager.get(view, ViewTweenManager.KILL_ALL)
-
-// obtain a ViewTweenManager and run predefined KILL_ALL action
-view.tweenManagerKillAll()
+view.tweenManager // => ViewTweenManager.get(view)
 
 // Tween.to(view, Alpha.VIEW, 0.25F)
 view.tween(Alpha.VIEW, 0.25F)
@@ -366,6 +376,10 @@ drawable.tween(Alpha.DRAWABLE)
 
 // apply intrinsic bounds 
 drawable.applyIntrinsicBounds()
+
+// apply intrinsic bounds if current bounds are empty 
+drawable.applyIntrinsicBoundsIfEmpty()
+
 ```
 
 #### Duration

@@ -15,15 +15,18 @@ class MainActivityK : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val view = findViewById<View>(Window.ID_ANDROID_CONTENT)
-        view.setBackgroundColor(Color.RED)
+val view = findViewById<View>(Window.ID_ANDROID_CONTENT)
+view.setBackgroundColor(Color.RED)
 
+// `view.tweenManager` is an extension property for a view
+// `startWhenReady` is an extension method to start configured tween
+//      when associated view has dimensions
 view.tweenManager.startWhenReady {
 
-    // strictly speaking here it does nothing as there are no tweens at this point
-    killAll()
+    // `this` is ViewTweenManager
+    this.killAll()
 
-    Timeline.createSequence()
+    /*return */Timeline.createSequence()
             // `then` extension method to push configured timeline
             // `0.5F` is the default duration for tweens without duration set
             .then(Timeline.createSequence(0.5F)) {
@@ -49,16 +52,16 @@ view.tweenManager.startWhenReady {
                     to(Argb.BACKGROUND).target(*Color.GREEN.toArgbArray())
                 }
                 // still possible to push _regularly_
-push(view.tween(Alpha.VIEW).target(0.45F))
+                push(view.tween(Alpha.VIEW).target(0.45F))
             }
             .then(Timeline.createParallel(0.75F)) {
                 with(view) {
                     to(Rotation.I).target(0.0F).ease(Bounce.OUT)
                     to(Argb.BACKGROUND).target(*Color.RED.toArgbArray())
                 }
+                push(view.tween(Alpha.VIEW).target(1.0F))
             }
             .repeat(-1, 1.0F)
-
 }
     }
 }

@@ -1,9 +1,9 @@
 package io.noties.tumbleweed.android.kt
 
-import android.view.View
-import io.noties.tumbleweed.*
-import io.noties.tumbleweed.android.types.Alpha
-import io.noties.tumbleweed.android.types.Scale
+import io.noties.tumbleweed.TimelineDef
+import io.noties.tumbleweed.Tween
+import io.noties.tumbleweed.TweenDef
+import io.noties.tumbleweed.TweenType
 
 class TimelineDefEx<T>(private val timeline: TimelineDef, private val target: T) {
 
@@ -38,28 +38,20 @@ class TimelineDefEx<T>(private val timeline: TimelineDef, private val target: T)
     }
 }
 
+/**
+ * Configure Timeline to push multiple tweens for a single target
+ * @since 2.1.0-SNAPSHOT
+ */
 fun <T> TimelineDef.with(target: T, body: TimelineDefEx<T>.() -> Unit): TimelineDef {
     body(TimelineDefEx(this, target))
     return this
 }
 
+/**
+ * Push a nested Timeline inside another Timeline
+ * @since 2.1.0-SNAPSHOT
+ */
 fun TimelineDef.then(timeline: TimelineDef, body: TimelineDef.() -> Unit): TimelineDef {
     body(timeline).also { push(timeline) }
     return this
-}
-
-fun main() {
-
-    val view = null as View
-
-    view.tweenManager.start {
-
-        killAll()
-
-        Timeline.createParallel(0.25F)
-                .with(view) {
-                    to(Alpha.VIEW).target(0.0F)
-                    to(Scale.XY).target(0.0F, 0.0F)
-                }
-    }
 }
