@@ -1,6 +1,6 @@
 package io.noties.tumbleweed.paths;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import io.noties.tumbleweed.TweenPath;
 

@@ -4,8 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Size;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Size;
 
 import io.noties.tumbleweed.Timeline;
 import io.noties.tumbleweed.Tween;

@@ -5,7 +5,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Animatable;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import io.noties.tumbleweed.Timeline;
 import io.noties.tumbleweed.TimelineDef;

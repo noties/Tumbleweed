@@ -4,8 +4,9 @@ import android.animation.Animator;
 import android.animation.FloatEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
-import android.support.annotation.UiThread;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 
 import io.noties.tumbleweed.BaseTween;
 import io.noties.tumbleweed.TweenManager;

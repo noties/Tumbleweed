@@ -1,10 +1,11 @@
 package io.noties.tumbleweed.android;
 
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.UiThread;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 
 import io.noties.tumbleweed.TweenManagerImpl;
 

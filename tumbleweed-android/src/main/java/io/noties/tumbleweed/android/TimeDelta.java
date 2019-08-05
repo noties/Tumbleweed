@@ -1,7 +1,8 @@
 package io.noties.tumbleweed.android;
 
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class TimeDelta {

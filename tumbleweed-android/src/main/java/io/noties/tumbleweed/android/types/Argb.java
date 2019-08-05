@@ -4,13 +4,14 @@ import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.Size;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.Size;
 
 import io.noties.tumbleweed.TweenType;
 

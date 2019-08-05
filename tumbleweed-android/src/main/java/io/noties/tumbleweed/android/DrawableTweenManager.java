@@ -2,7 +2,8 @@ package io.noties.tumbleweed.android;
 
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import io.noties.tumbleweed.TweenManagerImpl;
 

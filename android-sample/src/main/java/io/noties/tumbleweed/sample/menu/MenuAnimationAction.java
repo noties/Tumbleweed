@@ -1,7 +1,8 @@
 package io.noties.tumbleweed.sample.menu;
 
-import android.support.annotation.NonNull;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 import io.noties.tumbleweed.Tween;
 import io.noties.tumbleweed.android.ViewTweenManager;

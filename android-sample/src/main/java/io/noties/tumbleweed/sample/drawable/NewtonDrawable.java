@@ -4,8 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Animatable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Size;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Size;
 
 import io.noties.tumbleweed.Timeline;
 import io.noties.tumbleweed.Tween;
@@ -59,18 +60,18 @@ public class NewtonDrawable extends SquareDrawable implements Animatable {
 
         canvas.translate(0, top);
 
-        if (left > 0) {
-            final int save = canvas.save();
-            try {
+        final int save = canvas.save();
+        try {
 
-                paint.setColor(colors[0]);
+            paint.setColor(colors[0]);
 
+            if (left > 0) {
                 canvas.translate(left, 0);
-                canvas.drawRoundRect(rectF, radius, radius, paint);
-
-            } finally {
-                canvas.restoreToCount(save);
             }
+            canvas.drawRoundRect(rectF, radius, radius, paint);
+
+        } finally {
+            canvas.restoreToCount(save);
         }
 
         // 2 static balls

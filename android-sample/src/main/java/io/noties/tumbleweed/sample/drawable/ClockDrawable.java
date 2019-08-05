@@ -4,8 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Animatable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 
 import io.noties.tumbleweed.Tween;
 import io.noties.tumbleweed.TweenManager;

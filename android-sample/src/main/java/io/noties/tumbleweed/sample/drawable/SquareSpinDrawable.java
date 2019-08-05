@@ -5,8 +5,9 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.drawable.Animatable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Size;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Size;
 
 import java.util.ArrayList;
 import java.util.Arrays;

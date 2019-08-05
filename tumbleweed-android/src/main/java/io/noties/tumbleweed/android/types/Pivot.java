@@ -1,7 +1,8 @@
 package io.noties.tumbleweed.android.types;
 
-import android.support.annotation.NonNull;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 import io.noties.tumbleweed.TweenType;
 

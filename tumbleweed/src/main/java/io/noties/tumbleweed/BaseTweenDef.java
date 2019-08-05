@@ -1,6 +1,6 @@
 package io.noties.tumbleweed;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 @SuppressWarnings("UnusedReturnValue")
 public abstract class BaseTweenDef {

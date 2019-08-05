@@ -1,11 +1,12 @@
 package io.noties.tumbleweed.android.utils;
 
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 // hm... weird thing to do (but no surprising)
 // I wonder if there is any way to obtain `clipChildren` value..

@@ -1,11 +1,12 @@
 package io.noties.tumbleweed.sample.easing;
 
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import io.noties.adapt.Item;
 import io.noties.tumbleweed.TweenEquation;

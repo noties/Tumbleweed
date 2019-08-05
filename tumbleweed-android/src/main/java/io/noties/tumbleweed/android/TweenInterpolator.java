@@ -1,7 +1,8 @@
 package io.noties.tumbleweed.android;
 
 import android.animation.TimeInterpolator;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import io.noties.tumbleweed.TweenEquation;
 

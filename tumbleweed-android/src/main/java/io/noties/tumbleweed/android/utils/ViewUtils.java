@@ -1,9 +1,10 @@
 package io.noties.tumbleweed.android.utils;
 
 import android.graphics.Point;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
+import androidx.annotation.NonNull;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class ViewUtils {
