@@ -22,7 +22,7 @@ public abstract class TimelineDef extends BaseTweenDef {
     public abstract TimelineDef pushPause(float duration);
 
     /**
-     * @deprecated 2.1.0-SNAPSHOT consider using explicit factory method to push a nested Timeline -
+     * @deprecated 2.1.0 consider using explicit factory method to push a nested Timeline -
      * {@code .push(Timeline)}
      */
     @Deprecated
@@ -30,7 +30,7 @@ public abstract class TimelineDef extends BaseTweenDef {
     public abstract TimelineDef beginSequence();
 
     /**
-     * @deprecated 2.1.0-SNAPSHOT consider using explicit factory method to push a nested Timeline -
+     * @deprecated 2.1.0 consider using explicit factory method to push a nested Timeline -
      * {@code .push(Timeline)}
      */
     @Deprecated
@@ -38,7 +38,7 @@ public abstract class TimelineDef extends BaseTweenDef {
     public abstract TimelineDef beginParallel();
 
     /**
-     * @deprecated 2.1.0-SNAPSHOT consider using explicit factory method to push a nested Timeline -
+     * @deprecated 2.1.0 consider using explicit factory method to push a nested Timeline -
      * {@code .push(Timeline)}
      */
     @Deprecated

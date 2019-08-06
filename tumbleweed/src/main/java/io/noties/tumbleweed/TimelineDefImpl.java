@@ -16,8 +16,8 @@ class TimelineDefImpl extends TimelineDef {
 
     private final Mode mode;
     private final BaseTweenDefImpl impl = new BaseTweenDefImpl();
-    private final float defaultTweenDuration; // @since 2.1.0-SNAPSHOT
-    private final boolean hasDefaultTweenDuration; // @since 2.1.0-SNAPSHOT
+    private final float defaultTweenDuration; // @since 2.1.0
+    private final boolean hasDefaultTweenDuration; // @since 2.1.0
 
     TimelineDefImpl(@NonNull Mode mode) {
         this.mode = mode;
@@ -36,7 +36,7 @@ class TimelineDefImpl extends TimelineDef {
     @NonNull
     @Override
     public TimelineDef push(@NonNull TweenDef<?> tween) {
-        // @since 2.1.0-SNAPSHOT we check if duration should be set manually from a default
+        // @since 2.1.0 we check if duration should be set manually from a default
         // one that we have
         initDefaultDurationIfNeeded(tween);
         current.add(tween);

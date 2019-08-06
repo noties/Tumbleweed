@@ -28,7 +28,7 @@ public class ViewTweenManager extends TweenManagerImpl {
      *
      * @see #get(View, Action)
      * @since 2.0.0
-     * @deprecated 2.1.0-SNAPSHOT
+     * @deprecated 2.1.0
      */
     @Deprecated
     public static final Action KILL_ALL = new Action() {
@@ -75,7 +75,7 @@ public class ViewTweenManager extends TweenManagerImpl {
      * @see #get(View)
      * @see #KILL_ALL
      * @since 2.0.0
-     * @deprecated 2.1.0-SNAPSHOT
+     * @deprecated 2.1.0
      */
     @NonNull
     @UiThread
@@ -88,7 +88,7 @@ public class ViewTweenManager extends TweenManagerImpl {
 
     /**
      * @since 2.0.0
-     * @deprecated 2.1.0-SNAPSHOT
+     * @deprecated 2.1.0
      */
     @NonNull
     @UiThread
@@ -196,7 +196,7 @@ public class ViewTweenManager extends TweenManagerImpl {
 
     /**
      * @return associated view or throw if this manager is already disposed
-     * @since 2.1.0-SNAPSHOT
+     * @since 2.1.0
      */
     @NonNull
     public View view() {

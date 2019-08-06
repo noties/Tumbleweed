@@ -54,7 +54,7 @@ public abstract class BaseTweenDef {
      * Duration cannot be Float.NaN (exception will be thrown). Duration cannot
      * be negative (exception will be thrown)
      *
-     * @since 2.1.0-SNAPSHOT
+     * @since 2.1.0
      */
     protected static float processDuration(float duration) {
 

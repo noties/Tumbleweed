@@ -29,7 +29,7 @@ fun Drawable.applyIntrinsicBounds() {
 
 /**
  * Will set intrinsic bounds if only current bounds are empty
- * @since 2.1.0-SNAPSHOT
+ * @since 2.1.0
  */
 fun Drawable.applyIntrinsicBoundsIfEmpty() {
     if (bounds.isEmpty) {

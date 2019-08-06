@@ -1,4 +1,4 @@
-# 2.1.0-SNAPSHOT
+# 2.1.0
 
 * migrated to androidx
 

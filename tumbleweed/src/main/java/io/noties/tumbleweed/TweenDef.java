@@ -84,7 +84,7 @@ public abstract class TweenDef<T> extends BaseTweenDef {
      * determine if tween needs a duration set inside a timeline when timeline is created with
      * {@link Timeline#createParallel(float)} or {@link Timeline#createSequence(float)}
      *
-     * @since 2.1.0-SNAPSHOT
+     * @since 2.1.0
      */
     public abstract boolean isActionable();
 
@@ -93,7 +93,7 @@ public abstract class TweenDef<T> extends BaseTweenDef {
      * used in a timeline when created with {@link Timeline#createParallel(float)}
      * or {@link Timeline#createSequence(float)}
      *
-     * @since 2.1.0-SNAPSHOT
+     * @since 2.1.0
      */
     public abstract float duration();
 

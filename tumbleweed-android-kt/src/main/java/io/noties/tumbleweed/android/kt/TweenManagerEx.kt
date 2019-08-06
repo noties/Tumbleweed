@@ -4,7 +4,7 @@ import io.noties.tumbleweed.BaseTweenDef
 import io.noties.tumbleweed.TweenManager
 
 /**
- * @since 2.1.0-SNAPSHOT
+ * @since 2.1.0
  */
 fun <T : TweenManager> T.start(body: T.() -> BaseTweenDef) {
     body(this).start(this)

@@ -292,7 +292,7 @@ class TweenDefImpl<T> extends TweenDef<T> {
         return tween;
     }
 
-    // @since 2.1.0-SNAPSHOT
+    // @since 2.1.0
     @SuppressWarnings("SameParameterValue")
     @NonNull
     TweenDefImpl<T> isActionable(boolean isActionable) {

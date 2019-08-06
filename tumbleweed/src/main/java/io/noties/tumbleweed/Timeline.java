@@ -59,7 +59,7 @@ public final class Timeline extends BaseTween {
      *                             {@link Tween#to(Object, TweenType)} and {@link Tween#from(Object, TweenType)}.
      *                             Tweens with duration specified and Timelines are ignored and will use own duration.
      * @see #createParallel(float)
-     * @since 2.1.0-SNAPSHOT
+     * @since 2.1.0
      */
     @NonNull
     public static TimelineDef createSequence(float defaultTweenDuration) {
@@ -81,7 +81,7 @@ public final class Timeline extends BaseTween {
      *                             {@link Tween#to(Object, TweenType)} and {@link Tween#from(Object, TweenType)}.
      *                             Tweens with duration specified and Timelines are ignored and will use own duration.
      * @see #createSequence(float)
-     * @since 2.1.0-SNAPSHOT
+     * @since 2.1.0
      */
     @NonNull
     public static TimelineDef createParallel(float defaultTweenDuration) {

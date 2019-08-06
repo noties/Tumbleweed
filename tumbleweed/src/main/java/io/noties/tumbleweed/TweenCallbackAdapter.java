@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
  * @see #onStart(BaseTween)
  * @see #onEnd(BaseTween)
  * @see #onComplete(BaseTween)
- * @since 2.1.0-SNAPSHOT
+ * @since 2.1.0
  */
 public abstract class TweenCallbackAdapter implements TweenCallback {
 

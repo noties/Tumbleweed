@@ -40,7 +40,7 @@ class TimelineDefEx<T>(private val timeline: TimelineDef, private val target: T)
 
 /**
  * Configure Timeline to push multiple tweens for a single target
- * @since 2.1.0-SNAPSHOT
+ * @since 2.1.0
  */
 fun <T> TimelineDef.with(target: T, body: TimelineDefEx<T>.() -> Unit): TimelineDef {
     body(TimelineDefEx(this, target))
@@ -49,7 +49,7 @@ fun <T> TimelineDef.with(target: T, body: TimelineDefEx<T>.() -> Unit): Timeline
 
 /**
  * Push a nested Timeline inside another Timeline
- * @since 2.1.0-SNAPSHOT
+ * @since 2.1.0
  */
 fun TimelineDef.then(timeline: TimelineDef, body: TimelineDef.() -> Unit): TimelineDef {
     body(timeline).also { push(timeline) }

@@ -13,24 +13,24 @@ import io.noties.tumbleweed.android.ViewTweenManager
 import io.noties.tumbleweed.android.utils.ViewUtils
 
 /**
- * @since 2.1.0-SNAPSHOT changed to a property (was a method)
+ * @since 2.1.0 changed to a property (was a method)
  */
 val View.tweenManager: ViewTweenManager
     get() = ViewTweenManager.get(this)
 
 /**
- * @deprecated 2.1.0-SNAPSHOT
+ * @deprecated 2.1.0
  */
 @Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("2.1.0-SNAPSHOT, consider using #tweenManager " +
+@Deprecated("2.1.0, consider using #tweenManager " +
         "property and subsequent #start or #startWhenReady")
 fun View.tweenManager(init: ViewTweenManager.Action) = ViewTweenManager.get(this, init)
 
 /**
- * @deprecated 2.1.0-SNAPSHOT
+ * @deprecated 2.1.0
  */
 @Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("2.1.0-SNAPSHOT, consider using #tweenManager " +
+@Deprecated("2.1.0, consider using #tweenManager " +
         "property and subsequent #start or #startWhenReady")
 fun View.tweenManagerKillAll() = ViewTweenManager.getKillAll(this)
 
