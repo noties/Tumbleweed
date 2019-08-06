@@ -51,6 +51,8 @@ ext {
     deps = [
             'x-annotations': 'androidx.annotation:annotation:1.0.0',
             'adapt': 'io.noties:adapt:2.1.0',
-            'kotlin-stdlib-jdk7': "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+            'kotlin-stdlib-jdk7': "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            'junit': 'junit:junit:4.12',
+            'mockito': 'org.mockito:mockito-core:2.21.0'
     ]
 }

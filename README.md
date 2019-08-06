@@ -81,7 +81,7 @@ view.tweenManager.startWhenReady {
     this.killAll()
     
     /*return */Timeline.createSequence()
-            // `then` extension method to push configured timeline
+            // `then` extension method to push nested configured timeline
             // `0.75F` is the default duration for tweens without duration specified
             .then(Timeline.createParallel(0.75F)) {
                 // `with` extension method to configure tweens for a single target
@@ -89,8 +89,10 @@ view.tweenManager.startWhenReady {
                     to(Rotation.I).target(0.0F).ease(Bounce.OUT)
                     to(Argb.BACKGROUND).target(*Color.RED.toArgbArray())
                 }
+                // View has `tween` extension that expands to `Tween.to(view, /**/)`
                 push(view.tween(Alpha.VIEW).target(1.0F))
             }
+            // repeat endlessly with 1 second delay between repeats
             .repeat(-1, 1.0F)
 }
 ```
@@ -272,13 +274,11 @@ ViewTweenManager.get(view);
 
 Normally you would want to ensure that a view has only one instance of a `ViewTweenManager`. Since version `2.0.0` `ViewTweenManager` does it automatically by caching created instance with `View.setTag(int, Object)` call.
 
-Since version `2.0.0` a `ViewTweenManager#get(View, Action)` factory method is added. It allows to run _initialization_ of returned `ViewTweenManager` object before any tweens are started. `ViewTweenManager` comes with a predefined Action &mdash; `KILL_ALL`:
-
 ```java
 Timeline.createSequence()
         .push(Tween.to(view, Scale.XY, 0.4F).target(0.25F, 0.25F))
         .push(Tween.to(view, Scale.XY, 0.4F).target(1.0F, 1.0F))
-        .start(ViewTweenManager.get(view, ViewTweenManager.KILL_ALL));
+        .start(ViewTweenManager.get(view));
 ```
 
 `ViewTweenManager` will be automatically disposed when view is detached from a window.
