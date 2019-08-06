@@ -6,6 +6,7 @@
 * `TweenManager#start` and `ViewTweenManager#startWhenReady` new extension methods
 * `Timeline#with` extension method to create multiple tweens for a single target
 * `Timeline#then` extension method to push a nested timeline
+* `onBegin`, `onStart`, `onEnd`, `onComplete` extension methods for Tweens (simplified callbacks addition)
 
 ## tumbleweed-android
 * `ViewTweenManager#view()` getter to obtain associated view
@@ -75,6 +76,11 @@ view.tweenManager.startWhenReady {
                     to(Rotation.I).target(0.0F).ease(Bounce.OUT)
                     to(Argb.BACKGROUND).target(*Color.RED.toArgbArray())
                 }
+            }
+            // onComplete is an extension method to add a TweenCallback for COMPLETE event
+            // there are also `onBegin`, `onStart`, `onEnd`
+            .onComplete {
+                // done
             }
             // this one is for the root sequence `Timeline.createSequence()`
             .repeat(-1, 1.0F)

@@ -61,6 +61,11 @@ class MainActivityK : Activity() {
                     }
                     push(view.tween(Alpha.VIEW).target(1.0F))
                 }
+                // onComplete is an extension method to add a TweenCallback for COMPLETE event
+                // there are also `onBegin`, `onStart`, `onEnd`
+                .onComplete {
+                    // done
+                }
                 .repeat(-1, 1.0F)
         }
     }
