@@ -382,6 +382,52 @@ drawable.applyIntrinsicBoundsIfEmpty()
 
 ```
 
+#### TweenManager
+```kotlin    
+// all tween managers
+view.tweenManager.start { 
+    Tween.to(view, Rotation.I, 0.4F).target(180.0F)
+}
+
+// view-tween-manager only
+// start only after associated view has dimensions
+view.tweenManager.startWhenReady { 
+    Tween.to(view, Translation.Y, 0.75F).target(view.height / 2.0F)
+}
+```
+
+#### Timeline
+```kotlin
+Timeline.createParallel()
+        // push nested timeline
+        .then(Timeline.createSequence()) {
+            push(Tween.to(view, Pivot.XY).target(0F, 0F))
+            push(Tween.to(view, Scale.XY).target(0.5F, 0.5F))
+        }
+        // configure tweens for a single target
+        .with(view) {
+            to(Pivot.XY).target(0F, 0F)
+            to(Scale.XY).target(0.5F, 0.5F)
+        }
+```
+
+#### Callbacks
+Both `Tween` and `Timeline` has extensions for simplified callbacks addition:
+* `onBegin` - once tween has started (called only once)
+* `onStart` - once tween started and on each repetition start
+* `onEnd` - once tween completed and on each completion of repetition
+* `onComplete` - once tween has completed (called only once)
+
+```kotlin
+Tween.to(view, Alpha.VIEW, 0.5F)
+        .onBegin {
+            // tween started
+        }
+        .onComplete {
+            // tween completed
+        }
+```
+
 #### Duration
 
 ```kotlin
