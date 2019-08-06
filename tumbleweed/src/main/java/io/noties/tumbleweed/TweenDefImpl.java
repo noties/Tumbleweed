@@ -105,6 +105,9 @@ class TweenDefImpl<T> extends TweenDef<T> {
     @NonNull
     @Override
     public TweenDef<T> waypoint(@NonNull T target) {
+
+        checkState();
+
         final float[] waypoint = new float[tweenType.getValuesSize()];
         tweenType.getValues(target, waypoint);
         waypoint(waypoint);
@@ -142,6 +145,9 @@ class TweenDefImpl<T> extends TweenDef<T> {
     @NonNull
     @Override
     public TweenDef<T> action(@NonNull TweenAction<T> action) {
+
+        checkState();
+
         this.action = action;
         return this;
     }

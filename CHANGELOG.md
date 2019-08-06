@@ -19,6 +19,7 @@ Timeline creation explicitly via `Timeline.createSequence` and `Timeline.createP
 or Kotlin extension method `then`)
 * Removed deprecated `ViewTweenManager#get(int,View)`
 * Deprecate `ViewTweenManager#Action` class and all factory method associated with it
+* Add `TweenCallbackAdapter` abstract class to simplify callbacks (`onBegin`, `onStart`, `onEnd`, `onComplete`)
 
 ```kotlin
 val view = /*obtain view*/

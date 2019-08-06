@@ -334,8 +334,9 @@ public final class Tween extends BaseTween {
 
         tweenType.getValues(target, startValues);
 
-        for (int i = 0; i < combinedAttrsCount; i++) {
-            if (isFrom) {
+        // swap start and target values when `isFrom=true`
+        if (isFrom) {
+            for (int i = 0; i < combinedAttrsCount; i++) {
                 float tmp = startValues[i];
                 startValues[i] = targetValues[i];
                 targetValues[i] = tmp;

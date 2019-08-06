@@ -2,6 +2,9 @@ apply plugin: 'java-library'
 
 dependencies {
     api deps['x-annotations']
+
+    testImplementation deps['junit']
+    testImplementation deps['mockito']
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_7
@@ -9,4 +12,10 @@ targetCompatibility = JavaVersion.VERSION_1_7
 
 if (project.hasProperty('release')) {
     apply from: config['push-jar']
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
