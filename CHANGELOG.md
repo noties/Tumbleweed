@@ -1,4 +1,7 @@
 # 2.1.0-SNAPSHOT
+
+* migrated to androidx
+
 ## tumbleweed-android-kt
 * `View#tweenManager` changed to a property (was a method)
 * Deprecated `View#tweenManager(Action)` and `View#tweenManagerKillAll`
